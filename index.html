@@ -1,85 +1,307 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quizzy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quizzy 🐉</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #7b2cbf, #c77dff);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    .app {
-      background: white;
-      color: #333;
-      width: 85%;
-      max-width: 420px;
-      padding: 35px 20px;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7b2ff7, #b85cff);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-    .dragon {
-      font-size: 90px;
-      margin-bottom: 10px;
-    }
+.app {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
 
-    h1 {
-      color: #7b2cbf;
-      font-size: 42px;
-      margin: 5px 0;
-    }
+.logo {
+  font-size: 48px;
+  margin-bottom: 5px;
+}
 
-    p {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
+h1 {
+  margin: 0;
+  font-size: 42px;
+}
 
-    button {
-      background: #7b2cbf;
-      color: white;
-      border: none;
-      padding: 16px 45px;
-      border-radius: 30px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.subtitle {
+  margin: 5px 0 20px;
+  opacity: .9;
+}
 
-    button:hover {
-      background: #5a189a;
-    }
-  </style>
+.card {
+  background: white;
+  color: #333;
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.dragon {
+  font-size: 90px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  color: #7025d6;
+}
+
+.question {
+  font-size: 21px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.answer {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  background: #f0e7ff;
+  color: #4b178f;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.answer:hover {
+  background: #dfccff;
+}
+
+.correct {
+  background: #75e6a0 !important;
+  color: #155b32 !important;
+}
+
+.incorrect {
+  background: #ff8c8c !important;
+  color: #7a1515 !important;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.score {
+  margin-top: 18px;
+  font-weight: bold;
+  color: #7025d6;
+}
+
+.next {
+  display: none;
+  margin: 20px auto 0;
+  padding: 14px 25px;
+  border: none;
+  border-radius: 15px;
+  background: #7025d6;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.start {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 18px;
+  background: #7025d6;
+  color: white;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+#game {
+  display: none;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <div class="dragon">🐉</div>
-
+  <div id="home">
+    <div class="logo">🐉</div>
     <h1>Quizzy</h1>
+    <div class="subtitle">¡Aprende jugando!</div>
 
-    <p>¡Aprende, juega y consigue recompensas!</p>
+    <div class="card">
+      <div class="dragon">🐲</div>
+      <h2>¡Hola!</h2>
+      <p>
+        Soy Quizzy, tu dragón de los retos.
+        ¿Cuánto sabes?
+      </p>
 
-    <button onclick="comenzar()">Comenzar</button>
+      <button class="start" onclick="startGame()">
+        🚀 Empezar
+      </button>
+    </div>
+  </div>
+
+  <div id="game">
+
+    <div class="card">
+      <div class="dragon">🐉</div>
+
+      <div id="progress"></div>
+
+      <div class="question" id="question"></div>
+
+      <div id="answers"></div>
+
+      <div class="score">
+        ⭐ Puntos: <span id="score">0</span>
+      </div>
+
+      <button class="next" id="next" onclick="nextQuestion()">
+        Siguiente ➜
+      </button>
+    </div>
 
   </div>
 
-  <script>
-    function comenzar() {
-      alert("¡Vamos a jugar! 🎮");
-    }
-  </script>
+</div>
+
+<script>
+
+const questions = [
+  {
+    question: "¿Cuál es el planeta más cercano al Sol?",
+    answers: ["Venus", "Mercurio", "Marte", "Júpiter"],
+    correct: 1
+  },
+  {
+    question: "¿Cuánto es 8 × 7?",
+    answers: ["54", "56", "64", "48"],
+    correct: 1
+  },
+  {
+    question: "¿Cuál es la capital de España?",
+    answers: ["Barcelona", "Sevilla", "Madrid", "Valencia"],
+    correct: 2
+  },
+  {
+    question: "¿Qué animal es conocido como el rey de la selva?",
+    answers: ["Tigre", "León", "Elefante", "Lobo"],
+    correct: 1
+  },
+  {
+    question: "¿Cuántos días tiene una semana?",
+    answers: ["5", "6", "7", "8"],
+    correct: 2
+  }
+];
+
+let current = 0;
+let score = 0;
+
+function startGame() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  showQuestion();
+}
+
+function showQuestion() {
+
+  const q = questions[current];
+
+  document.getElementById("progress").textContent =
+    "Pregunta " + (current + 1) + " de " + questions.length;
+
+  document.getElementById("question").textContent = q.question;
+
+  const answers = document.getElementById("answers");
+  answers.innerHTML = "";
+
+  q.answers.forEach((answer, index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "answer";
+    button.textContent = answer;
+
+    button.onclick = () => checkAnswer(index, button);
+
+    answers.appendChild(button);
+  });
+
+  document.getElementById("next").style.display = "none";
+}
+
+function checkAnswer(index, button) {
+
+  const q = questions[current];
+
+  const buttons = document.querySelectorAll(".answer");
+
+  buttons.forEach(b => b.disabled = true);
+
+  if (index === q.correct) {
+    button.classList.add("correct");
+    score += 10;
+    document.getElementById("score").textContent = score;
+  } else {
+    button.classList.add("incorrect");
+    buttons[q.correct].classList.add("correct");
+  }
+
+  document.getElementById("next").style.display = "block";
+}
+
+function nextQuestion() {
+
+  current++;
+
+  if (current >= questions.length) {
+    finishGame();
+  } else {
+    showQuestion();
+  }
+}
+
+function finishGame() {
+
+  document.getElementById("game").innerHTML = `
+    <div class="card">
+      <div class="dragon">🏆🐉</div>
+
+      <h2>¡Reto completado!</h2>
+
+      <p>Has conseguido:</p>
+
+      <h1>⭐ ${score} puntos</h1>
+
+      <p>
+        ${score === 50
+          ? "🔥 ¡Increíble! ¡Lo has acertado todo!"
+          : "👏 ¡Muy bien! Sigue practicando para conseguir más puntos."}
+      </p>
+
+      <button class="start" onclick="location.reload()">
+        🔄 Jugar otra vez
+      </button>
+    </div>
+  `;
+}
+
+</script>
 
 </body>
 </html>
