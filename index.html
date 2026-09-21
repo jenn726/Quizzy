@@ -14,50 +14,147 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #7b2ff7, #b85cff);
+  background: linear-gradient(145deg, #6d28d9, #a855f7);
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
 }
 
 .app {
   width: 100%;
-  max-width: 500px;
-  text-align: center;
+  max-width: 520px;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
 }
 
 .logo {
-  font-size: 48px;
-  margin-bottom: 5px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.points {
+  background: rgba(255,255,255,.18);
+  padding: 9px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.hero {
+  background: white;
+  color: #333;
+  border-radius: 30px;
+  padding: 25px 20px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+.dragon-box {
+  width: 145px;
+  height: 145px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: linear-gradient(145deg,#c084fc,#7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(124,58,237,.35);
+}
+
+.dragon {
+  font-size: 88px;
 }
 
 h1 {
-  margin: 0;
-  font-size: 42px;
+  margin: 5px 0;
+  color: #6521c9;
+  font-size: 34px;
 }
 
-.subtitle {
-  margin: 5px 0 20px;
-  opacity: .9;
+.welcome {
+  font-size: 18px;
+  margin: 8px 0 18px;
 }
 
-.card {
+.level {
+  background: #f3e8ff;
+  border-radius: 15px;
+  padding: 12px;
+  margin-bottom: 20px;
+  color: #6420c5;
+  font-weight: bold;
+}
+
+.progress {
+  height: 9px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress-bar {
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(90deg,#7c3aed,#c084fc);
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.menu button {
+  border: none;
+  border-radius: 20px;
+  padding: 18px 8px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #f5f0ff;
+  color: #5720a7;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.menu button:active {
+  transform: scale(.97);
+}
+
+.play {
+  grid-column: 1 / 3;
+  background: linear-gradient(135deg,#7c3aed,#9333ea) !important;
+  color: white !important;
+  font-size: 20px !important;
+  padding: 20px !important;
+}
+
+.icon {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 18px;
+  opacity: .85;
+  font-size: 13px;
+}
+
+#game {
+  display: none;
+}
+
+.question-card {
   background: white;
   color: #333;
   border-radius: 25px;
   padding: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
-}
-
-.dragon {
-  font-size: 90px;
-  margin-bottom: 5px;
-}
-
-h2 {
-  color: #7025d6;
+  text-align: center;
 }
 
 .question {
@@ -77,231 +174,23 @@ h2 {
   color: #4b178f;
   font-size: 17px;
   font-weight: bold;
-  cursor: pointer;
-}
-
-.answer:hover {
-  background: #dfccff;
 }
 
 .correct {
   background: #75e6a0 !important;
-  color: #155b32 !important;
 }
 
 .incorrect {
   background: #ff8c8c !important;
-  color: #7a1515 !important;
 }
 
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.score {
-  margin-top: 18px;
-  font-weight: bold;
-  color: #7025d6;
-}
-
-.next {
-  display: none;
-  margin: 20px auto 0;
-  padding: 14px 25px;
+.next,
+.back {
   border: none;
   border-radius: 15px;
+  padding: 14px 22px;
+  margin-top: 15px;
   background: #7025d6;
   color: white;
   font-size: 17px;
   font-weight: bold;
-}
-
-.start {
-  padding: 15px 30px;
-  border: none;
-  border-radius: 18px;
-  background: #7025d6;
-  color: white;
-  font-size: 19px;
-  font-weight: bold;
-}
-
-#game {
-  display: none;
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <div id="home">
-    <div class="logo">🐉</div>
-    <h1>Quizzy</h1>
-    <div class="subtitle">¡Aprende jugando!</div>
-
-    <div class="card">
-      <div class="dragon">🐲</div>
-      <h2>¡Hola!</h2>
-      <p>
-        Soy Quizzy, tu dragón de los retos.
-        ¿Cuánto sabes?
-      </p>
-
-      <button class="start" onclick="startGame()">
-        🚀 Empezar
-      </button>
-    </div>
-  </div>
-
-  <div id="game">
-
-    <div class="card">
-      <div class="dragon">🐉</div>
-
-      <div id="progress"></div>
-
-      <div class="question" id="question"></div>
-
-      <div id="answers"></div>
-
-      <div class="score">
-        ⭐ Puntos: <span id="score">0</span>
-      </div>
-
-      <button class="next" id="next" onclick="nextQuestion()">
-        Siguiente ➜
-      </button>
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-
-const questions = [
-  {
-    question: "¿Cuál es el planeta más cercano al Sol?",
-    answers: ["Venus", "Mercurio", "Marte", "Júpiter"],
-    correct: 1
-  },
-  {
-    question: "¿Cuánto es 8 × 7?",
-    answers: ["54", "56", "64", "48"],
-    correct: 1
-  },
-  {
-    question: "¿Cuál es la capital de España?",
-    answers: ["Barcelona", "Sevilla", "Madrid", "Valencia"],
-    correct: 2
-  },
-  {
-    question: "¿Qué animal es conocido como el rey de la selva?",
-    answers: ["Tigre", "León", "Elefante", "Lobo"],
-    correct: 1
-  },
-  {
-    question: "¿Cuántos días tiene una semana?",
-    answers: ["5", "6", "7", "8"],
-    correct: 2
-  }
-];
-
-let current = 0;
-let score = 0;
-
-function startGame() {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("game").style.display = "block";
-  showQuestion();
-}
-
-function showQuestion() {
-
-  const q = questions[current];
-
-  document.getElementById("progress").textContent =
-    "Pregunta " + (current + 1) + " de " + questions.length;
-
-  document.getElementById("question").textContent = q.question;
-
-  const answers = document.getElementById("answers");
-  answers.innerHTML = "";
-
-  q.answers.forEach((answer, index) => {
-
-    const button = document.createElement("button");
-
-    button.className = "answer";
-    button.textContent = answer;
-
-    button.onclick = () => checkAnswer(index, button);
-
-    answers.appendChild(button);
-  });
-
-  document.getElementById("next").style.display = "none";
-}
-
-function checkAnswer(index, button) {
-
-  const q = questions[current];
-
-  const buttons = document.querySelectorAll(".answer");
-
-  buttons.forEach(b => b.disabled = true);
-
-  if (index === q.correct) {
-    button.classList.add("correct");
-    score += 10;
-    document.getElementById("score").textContent = score;
-  } else {
-    button.classList.add("incorrect");
-    buttons[q.correct].classList.add("correct");
-  }
-
-  document.getElementById("next").style.display = "block";
-}
-
-function nextQuestion() {
-
-  current++;
-
-  if (current >= questions.length) {
-    finishGame();
-  } else {
-    showQuestion();
-  }
-}
-
-function finishGame() {
-
-  document.getElementById("game").innerHTML = `
-    <div class="card">
-      <div class="dragon">🏆🐉</div>
-
-      <h2>¡Reto completado!</h2>
-
-      <p>Has conseguido:</p>
-
-      <h1>⭐ ${score} puntos</h1>
-
-      <p>
-        ${score === 50
-          ? "🔥 ¡Increíble! ¡Lo has acertado todo!"
-          : "👏 ¡Muy bien! Sigue practicando para conseguir más puntos."}
-      </p>
-
-      <button class="start" onclick="location.reload()">
-        🔄 Jugar otra vez
-      </button>
-    </div>
-  `;
-}
-
-</script>
-
-</body>
-</html>
