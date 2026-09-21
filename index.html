@@ -1,18 +1,85 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quizzy</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #7b2cbf, #c77dff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .app {
+      background: white;
+      color: #333;
+      width: 85%;
+      max-width: 420px;
+      padding: 35px 20px;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .dragon {
+      font-size: 90px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #7b2cbf;
+      font-size: 42px;
+      margin: 5px 0;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: #7b2cbf;
+      color: white;
+      border: none;
+      padding: 16px 45px;
+      border-radius: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #5a189a;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>🐉 Quizzy</h1>
-  <p>¡Bienvenido a Quizzy!</p>
+  <div class="app">
 
-  <button>Comenzar</button>
+    <div class="dragon">🐉</div>
+
+    <h1>Quizzy</h1>
+
+    <p>¡Aprende, juega y consigue recompensas!</p>
+
+    <button onclick="comenzar()">Comenzar</button>
+
+  </div>
+
+  <script>
+    function comenzar() {
+      alert("¡Vamos a jugar! 🎮");
+    }
+  </script>
 
 </body>
 </html>
