@@ -76,4 +76,30 @@ showQuestion();
 startQuizAnterior5(c);
 }
 };
+</script><script>
+const math6=[
+["¿Cuánto es 345+678?",["1013","1023","1033"],1],
+["¿Cuánto es 1000-437?",["553","563","573"],1],
+["¿Cuánto es 15x12?",["170","180","190"],1],
+["¿Cuánto es 225÷15?",["15","16","17"],1],
+["¿Cuál es mayor?",["3,45","3,54","3,35"],1],
+["¿Cuánto es el 25% de 80?",["15","20","25"],1],
+["¿Cuál es el resultado de 2³?",["6","8","10"],1],
+["¿Cuál es el área de un rectángulo de 8 cm × 5 cm?",["35 cm²","40 cm²","45 cm²"],1]
+];
+
+const startQuizAnterior6=startQuiz;
+startQuiz=function(c){
+if(playerCourse==="6º de Primaria"&&c==="Matemáticas"){
+list=math6;
+pos=0;
+points=0;
+hide();
+$("quiz").style.display="block";
+$("cat").textContent="📚 Matemáticas · 🎓 6º de Primaria";
+showQuestion();
+}else{
+startQuizAnterior6(c);
+}
+};
 </script>
