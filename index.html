@@ -102,4 +102,30 @@ showQuestion();
 startQuizAnterior6(c);
 }
 };
+</script><script>
+const lengua1=[
+["¿Cuál de estas palabras es un animal?",["Mesa","Perro","Casa"],1],
+["¿Cuál es una vocal?",["B","E","T"],1],
+["¿Qué palabra rima con «gato»?",["Pato","Sol","Pan"],1],
+["¿Cuál está bien escrita?",["Avion","Avión","Abion"],1],
+["¿Cuál es el plural de «casa»?",["Casas","Casa","Casis"],1],
+["¿Cuál es un color?",["Azul","Mesa","Correr"],1],
+["¿Cuál es lo contrario de «grande»?",["Alto","Pequeño","Largo"],1],
+["¿Cuál es una palabra?",["Correr","Pelota","Azul"],1]
+];
+
+const startQuizAnteriorLengua1=startQuiz;
+startQuiz=function(c){
+if(playerCourse==="1º de Primaria"&&c==="Lengua"){
+list=lengua1;
+pos=0;
+points=0;
+hide();
+$("quiz").style.display="block";
+$("cat").textContent="📚 Lengua · 🎓 1º de Primaria";
+showQuestion();
+}else{
+startQuizAnteriorLengua1(c);
+}
+};
 </script>
