@@ -128,4 +128,35 @@ showQuestion();
 startQuizAnteriorLengua1(c);
 }
 };
+</script><script>
+const startQuizAutomaticoAnterior=startQuiz;
+
+startQuiz=function(c){
+  if(!playerCourse){
+    alert("📚 Primero elige tu curso en «Mi curso»");
+    showCourse();
+    return;
+  }
+
+  fetch("preguntas.json")
+    .then(r=>r.json())
+    .then(data=>{
+      const preguntas=data[playerCourse]&&data[playerCourse][c];
+
+      if(preguntas&&preguntas.length){
+        list=preguntas;
+        pos=0;
+        points=0;
+        hide();
+        $("quiz").style.display="block";
+        $("cat").textContent="📚 "+c+" · 🎓 "+playerCourse;
+        showQuestion();
+      }else{
+        startQuizAutomaticoAnterior(c);
+      }
+    })
+    .catch(()=>{
+      startQuizAutomaticoAnterior(c);
+    });
+};
 </script>
