@@ -50,4 +50,30 @@ showQuestion();
 startQuizAnterior4(c);
 }
 };
+</script><script>
+const math5=[
+["¿Cuánto es 245+378?",["613","623","633"],1],
+["¿Cuánto es 700-286?",["404","414","424"],1],
+["¿Cuánto es 12x8?",["86","96","106"],1],
+["¿Cuánto es 144÷12?",["10","12","14"],1],
+["¿Cuál es mayor?",["2,45","2,54","2,35"],1],
+["¿Cuánto es 3/4 de 20?",["12","15","18"],1],
+["¿Cuánto es 25x4?",["90","100","110"],1],
+["¿Cuál es el perímetro de un cuadrado de lado 6 cm?",["18 cm","24 cm","30 cm"],1]
+];
+
+const startQuizAnterior5=startQuiz;
+startQuiz=function(c){
+if(playerCourse==="5º de Primaria"&&c==="Matemáticas"){
+list=math5;
+pos=0;
+points=0;
+hide();
+$("quiz").style.display="block";
+$("cat").textContent="📚 Matemáticas · 🎓 5º de Primaria";
+showQuestion();
+}else{
+startQuizAnterior5(c);
+}
+};
 </script>
