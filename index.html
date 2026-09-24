@@ -12,7 +12,7 @@ const math3=[
 ];
 
 const startQuizAnterior=startQuiz;
-startQuiz=function(c){
+startQuiz=function(c){categoriesPlayed.add(c);localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
 if(playerCourse==="3º de Primaria"&&c==="Matemáticas"){
 list=math3;
 pos=0;
