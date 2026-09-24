@@ -133,6 +133,8 @@ startQuizAnteriorLengua1(c);
 const startQuizAutomaticoAnterior=startQuiz;
 
 startQuiz=function(c){
+  categoriesPlayed.add(c);
+localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
   if(!playerCourse){
     alert("📚 Primero elige tu curso en «Mi curso»");
     showCourse();
