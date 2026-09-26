@@ -253,6 +253,41 @@ finishQuiz=oldFinish;
 
 resetMissions();
 updateHeader();
+// ===== FIREBASE =====
+(async function () {
+  try {
+    const { initializeApp } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
+    );
+
+    const { getFirestore, doc, setDoc } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+    );
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDlB9B0bGZcj6GkCQ6y2ciPPxxYHJxccxo",
+      authDomain: "quizzy-8ddf4.firebaseapp.com",
+      projectId: "quizzy-8ddf4",
+      storageBucket: "quizzy-8ddf4.firebasestorage.app",
+      messagingSenderId: "1047881908068",
+      appId: "1:1047881908068:web:0c173bc4d790a4f3a88471",
+      measurementId: "G-1SBGWFDDNF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.quizzyFirebase = {
+      db,
+      doc,
+      setDoc
+    };
+
+    console.log("🔥 Firebase conectado correctamente a Quizzy");
+  } catch (error) {
+    console.error("❌ Error conectando Firebase:", error);
+  }
+})();
 </script>
 </body>
 </html>
