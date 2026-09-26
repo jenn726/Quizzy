@@ -82,6 +82,18 @@ function save(){
   localStorage.setItem("quizzyDragonName",dragonName);
   localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
   updateHeader();
+
+  // Guardar también el progreso en Firebase
+  if(window.guardarProgresoQuizzy){
+    window.guardarProgresoQuizzy({
+      xp: xp,
+      monedas: coins,
+      curso: playerCourse,
+      dragonItem: dragonItem,
+      dragonNombre: dragonName,
+      categoriasJugadas: [...categoriesPlayed]
+    });
+  }
 }
 function updateHeader(){
   const level = Math.floor(xp/100)+1;
