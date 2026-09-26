@@ -284,6 +284,23 @@ updateHeader();
     };
 
     console.log("🔥 Firebase conectado correctamente a Quizzy");
+    // ===== GUARDAR PROGRESO EN FIREBASE =====
+window.guardarProgresoQuizzy = async function(datos) {
+  try {
+    await setDoc(
+      doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a"),
+      {
+        ...datos,
+        actualizadoEn: new Date()
+      },
+      { merge: true }
+    );
+
+    console.log("💾 Progreso guardado en Firebase", datos);
+  } catch (error) {
+    console.error("❌ Error guardando progreso:", error);
+  }
+};
   } catch (error) {
     console.error("❌ Error conectando Firebase:", error);
   }
