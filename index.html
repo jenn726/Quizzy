@@ -186,7 +186,7 @@ function showAchievements(){
 }
 function showDragon(){
   hide();$("dragon").classList.remove("hidden");
-  const level=Math.floor(xp/100)+1;
+  const level=Math.floor(xp/50)+1;
   const emoji=level>=20?"👑":level>=10?"🐉":level>=5?"🐲":level>=3?"✨":level>=2?"🐣":"🥚";
   $("dragon").innerHTML=`<h2>🐉 Mi dragón</h2><div class="dragon">${emoji}</div>
     <p>💜 Tu compañero: <b>${dragonName}</b></p>
