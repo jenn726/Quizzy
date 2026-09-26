@@ -1,217 +1,255 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quizzy 🐉</title><style>body{margin:0;padding:20px;font-family:Arial;background:linear-gradient(145deg,#6d28d9,#a855f7);color:white;text-align:center}.card{background:white;color:#4b178f;border-radius:25px;padding:25px;max-width:500px;margin:20px auto}.dragon{font-size:100px}.evo{font-size:18px;font-weight:bold;color:#7025d6;margin:10px}.stats{background:#f0e7ff;border-radius:15px;padding:12px;margin:15px 0;font-weight:bold}.xpbar{height:14px;background:#ddd;border-radius:10px;overflow:hidden;margin-top:8px}.xpfill{height:100%;background:#facc15}.coins{font-size:20px;background:#fff4b8;padding:12px;border-radius:15px;margin:15px 0}button{display:block;width:100%;padding:15px;margin:9px 0;border:0;border-radius:15px;font-size:17px;font-weight:bold;background:#f0e7ff;color:#4b178f}.play{background:#facc15}#cats,#quiz,#result,#dragonroom,#achievements,#missions,#shop{display:none}.question{font-size:21px;font-weight:bold;margin:25px 0}.next{background:#7025d6;color:white}.dragonbox{position:relative;background:linear-gradient(145deg,#f3e8ff,#e9d5ff);border-radius:25px;padding:25px;margin:15px 0;height:190px}.dragonface{position:absolute;left:50%;top:65px;transform:translateX(-50%);font-size:100px}.accessory{position:absolute;left:50%;transform:translateX(-50%);z-index:2;font-size:55px}.acc-crown{top:5px}.acc-glasses{top:78px;font-size:38px}.acc-hat{top:0}.acc-magic{top:45px;font-size:45px}.acc-wings{top:75px;font-size:60px}.achievement,.mission{background:#f0e7ff;border-radius:18px;padding:16px;margin:12px 0;text-align:left}.achievement.locked,.mission.locked{opacity:.45}.badge{font-size:35px;float:left;margin-right:15px}.missionbar{height:12px;background:#ddd;border-radius:10px;overflow:hidden;margin:10px 0}.missionfill{height:100%;background:#a855f7}.reward,.buy{background:#facc15}</style></head><body><div id="home" class="card"><div id="dragon" class="dragon">🐉</div><h1>Quizzy</h1><div id="evo" class="evo">🐉 Dragón bebé</div><h2>¡Hola, aventurero!</h2><p>¿Preparado para aprender jugando?</p><div class="stats">⭐ Nivel <span id="level">1</span> · ⚡ <span id="xp">0</span> XP<div class="xpbar"><div id="xpfill" class="xpfill"></div></div></div><div class="coins">🪙 <span id="coins">100</span> monedas</div><button class="play" onclick="showCats()">🎮 JUGAR</button><button onclick="showCats()">📚 Categorías</button><button onclick="showAchievements()">🏆 Logros</button><button onclick="showDragon()">🎨 Mi dragón</button><button onclick="showMissions();updateMissions()">🎯 Misiones</button><button onclick="alert('⚔️ Próximamente')">⚔️ Duelos</button><button onclick="showShop()">🛍️ Tienda</button></div><div id="cats" class="card"><h1>📚 Categorías</h1><button onclick="startQuiz('Matemáticas')">➕ Matemáticas</button><button onclick="startQuiz('Ciencias')">🔬 Ciencias</button><button onclick="startQuiz('Geografía')">🌍 Geografía</button><button onclick="startQuiz('Lengua')">📖 Lengua</button><button onclick="startQuiz('Inglés')">🇬🇧 Inglés</button><button onclick="startQuiz('Historia')">🏛️ Historia</button><button onclick="startQuiz('Cultura general')">🧠 Cultura general</button><button onclick="showHome()">🏠 Inicio</button></div><div id="shop" class="card"><h1>🛍️ Tienda</h1><div class="coins">🪙 Tienes <b><span id="shopcoins">100</span></b> monedas</div><div id="shoplist"></div><button onclick="showHome()">🏠 Inicio</button></div><div id="missions" class="card"><h1>🎯 Misiones</h1><p>Completa tus objetivos de hoy.</p><div id="missionlist"></div><button onclick="showHome()">🏠 Inicio</button></div><div id="achievements" class="card"><h1>🏆 Logros</h1><p>Consigue retos y desbloquea insignias.</p><div id="achievementlist"></div><button onclick="showHome()">🏠 Inicio</button></div><div id="dragonroom" class="card"><h1>🎨 Mi dragón</h1><div class="dragonbox"><div id="mydragon" class="dragonface">🐉</div><div id="myaccessory" class="accessory"></div></div><div id="myevo" class="evo">🐉 Dragón bebé</div><p>⭐ Nivel <span id="mylevel">1</span> · ⚡ <span id="myxp">0</span> XP</p><h2>✨ Accesorios</h2><button onclick="equip('👑')">👑 Corona · 100 XP</button><button onclick="equip('🕶️')">🕶️ Gafas · 20 monedas</button><button onclick="equip('✨')">✨ Magia · 200 XP</button><button onclick="equip('🪽')">🪽 Alas · 300 XP</button><button onclick="equip('')">❌ Quitar accesorio</button><button onclick="showHome()">🏠 Inicio</button></div><div id="quiz" class="card"><p id="cat"></p><h2>Pregunta <span id="num">1</span>/3</h2><div id="question" class="question"></div><div id="answers"></div><button id="next" class="next" onclick="nextQuestion()" style="display:none">Siguiente ➡️</button></div><div id="result" class="card"><div class="dragon">🏆</div><h1>¡Reto completado!</h1><h2><span id="score">0</span> puntos</h2><p>⚡ XP total: <span id="finalxp">0</span></p><p>⭐ Nivel: <span id="finallevel">1</span></p><p>🪙 Monedas: <span id="finalcoins">100</span></p><button class="next" onclick="showCats()">📚 Otra categoría</button><button onclick="showHome()">🏠 Inicio</button></div><script>const $=id=>document.getElementById(id);const data={Matemáticas:[["¿Cuánto es 12+5?",["16","17","18"],1],["¿Cuánto es 9x3?",["18","27","30"],1],["¿Cuánto es 20-8?",["10","12","14"],1]],Ciencias:[["¿Cuál es el planeta rojo?",["Marte","Venus","Júpiter"],0],["¿Qué necesitan las plantas para hacer la fotosíntesis?",["Luz","Metal","Plástico"],0],["¿Qué órgano bombea la sangre?",["Pulmón","Corazón","Estómago"],1]],Geografía:[["¿Cuál es la capital de España?",["Madrid","Vigo","Sevilla"],0],["¿En qué continente está España?",["Europa","Asia","África"],0],["¿Cuál es el océano más grande?",["Atlántico","Índico","Pacífico"],2]],Lengua:[["¿Cuál es un sustantivo?",["Casa","Correr","Rápidamente"],0],["¿Cuál es el plural de lápiz?",["Lápizes","Lápices","Lápizs"],1],["¿Cuál es un verbo?",["Saltar","Azul","Mesa"],0]],Inglés:[["¿Cómo se dice perro?",["Cat","Dog","Bird"],1],["¿Cómo se dice rojo?",["Blue","Green","Red"],2],["¿Cómo se dice gracias?",["Hello","Thanks","Goodbye"],1]],Historia:[["¿Quién llegó a América en 1492?",["Cristóbal Colón","Julio César","Napoleón"],0],["¿Dónde vivían los romanos?",["Roma","Egipto","China"],0],["¿Dónde están las pirámides de Guiza?",["Grecia","Egipto","Italia"],1]],"Cultura general":[["¿Cuántos días tiene una semana?",["5","7","9"],1],["¿Cuál es el animal más grande?",["Elefante","Ballena azul","Jirafa"],1],["¿Cuántos colores tiene el arcoíris tradicionalmente?",["5","7","10"],1]]};let list=[],pos=0,points=0,xp=Number(localStorage.getItem("quizzyXP")||0),coins=Number(localStorage.getItem("quizzyCoins")||100),accessory=localStorage.getItem("quizzyAccessory")||"",quizCount=Number(localStorage.getItem("quizzyQuizzes")||0),owned=JSON.parse(localStorage.getItem("quizzyOwned")||"[]");function save(){localStorage.setItem("quizzyXP",xp);localStorage.setItem("quizzyCoins",coins);localStorage.setItem("quizzyAccessory",accessory);localStorage.setItem("quizzyQuizzes",quizCount);localStorage.setItem("quizzyOwned",JSON.stringify(owned))}function level(){return Math.floor(xp/100)+1}function dragonInfo(){return level()>=20?["👑","🐉 Dragón legendario"]:level()>=10?["🐉","🐉 Dragón supremo"]:level()>=5?["🐉✨","🐉 Dragón mágico"]:level()>=2?["🐲","🐲 Dragón joven"]:["🐉","🐉 Dragón bebé"]}function updateStats(){let d=dragonInfo();$("xp").textContent=xp;$("level").textContent=level();$("coins").textContent=coins;$("dragon").textContent=d[0];$("evo").textContent=d[1];$("xpfill").style.width=xp%100+"%"}function updateMissions(){let m=document.querySelectorAll("#missionlist .mission");if(m.length<2)return;m[0].innerHTML="<h3>🏅 Responde 5 preguntas</h3><p>"+Math.min(quizCount,5)+"/5 preguntas</p>";m[1].innerHTML="<h3>⭐ Consigue 30 XP</h3><p>"+Math.min(xp,30)+"/30 XP</p>";m[2].innerHTML="<h3>📚 Juega 2 categorías diferentes</h3><p>"+m[2].innerHTML="<h3>📚 Juega 2 categorías diferentes</h3><p>"+Math.min(categoriesPlayed.size,2)+"/2 categorías</p>";+"/2 categorías</p>"} function hide(){["home","cats","quiz","result","dragonroom","achievements","missions","shop"].forEach(x=>$(x).style.display="none")}function showHome(){hide();$("home").style.display="block";updateStats()}function showCats(){hide();$("cats").style.display="block"}function showShop(){hide();$("shop").style.display="block";$("shopcoins").textContent=coins;renderShop()}function renderShop(){let a=[["🕶️","Gafas cool",20],["🎩","Sombrero mágico",30],["🪄","Varita mágica",40],["💎","Aura de diamantes",60]];$("shoplist").innerHTML=a.map((x,i)=>'<div class="achievement"><h3>'+x[0]+' '+x[1]+'</h3><p>🪙 '+x[2]+' monedas</p><button class="buy" onclick="buyItem('+i+')">'+(owned.includes(i)?"✨ Equipar":"🛒 Comprar")+'</button></div>').join("")}function buyItem(i){let p=[20,30,40,60][i],a=["🕶️","🎩","🪄","💎"][i];if(owned.includes(i)){accessory=a;save();alert("✨ ¡Accesorio equipado!");showDragon();return}if(coins<p)return alert("🔒 No tienes suficientes monedas");coins-=p;owned.push(i);accessory=a;save();alert("🎉 ¡Objeto comprado y equipado!");renderShop();$("shopcoins").textContent=coins}function showDragon(){hide();$("dragonroom").style.display="block";let d=dragonInfo();$("mydragon").textContent=d[0];$("myaccessory").textContent=accessory;$("myaccessory").className="accessory "+(accessory==="👑"?"acc-crown":accessory==="🕶️"?"acc-glasses":accessory==="🎩"?"acc-hat":accessory==="✨"?"acc-magic":"acc-wings");$("myevo").textContent=d[1];$("mylevel").textContent=level();$("myxp").textContent=xp}function equip(a){if(a==="👑"&&xp<100)return alert("🔒 Necesitas 100 XP");if(a==="✨"&&xp<200)return alert("🔒 Necesitas 200 XP");if(a==="🪽"&&xp<300)return alert("🔒 Necesitas 300 XP");accessory=a;save();showDragon()}function showAchievements(){hide();$("achievements").style.display="block";let a=[["🌟","Primer paso","Completa tu primer quiz",quizCount>=1],["🧠","Mente brillante","Consigue 100 XP",xp>=100],["🐲","Evolución","Llega al nivel 2",level()>=2],["🔥","Gran aventurero","Consigue 200 XP",xp>=200],["👑","Dragón poderoso","Consigue 300 XP",xp>=300],["📚","Explorador","Completa 5 quizzes",quizCount>=5]];$("achievementlist").innerHTML=a.map(x=>'<div class="achievement '+(x[3]?'':'locked')+'"><span class="badge">'+x[0]+'</span><h3>'+x[1]+' '+(x[3]?'✅':'🔒')+'</h3><p>'+x[2]+'</p></div>').join("")}function showMissions(){hide();$("missions").style.display="block";$("missionlist").innerHTML='<div class="mission"><h3>🎯 Responde 5 preguntas</h3><p>Tu progreso se guarda durante el día.</p></div><div class="mission"><h3>⚡ Consigue 30 XP</h3><p>Gana XP jugando.</p></div><div class="mission"><h3>📚 Juega 2 categorías diferentes</h3><p>Explora diferentes materias.</p></div>'}let categoriesPlayed=new Set(JSON.parse(localStorage.getItem("quizzyCategories")||"[]"));function startQuiz(c){categoriesPlayed.add(c);localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));list=data[c];categoriesPlayed.add(c);oldStartQuiz(c);localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));pos=0;points=0;hide();updateMissions();list=data[c];pos=0;points=0;hide();$("quiz").style.display="block";$("cat").textContent="📚 "+c;showQuestion()}function showQuestion(){let q=list[pos];$("num").textContent=pos+1;$("question").textContent=q[0];$("answers").innerHTML="";$("next").style.display="none";q[1].forEach((t,i)=>{let b=document.createElement("button");b.textContent=t;b.onclick=()=>answer(i,b);$("answers").appendChild(b)})}function answer(i,b){let c=list[pos][2];$("answers").querySelectorAll("button").forEach(x=>x.disabled=true);if(i===c){b.style.background="#86efac";points+=10;xp+=10;coins+=5}else{b.style.background="#fca5a5";$("answers").querySelectorAll("button")[c].style.background="#86efac"}save();updateStats();updateMissions();$("next").style.display="block"}function nextQuestion(){pos++;if(pos<list.length)showQuestion();else{quizCount++;save();hide();$("result").style.display="block";$("score").textContent=points;$("finalxp").textContent=xp;$("finallevel").textContent=level();$("finalcoins").textContent=coins}}showHome()</script></body></html><script>const duel=document.createElement("div");duel.id="duel";duel.className="card";duel.style.display="none";duel.innerHTML='<div id="duelcontent"></div>';document.body.appendChild(duel);let dqpos=0,dmy=3,dopp=3;const dqs=[["¿Cuánto es 5+5?",["10","12","15"],0],["¿Cuál es el planeta rojo?",["Venus","Marte","Júpiter"],1],["¿Cuántos días tiene una semana?",["5","7","9"],1]];function showDuel(){hide();duel.style.display="block";dqpos=0;dmy=3;dopp=3;drawDuel()}function drawDuel(){if(dmy<=0||dopp<=0){let w=dopp<=0;$("duelcontent").innerHTML='<h1>'+(w?"🏆 ¡Victoria!":"💥 ¡Derrota!")+'</h1><h2>'+(w?"🎁 +20 XP":"¡Entrena y vuelve a intentarlo!")+'</h2><button onclick="showDuel()">⚔️ Revancha</button><button onclick="showHome()">🏠 Inicio</button>';if(w){xp+=20;coins+=10;save();updateStats()}return}let q=dqs[dqpos];$("duelcontent").innerHTML='<h1>⚔️ Duelo</h1><p>🐲 Tú VS 🐉 Rival</p><div class="stats">❤️ Tu vida: '+dmy+' · ❤️ Rival: '+dopp+'</div><h2>'+q[0]+'</h2><div id="danswers"></div><button onclick="showHome()">🏠 Inicio</button>';q[1].forEach((t,i)=>{let b=document.createElement("button");b.textContent=t;b.onclick=()=>duelAnswer(i,b);$("danswers").appendChild(b)})}function duelAnswer(i,b){let q=dqs[dqpos];$("danswers").querySelectorAll("button").forEach(x=>x.disabled=true);if(i===q[2]){dopp--;b.style.background="#86efac"}else{dmy--;b.style.background="#fca5a5"}dqpos=(dqpos+1)%dqs.length;setTimeout(drawDuel,400)}const oldShowHome=showHome;showHome=function(){oldShowHome();duel.style.display="none"};const duelBtn=[...document.querySelectorAll("#home button")].find(b=>b.textContent.includes("Duelos"));if(duelBtn)duelBtn.onclick=showDuel;</script><script>const oldShowDuel=showDuel;showDuel=function(){hide();duel.style.display="block";$("duelcontent").innerHTML='<h1>⚔️ Elige tu rival</h1><div class="achievement"><h2>🐲 Draco</h2><p>⭐ Fácil · 🎁 +15 XP · 🪙 +5</p><button onclick="startDuel2(0)">⚔️ Desafiar</button></div><div class="achievement"><h2>🔥 Fénix</h2><p>⭐⭐ Medio · 🎁 +25 XP · 🪙 +10</p><button onclick="startDuel2(1)">⚔️ Desafiar</button></div><div class="achievement"><h2>👑 Dragón Supremo</h2><p>⭐⭐⭐ Difícil · 🎁 +40 XP · 🪙 +20</p><button onclick="startDuel2(2)">⚔️ Desafiar</button></div><button onclick="showHome()">🏠 Inicio</button>'};const duelRivals=[["🐲 Draco",15,5],["🔥 Fénix",25,10],["👑 Dragón Supremo",40,20]];function startDuel2(r){let reward=duelRivals[r];dqpos=0;dmy=3;dopp=3;duelRival=r;drawDuel2()}let duelRival=0;function drawDuel2(){if(dmy<=0||dopp<=0){let w=dopp<=0;$("duelcontent").innerHTML='<h1>'+(w?"🏆 ¡Victoria!":"💥 ¡Derrota!")+'</h1><h2>'+(w?"🎁 +"+duelRivals[duelRival][1]+" XP · 🪙 +"+duelRivals[duelRival][2]+" monedas":"¡Entrena y vuelve a intentarlo!")+'</h2><button onclick="showDuel()">⚔️ Elegir otro rival</button><button onclick="showHome()">🏠 Inicio</button>';if(w){xp+=duelRivals[duelRival][1];coins+=duelRivals[duelRival][2];save();updateStats()}return}let q=dqs[dqpos];$("duelcontent").innerHTML='<h1>⚔️ '+duelRivals[duelRival][0]+'</h1><div class="stats">❤️ Tú: '+dmy+' · ❤️ Rival: '+dopp+'</div><h2>'+q[0]+'</h2><div id="danswers"></div><button onclick="showDuel()">🏃 Rendirse</button>';q[1].forEach((t,i)=>{let b=document.createElement("button");b.textContent=t;b.onclick=()=>{let c=q[2];$("danswers").querySelectorAll("button").forEach(x=>x.disabled=true);if(i===c){dopp--;b.style.background="#86efac"}else{dmy--;b.style.background="#fca5a5"}dqpos=(dqpos+1)%dqs.length;setTimeout(drawDuel2,400)};$("danswers").appendChild(b)})}</script><script>const db2=[...document.querySelectorAll("#home button")].find(b=>b.textContent.includes("Duelos"));if(db2)db2.onclick=showDuel;</script><script>const duelStyle=document.createElement("style");duelStyle.textContent="#duel .rival{font-size:90px;margin:10px}#duel .battle{font-size:35px;margin:10px}#duel .boss{animation:pulse 1s infinite}@keyframes pulse{50%{transform:scale(1.12)}}";document.head.appendChild(duelStyle);</script><script>document.querySelectorAll("#duel button").forEach(b=>{if(b.textContent.includes("Desafiar")&&b.parentElement.textContent.includes("Dragón Supremo"))b.classList.add("boss")});</script><script>const rivalVisual=new MutationObserver(()=>{const c=$("duelcontent");if(!c||c.querySelector(".rival"))return;let t=c.textContent,e=t.includes("Draco")?"🐲":t.includes("Fénix")?"🔥":"👑🐉";let v=document.createElement("div");v.className="rival";v.textContent=e;c.insertBefore(v,c.firstChild)});rivalVisual.observe(document.body,{childList:true,subtree:true});</script><script>const duelAnimStyle=document.createElement("style");duelAnimStyle.textContent=".hit{animation:hit .35s ease-in-out}@keyframes hit{50%{transform:scale(1.15) rotate(-3deg)}}.attack{font-size:45px;animation:attack .4s ease-out}@keyframes attack{0%{transform:scale(.5);opacity:0}50%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:0}}";document.head.appendChild(duelAnimStyle);const oldDuelAnswer=duelAnswer;duelAnswer=function(i,b){let e=document.createElement("div");e.className="attack";e.textContent=i===dqs[dqpos][2]?"⚔️💥":"💥❤️";$("duelcontent").prepend(e);$("duelcontent").classList.add("hit");setTimeout(()=>$("duelcontent").classList.remove("hit"),350);oldDuelAnswer(i,b)};</script><script>const hpStyle=document.createElement("style");hpStyle.textContent=".hp{height:18px;background:#ddd;border-radius:10px;overflow:hidden;margin:6px 0 12px}.hpfill{height:100%;background:#ef4444;width:100%;transition:width .3s}";document.head.appendChild(hpStyle);const oldDrawDuel2=drawDuel2;drawDuel2=function(){oldDrawDuel2();let s=$("duelcontent");if(s&&!s.querySelector(".hp")){s.innerHTML=s.innerHTML.replace('❤️ Tú: '+dmy+' · ❤️ Rival: '+dopp,'❤️ Tú: '+dmy+'<div class="hp"><div class="hpfill" style="width:'+(dmy/3*100)+'%"></div></div>❤️ Rival: '+dopp+'<div class="hp"><div class="hpfill" style="width:'+(dopp/3*100)+'%"></div></div>')}};</script><script>drawDuel2=function(){if(dmy<=0||dopp<=0){let w=dopp<=0;$("duelcontent").innerHTML='<h1>'+(w?"🏆 ¡Victoria!":"💥 ¡Derrota!")+'</h1><h2>'+(w?"🎁 +"+duelRivals[duelRival][1]+" XP · 🪙 +"+duelRivals[duelRival][2]+" monedas":"¡Entrena y vuelve a intentarlo!")+'</h2><button onclick="showDuel()">⚔️ Elegir otro rival</button><button onclick="showHome()">🏠 Inicio</button>';if(w){xp+=duelRivals[duelRival][1];coins+=duelRivals[duelRival][2];save();updateStats()}return}let q=dqs[dqpos];$("duelcontent").innerHTML='<h1>⚔️ '+duelRivals[duelRival][0]+'</h1><p>❤️ Tú: '+dmy+'</p><div class="hp"><div class="hpfill" style="width:'+(dmy/3*100)+'%"></div></div><p>❤️ Rival: '+dopp+'</p><div class="hp"><div class="hpfill" style="width:'+(dopp/3*100)+'%"></div></div><h2>'+q[0]+'</h2><div id="danswers"></div><button onclick="showDuel()">🏃 Rendirse</button>';q[1].forEach((t,i)=>{let b=document.createElement("button");b.textContent=t;b.onclick=()=>{let c=q[2];$("danswers").querySelectorAll("button").forEach(x=>x.disabled=true);if(i===c){dopp--;b.style.background="#86efac"}else{dmy--;b.style.background="#fca5a5"}dqpos=(dqpos+1)%dqs.length;setTimeout(drawDuel2,400)};$("danswers").appendChild(b)})};</script><script>const homeStyle=document.createElement("style");homeStyle.textContent="#home h1{font-size:42px;margin:5px 0;text-shadow:0 3px 0 #e9d5ff}#home h2{margin:8px 0;font-size:24px}#home .dragon{filter:drop-shadow(0 8px 6px #c4b5fd);animation:floatDragon 2s ease-in-out infinite}@keyframes floatDragon{50%{transform:translateY(-8px)}}#home .stats,#home .coins{box-shadow:0 5px 12px #ddd}";document.head.appendChild(homeStyle);</script><script>const playStyle=document.createElement("style");playStyle.textContent="#home .play{font-size:22px;padding:18px;box-shadow:0 6px 0 #d4a900;transform:translateY(0);transition:.15s}#home .play:active{transform:translateY(5px);box-shadow:0 1px 0 #d4a900}";document.head.appendChild(playStyle);</script><script>const btnStyle=document.createElement("style");btnStyle.textContent="#home button:not(.play){box-shadow:0 4px 0 #d8c5f5;transition:.15s}#home button:not(.play):active{transform:translateY(3px);box-shadow:0 1px 0 #d8c5f5}#home button:not(.play):hover{transform:scale(1.02)}";document.head.appendChild(btnStyle);</script><script>const profile=document.createElement("div");profile.id="profile";profile.className="card";profile.style.display="none";profile.innerHTML='<h1>👤 Mi perfil</h1><div class="dragon" id="pdragon">🐉</div><h2>🌟 Aventurero Quizzy</h2><div class="stats">⭐ Nivel <span id="plevel">1</span><br>⚡ XP <span id="pxp">0</span><br>🪙 Monedas <span id="pcoins">0</span></div><button onclick="showHome()">🏠 Inicio</button>';document.body.appendChild(profile);function showProfile(){hide();profile.style.display="block";let d=dragonInfo();$("pdragon").textContent=d[0];$("plevel").textContent=level();$("pxp").textContent=xp;$("pcoins").textContent=coins}const pb=document.createElement("button");pb.textContent="👤 Perfil";pb.onclick=showProfile;document.querySelector("#home .play").after(pb);</script><script>let playerName=localStorage.getItem("quizzyName")||"";const oldShowProfile=showProfile;showProfile=function(){oldShowProfile();$("profile").querySelector("h2").innerHTML=playerName?"👋 ¡Hola, "+playerName+"!":"👤 Aventurero Quizzy";if(!$("nameInput"))$("profile").insertAdjacentHTML("beforeend",'<input id="nameInput" placeholder="Escribe tu nombre" value="'+playerName+'" style="width:90%;padding:14px;border-radius:12px;border:2px solid #ddd;font-size:17px"><button onclick="saveName()">💾 Guardar nombre</button>')};function saveName(){playerName=$("nameInput").value.trim()||"Aventurero";localStorage.setItem("quizzyName",playerName);showProfile()}</script><script>const profileBtn=[...document.querySelectorAll("#home button")].find(b=>b.textContent.includes("Perfil"));if(profileBtn)profileBtn.onclick=showProfile;</script><script>const welcomeStyle=document.createElement("style");welcomeStyle.textContent="#home #welcomeName{font-size:25px;font-weight:bold;color:#7025d6;margin:10px 0}";document.head.appendChild(welcomeStyle);const welcome=document.createElement("div");welcome.id="welcomeName";document.querySelector("#home h2").replaceWith(welcome);function updateWelcome(){welcome.textContent=playerName?"👋 ¡Hola, "+playerName+"!":"👋 ¡Hola, aventurero!";}const oldUpdateStats=updateStats;updateStats=function(){oldUpdateStats();updateWelcome()};updateWelcome();</script><script>data.Matemáticas.push(["¿Cuánto es 15+7?",["20","22","24"],1],["¿Cuánto es 6x4?",["20","24","28"],1],["¿Cuánto es 45-17?",["28","30","32"],0],["¿Cuál es la mitad de 18?",["8","9","10"],1],["¿Cuánto es 100÷10?",["5","10","20"],1]);</script><script>const oldShowQuestion=showQuestion;showQuestion=function(){oldShowQuestion();$("quiz").querySelector("h2").innerHTML='Pregunta <span id="num">'+(pos+1)+'</span>/'+list.length};</script><script>data.Ciencias.push(["¿Cuál es el satélite natural de la Tierra?",["La Luna","El Sol","Marte"],0],["¿Qué gas respiramos principalmente?",["Oxígeno","Nitrógeno","Helio"],1],["¿Cuántas patas tiene una araña?",["6","8","10"],1],["¿Qué parte de la planta absorbe agua?",["La raíz","La flor","El fruto"],0],["¿Qué fuerza hace que los objetos caigan al suelo?",["Magnetismo","Gravedad","Electricidad"],1]);</script><script>data.Geografía.push(["¿Cuál es el río más largo de España?",["Ebro","Tajo","Duero"],1],["¿Cuál es el continente más grande?",["África","Asia","Europa"],1],["¿Cuál es la capital de Francia?",["París","Roma","Berlín"],0],["¿Cuántos océanos hay en la Tierra?",["3","5","7"],1],["¿En qué país está la Torre Eiffel?",["Italia","Francia","España"],1]);</script><script>data.Lengua.push(["¿Cuál es el antónimo de 'grande'?",["Pequeño","Enorme","Gigante"],0],["¿Cuál es un adjetivo?",["Casa","Bonito","Correr"],1],["¿Cuántas sílabas tiene 'mariposa'?",["3","4","5"],1],["¿Cuál es el femenino de 'actor'?",["Actora","Actriz","Actorae"],1],["¿Cuál es un sinónimo de 'feliz'?",["Triste","Contento","Enfadado"],1]);</script><script>data.Inglés.push(["¿Cómo se dice 'casa'?",["House","Horse","Mouse"],0],["¿Cómo se dice 'azul'?",["Green","Blue","Black"],1],["¿Qué significa 'Good morning'?",["Buenas noches","Buenos días","Buenas tardes"],1],["¿Cómo se dice 'escuela'?",["School","Street","Shop"],0],["¿Qué significa 'friend'?",["Familia","Amigo","Profesor"],1]);</script><script>data.Historia.push(["¿En qué año llegó Colón a América?",["1492","1500","1480"],0],["¿Quién construyó el Coliseo de Roma?",["Los romanos","Los egipcios","Los vikingos"],0],["¿Dónde vivían los antiguos egipcios?",["En el Nilo","En Roma","En Grecia"],0],["¿Quién fue Julio César?",["Un emperador romano","Un explorador vikingo","Un faraón"],0],["¿Qué construyeron los egipcios en Guiza?",["Castillos","Pirámides","Catedrales"],1]);</script><script>data["Cultura general"].push(["¿Cuál es el planeta más grande del sistema solar?",["Marte","Júpiter","Saturno"],1],["¿Cuántos continentes hay habitualmente?",["5","6","7"],2],["¿Qué animal es conocido como el rey de la selva?",["León","Tigre","Elefante"],0],["¿Cuántas horas tiene un día?",["12","24","48"],1],["¿Cuál es el idioma más hablado en Brasil?",["Español","Portugués","Inglés"],1]);</script><script>const courseBox=document.createElement("div");courseBox.id="courseBox";courseBox.className="card";courseBox.style.display="none";courseBox.innerHTML='<h1>📚 Mi curso</h1><p>Elige tu curso de Primaria:</p><div id="courseList"></div><button onclick="showHome()">🏠 Inicio</button>';document.body.appendChild(courseBox);let playerCourse=localStorage.getItem("quizzyCourse")||"";function showCourse(){hide();courseBox.style.display="block";$("courseList").innerHTML="";for(let i=1;i<=6;i++){let b=document.createElement("button");b.textContent="🎓 "+i+"º de Primaria";b.onclick=()=>{playerCourse=i+"º de Primaria";localStorage.setItem("quizzyCourse",playerCourse);alert("🎉 Curso guardado: "+playerCourse);showCourse()};$("courseList").appendChild(b)}}const cb=document.createElement("button");cb.textContent="📚 Mi curso";cb.onclick=showCourse;document.querySelector("#home .play").after(cb);</script><script>const oldStartQuiz=startQuiz;startQuiz=function(c){categoriesPlayed.add(c);localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));if(!playerCourse){alert("📚 Primero elige tu curso en «Mi curso»");showCourse();return}oldStartQuiz(c)};</script><script>const math1=[["¿Cuánto es 2+3?",["4","5","6"],1],["¿Cuánto es 7-2?",["4","5","6"],1],["¿Cuánto es 4+4?",["6","8","9"],1],["¿Qué número viene después del 9?",["8","10","11"],1],["¿Cuánto es 10-3?",["6","7","8"],1],["¿Cuál es mayor?",["3","7","5"],1],["¿Cuántas unidades tiene una decena?",["5","10","20"],1],["¿Cuánto es 1+6?",["6","7","8"],1]];const previousStartQuiz=startQuiz;startQuiz=function(c){if(playerCourse==="1º de Primaria"&&c==="Matemáticas"){list=math1;pos=0;points=0;hide();$("quiz").style.display="block";$("cat").textContent="📚 "+c+" · 🎓 1º Primaria";showQuestion()}else previousStartQuiz(c)};</script><script>const courseData={"1º de Primaria":{},"2º de Primaria":{},"3º de Primaria":{},"4º de Primaria":{},"5º de Primaria":{},"6º de Primaria":{}};const subjects=["Matemáticas","Lengua","Ciencias","Geografía","Inglés","Historia","Cultura general"];Object.keys(courseData).forEach(c=>subjects.forEach(s=>courseData[c][s]=[]));</script><script>fetch("preguntas.json").then(r=>r.json()).then(j=>Object.assign(courseData,j)).catch(e=>console.log("No se pudo cargar preguntas.json",e));</script><script>fetch("preguntas.json").then(r=>r.json()).then(j=>{Object.assign(courseData,j);const oldCourseStart=startQuiz;startQuiz=function(c){let q=courseData[playerCourse]&&courseData[playerCourse][c];if(q&&q.length){list=q;pos=0;points=0;hide();$("quiz").style.display="block";$("cat").textContent="📚 "+c+" · 🎓 "+playerCourse;showQuestion()}else oldCourseStart(c)}});</script><script>fetch("preguntas.json").then(r=>r.json()).then(j=>{Object.assign(courseData,j);if(playerCourse&&courseData[playerCourse]){const old=showCourse;showCourse=function(){old();}}}).catch(e=>console.log(e));</script><script>
-  
-const math3=[
-["¿Cuánto es 24+18?",["40","42","44"],1],
-["¿Cuánto es 50-27?",["21","23","25"],1],
-["¿Cuánto es 6x4?",["20","24","28"],1],
-["¿Cuánto es 36÷6?",["5","6","7"],1],
-["¿Cuál es mayor?",["37","43","39"],1],
-["¿Cuánto es 15+25?",["35","40","45"],1],
-["¿Cuánto es 7x5?",["30","35","40"],1],
-["¿Cuál es la mitad de 18?",["8","9","10"],1]
-];
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quizzy 🐉</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(145deg,#6d28d9,#a855f7);color:#4c1d95;min-height:100vh}
+.card{background:#fff;border-radius:24px;padding:22px;max-width:520px;margin:18px auto;box-shadow:0 8px 25px rgba(0,0,0,.15)}
+h1,h2,h3{margin:8px 0}
+.dragon{font-size:76px;text-align:center}
+.evo{font-weight:bold;background:#f3e8ff;border-radius:16px;padding:12px;text-align:center}
+.stats{background:#f0e7ff;border-radius:16px;padding:12px;margin:10px 0}
+button{display:block;width:100%;padding:15px;margin:9px 0;border:0;border-radius:15px;font-size:17px;font-weight:bold;color:#4c1d95;background:#efe7ff;box-shadow:0 3px 0 #d8c4f6;cursor:pointer}
+button:hover{filter:brightness(.98)}
+button.primary{background:#facc15;color:#4c1d95;box-shadow:0 4px 0 #d3a800}
+button.answer{background:#fff;border:2px solid #e9d5ff;box-shadow:none;text-align:left}
+button.answer.correct{background:#bbf7d0;border-color:#22c55e}
+button.answer.wrong{background:#fecaca;border-color:#ef4444}
+.top{background:#efe7ff;border-radius:18px;padding:12px;margin-bottom:10px;text-align:center;font-weight:bold}
+.bar{height:14px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:8px}
+.fill{height:100%;background:#facc15;width:0;transition:.25s}
+.hidden{display:none!important}
+.badge{display:inline-block;background:#fef3c7;border-radius:12px;padding:6px 10px;margin:4px}
+.small{font-size:13px;color:#6b7280}
+input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;font-size:16px;margin:6px 0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.notice{padding:12px;background:#f3e8ff;border-radius:14px;margin:10px 0}
+</style>
+</head>
+<body>
+<div id="app" class="card">
+  <div id="home">
+    <div class="top">⭐ Nivel <span id="level">1</span> · <span id="xp">0</span> XP
+      <div class="bar"><div id="xpfill" class="fill"></div></div>
+    </div>
+    <div class="top">🪙 <span id="coins">100</span> monedas</div>
+    <div class="dragon" id="dragonHome">🐣</div>
+    <h1>Quizzy 🐉</h1>
+    <h2>¡Hola, aventurero!</h2>
+    <p>🎓 Aprende jugando, gana XP y haz crecer a tu dragón.</p>
+    <button class="primary" onclick="startHome()">🎮 JUGAR</button>
+    <button onclick="showCourse()">📚 Mi curso</button>
+    <button onclick="showProfile()">👤 Perfil</button>
+    <button onclick="showCats()">📚 Categorías</button>
+    <button onclick="showAchievements()">🏆 Logros</button>
+    <button onclick="showDragon()">🐉 Mi dragón</button>
+    <button onclick="showMissions()">🎯 Misiones</button>
+    <button onclick="showDuels()">⚔️ Duelos</button>
+    <button onclick="showShop()">🛍️ Tienda</button>
+  </div>
 
-const startQuizAnterior=startQuiz;
-startQuiz=function(c){categoriesPlayed.add(c);localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
-if(playerCourse==="3º de Primaria"&&c==="Matemáticas"){
-list=math3;
-pos=0;
-points=0;
-hide();
-$("quiz").style.display="block";
-$("cat").textContent="📚 Matemáticas · 🎓 3º de Primaria";
-showQuestion();
-}else{
-startQuizAnterior(c);
-}
-};
-</script><script>
-const math4=[
-["¿Cuánto es 125+76?",["191","201","211"],1],
-["¿Cuánto es 300-145?",["145","155","165"],1],
-["¿Cuánto es 8x7?",["54","56","58"],1],
-["¿Cuánto es 72÷8?",["8","9","10"],1],
-["¿Cuál es mayor?",["128","182","218"],2],
-["¿Cuánto es 45+37?",["72","82","92"],1],
-["¿Cuánto es 9x6?",["48","54","56"],1],
-["¿Cuál es la mitad de 50?",["20","25","30"],1]
-];
+  <div id="course" class="hidden"></div>
+  <div id="cats" class="hidden"></div>
+  <div id="quiz" class="hidden"></div>
+  <div id="profile" class="hidden"></div>
+  <div id="achievements" class="hidden"></div>
+  <div id="dragon" class="hidden"></div>
+  <div id="missions" class="hidden"></div>
+  <div id="duels" class="hidden"></div>
+  <div id="shop" class="hidden"></div>
+</div>
 
-const startQuizAnterior4=startQuiz;
-startQuiz=function(c){
-if(playerCourse==="4º de Primaria"&&c==="Matemáticas"){
-list=math4;
-pos=0;
-points=0;
-hide();
-$("quiz").style.display="block";
-$("cat").textContent="📚 Matemáticas · 🎓 4º de Primaria";
-showQuestion();
-}else{
-startQuizAnterior4(c);
-}
-};
-</script><script>
-const math5=[
-["¿Cuánto es 245+378?",["613","623","633"],1],
-["¿Cuánto es 700-286?",["404","414","424"],1],
-["¿Cuánto es 12x8?",["86","96","106"],1],
-["¿Cuánto es 144÷12?",["10","12","14"],1],
-["¿Cuál es mayor?",["2,45","2,54","2,35"],1],
-["¿Cuánto es 3/4 de 20?",["12","15","18"],1],
-["¿Cuánto es 25x4?",["90","100","110"],1],
-["¿Cuál es el perímetro de un cuadrado de lado 6 cm?",["18 cm","24 cm","30 cm"],1]
-];
-
-const startQuizAnterior5=startQuiz;
-startQuiz=function(c){
-if(playerCourse==="5º de Primaria"&&c==="Matemáticas"){
-list=math5;
-pos=0;
-points=0;
-hide();
-$("quiz").style.display="block";
-$("cat").textContent="📚 Matemáticas · 🎓 5º de Primaria";
-showQuestion();
-}else{
-startQuizAnterior5(c);
-}
-};
-</script><script>
-const math6=[
-["¿Cuánto es 345+678?",["1013","1023","1033"],1],
-["¿Cuánto es 1000-437?",["553","563","573"],1],
-["¿Cuánto es 15x12?",["170","180","190"],1],
-["¿Cuánto es 225÷15?",["15","16","17"],1],
-["¿Cuál es mayor?",["3,45","3,54","3,35"],1],
-["¿Cuánto es el 25% de 80?",["15","20","25"],1],
-["¿Cuál es el resultado de 2³?",["6","8","10"],1],
-["¿Cuál es el área de un rectángulo de 8 cm × 5 cm?",["35 cm²","40 cm²","45 cm²"],1]
-];
-
-const startQuizAnterior6=startQuiz;
-startQuiz=function(c){
-if(playerCourse==="6º de Primaria"&&c==="Matemáticas"){
-list=math6;
-pos=0;
-points=0;
-hide();
-$("quiz").style.display="block";
-$("cat").textContent="📚 Matemáticas · 🎓 6º de Primaria";
-showQuestion();
-}else{
-startQuizAnterior6(c);
-}
-};
-</script><script>
-const lengua1=[
-["¿Cuál de estas palabras es un animal?",["Mesa","Perro","Casa"],1],
-["¿Cuál es una vocal?",["B","E","T"],1],
-["¿Qué palabra rima con «gato»?",["Pato","Sol","Pan"],1],
-["¿Cuál está bien escrita?",["Avion","Avión","Abion"],1],
-["¿Cuál es el plural de «casa»?",["Casas","Casa","Casis"],1],
-["¿Cuál es un color?",["Azul","Mesa","Correr"],1],
-["¿Cuál es lo contrario de «grande»?",["Alto","Pequeño","Largo"],1],
-["¿Cuál es una palabra?",["Correr","Pelota","Azul"],1]
-];
-
-const startQuizAnteriorLengua1=startQuiz;
-startQuiz=function(c){
-if(playerCourse==="1º de Primaria"&&c==="Lengua"){
-list=lengua1;
-pos=0;
-points=0;
-hide();
-$("quiz").style.display="block";
-$("cat").textContent="📚 Lengua · 🎓 1º de Primaria";
-showQuestion();
-}else{
-startQuizAnteriorLengua1(c);
-}
-};
-</script><script>
-const startQuizAutomaticoAnterior=startQuiz;
-
-startQuiz=function(c){
-  categoriesPlayed.add(c);
-localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
-  if(!playerCourse){
-    alert("📚 Primero elige tu curso en «Mi curso»");
-    showCourse();
-    return;
-  }
-
-  fetch("preguntas.json")
-    .then(r=>r.json())
-    .then(data=>{
-      const preguntas=data[playerCourse]&&data[playerCourse][c];
-
-      if(preguntas&&preguntas.length){
-        list=preguntas;
-        pos=0;
-        points=0;
-        hide();
-        $("quiz").style.display="block";
-        $("cat").textContent="📚 "+c+" · 🎓 "+playerCourse;
-        showQuestion();
-      }else{
-        startQuizAutomaticoAnterior(c);
-      }
-    })
-    .catch(()=>{
-      startQuizAutomaticoAnterior(c);
-    });
-};
-</script>
 <script>
-(function(){
-  const oldShowDragon=showDragon;
+const $ = id => document.getElementById(id);
+const screens = ["home","course","cats","quiz","profile","achievements","dragon","missions","duels","shop"];
+let playerCourse = localStorage.getItem("quizzyCourse") || "";
+let xp = Number(localStorage.getItem("quizzyXP") || 0);
+let coins = Number(localStorage.getItem("quizzyCoins") || 100);
+let dragonItem = localStorage.getItem("quizzyDragonItem") || "draco";
+let dragonName = localStorage.getItem("quizzyDragonName") || "Draco";
+let categoriesPlayed = new Set(JSON.parse(localStorage.getItem("quizzyCategories") || "[]"));
+let missions = JSON.parse(localStorage.getItem("quizzyMissions") || "null");
+let list = [], pos = 0, points = 0, currentCategory = "";
 
-  showDragon=function(){
-    oldShowDragon();
+function save(){
+  localStorage.setItem("quizzyXP",xp);
+  localStorage.setItem("quizzyCoins",coins);
+  localStorage.setItem("quizzyCourse",playerCourse);
+  localStorage.setItem("quizzyDragonItem",dragonItem);
+  localStorage.setItem("quizzyDragonName",dragonName);
+  localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
+  updateHeader();
+}
+function updateHeader(){
+  const level = Math.floor(xp/100)+1;
+  $("level").textContent=level;
+  $("xp").textContent=xp;
+  $("coins").textContent=coins;
+  $("xpfill").style.width=(xp%100)+"%";
+  $("dragonHome").textContent=level>=20?"👑":level>=10?"🐉":level>=5?"🐲":level>=3?"✨":level>=2?"🐣":"🥚";
+}
+function hide(){screens.forEach(s=>$(s).classList.add("hidden"))}
+function home(){hide();$("home").classList.remove("hidden");updateHeader()}
+function backButton(){return `<button onclick="home()">⬅️ Volver</button>`}
 
-    const room=document.getElementById("dragonroom");
-    if(!room)return;
+function showCourse(){
+  hide(); $("course").classList.remove("hidden");
+  $("course").innerHTML=`<h2>📚 Mi curso</h2>
+    <p>Elige tu curso para adaptar las preguntas.</p>
+    <select id="courseSelect">
+      <option value="">Selecciona...</option>
+      ${["1º de Primaria","2º de Primaria","3º de Primaria","4º de Primaria","5º de Primaria","6º de Primaria"].map(c=>`<option ${playerCourse===c?"selected":""}>${c}</option>`).join("")}
+    </select>
+    <button class="primary" onclick="saveCourse()">💾 Guardar curso</button>
+    ${playerCourse?`<div class="notice">✅ Curso guardado: <b>${playerCourse}</b></div>`:""}
+    ${backButton()}`;
+}
+function saveCourse(){
+  const c=$("courseSelect").value;
+  if(!c){alert("Elige un curso");return}
+  playerCourse=c; save(); showCats();
+}
+function showCats(){
+  hide(); $("cats").classList.remove("hidden");
+  $("cats").innerHTML=`<h2>📚 Categorías</h2>
+    ${playerCourse?`<div class="notice">🎓 ${playerCourse}</div>`:`<div class="notice">Elige primero tu curso.</div>`}
+    <button class="primary" onclick="startQuiz('Matemáticas')">➗ Matemáticas</button>
+    <button onclick="startQuiz('Lengua')">📖 Lengua</button>
+    <button onclick="startQuiz('Ciencias')">🔬 Ciencias</button>
+    ${backButton()}`;
+}
+async function startQuiz(category){
+  if(!playerCourse){showCourse();return}
+  currentCategory=category;
+  categoriesPlayed.add(category); save();
+  try{
+    const r=await fetch("preguntas.json?"+Date.now());
+    const data=await r.json();
+    list=(data[playerCourse]&&data[playerCourse][category])||[];
+  }catch(e){list=[]}
+  if(!list.length){alert("No hay preguntas disponibles para esta categoría.");return}
+  pos=0;points=0;
+  hide();$("quiz").classList.remove("hidden");
+  renderQuestion();
+}
+function renderQuestion(){
+  if(pos>=list.length){finishQuiz();return}
+  const q=list[pos];
+  $("quiz").innerHTML=`<h2>🎯 ${currentCategory}</h2>
+    <div class="notice">Pregunta ${pos+1} de ${list.length}</div>
+    <h3>${q[0]}</h3>
+    ${q[1].map((a,i)=>`<button class="answer" onclick="answer(${i})">${a}</button>`).join("")}
+    ${backButton()}`;
+}
+function answer(i){
+  const q=list[pos];
+  const buttons=[...$("quiz").querySelectorAll(".answer")];
+  buttons.forEach((b,n)=>b.disabled=true);
+  if(i===q[2]){
+    points++; xp+=10; coins+=5; buttons[i].classList.add("correct");
+  }else{
+    buttons[i].classList.add("wrong");
+    if(buttons[q[2]])buttons[q[2]].classList.add("correct");
+  }
+  save();
+  setTimeout(()=>{pos++;renderQuestion()},500);
+}
+function finishQuiz(){
+  const bonus=points*5; xp+=bonus;
+  $("quiz").innerHTML=`<h2>🎉 ¡Quiz terminado!</h2>
+    <div class="notice">Has acertado <b>${points}</b> de ${list.length}.<br>⭐ Ganaste ${points*10+bonus} XP.</div>
+    <button class="primary" onclick="showCats()">🔄 Otra categoría</button>
+    ${backButton()}`;
+  save();
+}
+function startHome(){ if(!playerCourse){showCourse()}else{showCats()} }
 
-    let panel=document.getElementById("dragonextra");
+function showProfile(){
+  hide();$("profile").classList.remove("hidden");
+  $("profile").innerHTML=`<h2>👤 Perfil</h2>
+    <div class="stats"><b>🎓 Curso:</b> ${playerCourse||"Sin elegir"}<br><b>⭐ XP:</b> ${xp}<br><b>🪙 Monedas:</b> ${coins}<br><b>📚 Categorías jugadas:</b> ${[...categoriesPlayed].join(", ")||"Ninguna"}</div>
+    <button onclick="showCourse()">📚 Cambiar curso</button>${backButton()}`;
+}
+function showAchievements(){
+  hide();$("achievements").classList.remove("hidden");
+  const level=Math.floor(xp/100)+1;
+  $("achievements").innerHTML=`<h2>🏆 Logros</h2>
+    <div class="notice">${xp>=100?"🏅":"🔒"} Llegar a 100 XP<br>
+    ${categoriesPlayed.size>=2?"🏅":"🔒"} Jugar 2 categorías<br>
+    ${level>=5?"🏅":"🔒"} Llegar al nivel 5</div>${backButton()}`;
+}
+function showDragon(){
+  hide();$("dragon").classList.remove("hidden");
+  const level=Math.floor(xp/100)+1;
+  const emoji=level>=20?"👑":level>=10?"🐉":level>=5?"🐲":level>=3?"✨":level>=2?"🐣":"🥚";
+  $("dragon").innerHTML=`<h2>🐉 Mi dragón</h2><div class="dragon">${emoji}</div>
+    <p>💜 Tu compañero: <b>${dragonName}</b></p>
+    <input id="dragonInput" value="${dragonName}" maxlength="18" placeholder="Nombre del dragón">
+    <button class="primary" onclick="saveDragon()">💾 Guardar nombre</button>
+    <div class="evo">🌟 Evolución<br>🥚 Nivel 1 → 🐣 Nivel 2 → 🐲 Nivel 5 → 🐉 Nivel 10 → 👑 Nivel 20</div>
+    ${backButton()}`;
+}
+function saveDragon(){
+  const n=$("dragonInput").value.trim();
+  if(!n){alert("Escribe un nombre");return}
+  dragonName=n;save();showDragon();
+}
+function resetMissions(){
+  const today=new Date().toISOString().slice(0,10);
+  if(!missions||missions.date!==today){
+    missions={date:today,q:0,xp:false,cats:[]};
+    localStorage.setItem("quizzyMissions",JSON.stringify(missions));
+  }
+}
+function showMissions(){
+  resetMissions();hide();$("missions").classList.remove("hidden");
+  $("missions").innerHTML=`<h2>🎯 Misiones de hoy</h2>
+    <div class="notice">${missions.q>=5?"✅":"⬜"} Responde 5 preguntas: <b>${missions.q}/5</b><br>
+    ${missions.xp?"✅":"⬜"} Consigue 30 XP<br>
+    ${missions.cats.length>=2?"✅":"⬜"} Juega 2 categorías diferentes: <b>${missions.cats.length}/2</b></div>
+    ${backButton()}`;
+}
+function showDuels(){
+  hide();$("duels").classList.remove("hidden");
+  $("duels").innerHTML=`<h2>⚔️ Duelos</h2>
+    <div class="notice">Próximamente podrás retar a otro jugador.</div>
+    <button class="primary" onclick="alert('Aún no hay preguntas suficientes para el duelo.')">⚔️ Buscar rival</button>
+    ${backButton()}`;
+}
+function showShop(){
+  hide();$("shop").classList.remove("hidden");
+  const items=[["draco","🐉 Draco",50],["fenix","🔥 Fénix",120],["supremo","👑 Dragón Supremo",250]];
+  $("shop").innerHTML=`<h2>🛍️ Tienda</h2><div class="notice">🪙 Tienes ${coins} monedas</div>
+    ${items.map(([id,n,p])=>`<button onclick="buyItem('${id}',${p})">${n} · ${p} 🪙 ${dragonItem===id?"✅ Equipado":""}</button>`).join("")}
+    ${backButton()}`;
+}
+function buyItem(id,p){
+  if(dragonItem===id){showShop();return}
+  if(coins<p){alert("No tienes suficientes monedas.");return}
+  coins-=p;dragonItem=id;save();showShop();
+}
 
-    if(!panel){
-      panel=document.createElement("div");
-      panel.id="dragonextra";
-      panel.style.cssText="margin:20px auto;padding:18px;max-width:420px;background:white;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,.12);text-align:center";
+const oldAnswer=answer;
+const oldFinish=finishQuiz;
+function missionUpdate(){
+  resetMissions();
+  missions.q=Math.min(5,missions.q+1);
+  if(xp>=30)missions.xp=true;
+  if(currentCategory&&!missions.cats.includes(currentCategory))missions.cats.push(currentCategory);
+  localStorage.setItem("quizzyMissions",JSON.stringify(missions));
+}
+// wrap answer safely so missions always update
+answer=function(i){
+  missionUpdate();
+  oldAnswer(i);
+}
+finishQuiz=oldFinish;
 
-      panel.innerHTML=`
-        <h2>🐉 Personaliza tu dragón</h2>
-        <p>✨ Ponle un nombre a tu compañero</p>
-        <input id="dragonname" type="text" maxlength="18" placeholder="Nombre del dragón"
-          style="padding:12px;border:2px solid #ddd;border-radius:12px;width:70%;font-size:16px">
-        <button id="savedragonname"
-          style="margin:10px;padding:12px 18px;border:0;border-radius:12px;background:#7b2cbf;color:white;font-weight:bold;cursor:pointer">
-          💾 Guardar
-        </button>
-        <div id="dragonmessage" style="margin-top:8px;font-weight:bold"></div>
-                <div style="margin-top:15px;padding:12px;background:#f3e8ff;border-radius:14px">
-          🌟 <b>Evolución del dragón</b><br>
-          <span>🥚 Nivel 1 → 🐣 Nivel 2 → 🐲 Nivel 5 → 🐉 Nivel 10 → 👑 Nivel 20</span>
-        </div>
-      `;
-
-      room.appendChild(panel);
-
-      const saved=localStorage.getItem("quizzyDragonName");
-      if(saved)document.getElementById("dragonname").value=saved;
-
-      document.getElementById("savedragonname").onclick=function(){
-        const name=document.getElementById("dragonname").value.trim();
-
-        if(name){
-          localStorage.setItem("quizzyDragonName",name);
-          document.getElementById("dragonmessage").textContent="💜 ¡Tu dragón se llama "+name+"!";
-        }else{
-          document.getElementById("dragonmessage").textContent="Escribe un nombre primero 😊";
-        }
-      };
-    }
-  };
-})();
+resetMissions();
+updateHeader();
 </script>
+</body>
+</html>
