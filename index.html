@@ -195,7 +195,12 @@ function showAchievements(){
     <div class="notice">${xp>=100?"🏅":"🔒"} Llegar a 100 XP<br>
     ${categoriesPlayed.size>=2?"🏅":"🔒"} Jugar 2 categorías<br>
     ${level>=5?"🏅":"🔒"} Llegar al nivel 5</div>${backButton()}`;
-$("#dragon").innerHTML=`
+}
+}
+function showDragon(){
+  hide();
+$("#dragon").classList.remove("hidden");
+$("#dragon").innerHTML=``
 <h2>🐉 Mi dragón</h2>
 <div class="dragon">
 <img src="dragon-morado.png" alt="Mi dragón" style="max-width:${dragonSize}px;max-height:${dragonSize}px;filter:drop-shadow(${glow})">
