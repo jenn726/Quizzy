@@ -233,7 +233,7 @@ function showMissions(){
   $("missions").innerHTML=`<h2>🎯 Misiones de hoy</h2>
     <div class="notice">${missions.q>=5?"✅":"⬜"} Responde 5 preguntas: <b>${missions.q}/5</b><br>
     ${missions.xp?"✅":"⬜"} Consigue 30 XP<br>
-    ${missions.cats.length>=2?"✅":"⬜"} Juega 2 categorías diferentes: <b>${missions.cats.length}/2</b></div>
+    ${missions.cats.length>=2?"✅":"⬜"} Juega 2 categorías diferentes: <b>${Math.min(missions.cats.length,2)}/2</b></div>
     ${backButton()}`;
 }
 function showDuels(){
