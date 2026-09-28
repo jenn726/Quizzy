@@ -262,7 +262,7 @@ function showDuels(){
 
 function startDuel(){
   hide();
-  $("duels").classList.remove("hidden");
+  $("#duels").classList.remove("hidden");
 
   const duelQuestions = [
     ["¿Cuál es la capital de España?", ["Madrid","Vigo","Sevilla"], 0],
@@ -273,13 +273,25 @@ function startDuel(){
   ];
 
   let duelIndex = 0;
-  let duelScore = 0;
+  let duelTurn = 0;
+  let duelScores = [0,0];
 
   function showDuelQuestion(){
     const q = duelQuestions[duelIndex];
+    const player = duelTurn + 1;
 
-    $("duels").innerHTML = `
+    $("#duels").innerHTML = `
       <h2>⚔️ Duelo</h2>
+
+      <div class="notice">
+        🎮 Turno del Jugador ${player}
+      </div>
+
+      <div class="stats">
+        <b>👤 Jugador 1:</b> ${duelScores[0]} puntos<br>
+        <b>👤 Jugador 2:</b> ${duelScores[1]} puntos
+      </div>
+
       <div class="notice">
         Pregunta ${duelIndex + 1} de ${duelQuestions.length}
       </div>
@@ -287,7 +299,7 @@ function startDuel(){
       <h3>${q[0]}</h3>
 
       ${q[1].map((answer,index)=>`
-        <button onclick="answerDuel(${index})">
+        <button class="answer" onclick="answerDuel(${index})">
           ${answer}
         </button>
       `).join("")}
@@ -296,23 +308,34 @@ function startDuel(){
 
   window.answerDuel = function(index){
     const q = duelQuestions[duelIndex];
+    const player = duelTurn;
 
     if(index === q[2]){
-      duelScore++;
+      duelScores[player]++;
       alert("✅ ¡Correcto!");
     }else{
       alert("❌ ¡Incorrecto!");
     }
-    missionUpdate();
 
     duelIndex++;
 
     if(duelIndex >= duelQuestions.length){
-      $("duels").innerHTML = `
+      $("#duels").innerHTML = `
         <h2>🏆 Fin del duelo</h2>
+
         <div class="notice">
-          Has conseguido ${duelScore} de ${duelQuestions.length} puntos.
+          👤 Jugador 1: <b>${duelScores[0]} puntos</b><br>
+          👤 Jugador 2: <b>${duelScores[1]} puntos</b>
         </div>
+
+        <div class="stats">
+          ${duelScores[0] > duelScores[1]
+            ? "🏆 ¡Jugador 1 gana!"
+            : duelScores[1] > duelScores[0]
+            ? "🏆 ¡Jugador 2 gana!"
+            : "🤝 ¡Empate!"}
+        </div>
+
         <button class="primary" onclick="showDuels()">
           ⚔️ Volver a Duelos
         </button>
@@ -320,8 +343,14 @@ function startDuel(){
       return;
     }
 
+    // Cambiamos de jugador y mostramos una pregunta nueva
+    duelTurn = duelTurn === 0 ? 1 : 0;
+
     showDuelQuestion();
   };
+
+  showDuelQuestion();
+}
 
   showDuelQuestion();
 }
