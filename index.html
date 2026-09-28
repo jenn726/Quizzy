@@ -237,11 +237,31 @@ function showMissions(){
     ${backButton()}`;
 }
 function showDuels(){
-  hide();$("duels").classList.remove("hidden");
-  $("duels").innerHTML=`<h2>⚔️ Duelos</h2>
-    <div class="notice">Próximamente podrás retar a otro jugador.</div>
-    <button class="primary" onclick="alert('Aún no hay preguntas suficientes para el duelo.')">⚔️ Buscar rival</button>
-    ${backButton()}`;
+  hide();
+  $("duels").classList.remove("hidden");
+
+  $( "duels" ).innerHTML = `
+    <h2>⚔️ Duelos</h2>
+    <div class="notice">
+      🐉 ¡Prepárate para el duelo!
+    </div>
+
+    <div class="stats">
+      <b>Jugador 1:</b> ${dragonName}<br>
+      <b>🐉 Dragón:</b> ${dragonItem==="supremo" ? "👑 Dragón Supremo" : dragonItem==="fenix" ? "🔥 Fénix" : "🐉 Draco"}<br>
+      <b>⭐ Nivel:</b> ${Math.floor(xp/100)+1}
+    </div>
+
+    <button class="primary" onclick="startDuel()">
+      ⚔️ ¡Empezar duelo!
+    </button>
+
+    ${backButton()}
+  `;
+}
+
+function startDuel(){
+  alert("⚔️ ¡Duelo iniciado! Próximamente podrás enfrentarte a otro jugador.");
 }
 function showShop(){
   hide();$("shop").classList.remove("hidden");
