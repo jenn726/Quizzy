@@ -262,7 +262,7 @@ function showDuels(){
 
 function startDuel(){
   hide();
-  $("#duels").classList.remove("hidden");
+  $("duels").classList.remove("hidden");
 
   const duelQuestions = [
     ["¿Cuál es la capital de España?", ["Madrid","Vigo","Sevilla"], 0],
@@ -279,7 +279,7 @@ function startDuel(){
   function showDuelQuestion(){
     const q = duelQuestions[duelIndex];
 
-    $("#duels").innerHTML = `
+    $("duels").innerHTML = `
       <h2>⚔️ Duelo</h2>
 
       <div class="notice">
@@ -318,7 +318,7 @@ function startDuel(){
     duelIndex++;
 
     if(duelIndex >= duelQuestions.length){
-      $("#duels").innerHTML = `
+      $("duels").innerHTML = `
         <h2>🏆 Fin del duelo</h2>
 
         <div class="notice">
