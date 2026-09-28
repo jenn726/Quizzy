@@ -224,7 +224,7 @@ function saveDragon(){
 function resetMissions(){
   const today=new Date().toISOString().slice(0,10);
   if(!missions||missions.date!==today){
-    missions={date:today,q:0,xp:false,cats:[]};
+    missions={date:today,q:0,xp:false,cats:[],xpStart:xp};
     localStorage.setItem("quizzyMissions",JSON.stringify(missions));
   }
 }
@@ -261,7 +261,7 @@ const oldFinish=finishQuiz;
 function missionUpdate(){
   resetMissions();
   missions.q=Math.min(5,missions.q+1);
-  if(xp>=30)missions.xp=true;
+  if(xp-missions.xpStart>=30)missions.xp=true;
   if(currentCategory&&!missions.cats.includes(currentCategory))missions.cats.push(currentCategory);
   localStorage.setItem("quizzyMissions",JSON.stringify(missions));
 }
