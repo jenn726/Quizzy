@@ -261,7 +261,68 @@ function showDuels(){
 }
 
 function startDuel(){
-  alert("⚔️ ¡Duelo iniciado! Próximamente podrás enfrentarte a otro jugador.");
+  hide();
+  $("duels").classList.remove("hidden");
+
+  const duelQuestions = [
+    ["¿Cuál es la capital de España?", ["Madrid","Vigo","Sevilla"], 0],
+    ["¿Cuántos días tiene una semana?", ["5","7","10"], 1],
+    ["¿Qué planeta habitamos?", ["Marte","Tierra","Júpiter"], 1],
+    ["¿Cuánto es 6 × 4?", ["20","24","28"], 1],
+    ["¿Qué animal es un mamífero?", ["Perro","Gallina","Pez"], 0]
+  ];
+
+  let duelIndex = 0;
+  let duelScore = 0;
+
+  function showDuelQuestion(){
+    const q = duelQuestions[duelIndex];
+
+    $("duels").innerHTML = `
+      <h2>⚔️ Duelo</h2>
+      <div class="notice">
+        Pregunta ${duelIndex + 1} de ${duelQuestions.length}
+      </div>
+
+      <h3>${q[0]}</h3>
+
+      ${q[1].map((answer,index)=>`
+        <button onclick="answerDuel(${index})">
+          ${answer}
+        </button>
+      `).join("")}
+    `;
+  }
+
+  window.answerDuel = function(index){
+    const q = duelQuestions[duelIndex];
+
+    if(index === q[2]){
+      duelScore++;
+      alert("✅ ¡Correcto!");
+    }else{
+      alert("❌ ¡Incorrecto!");
+    }
+
+    duelIndex++;
+
+    if(duelIndex >= duelQuestions.length){
+      $("duels").innerHTML = `
+        <h2>🏆 Fin del duelo</h2>
+        <div class="notice">
+          Has conseguido ${duelScore} de ${duelQuestions.length} puntos.
+        </div>
+        <button class="primary" onclick="showDuels()">
+          ⚔️ Volver a Duelos
+        </button>
+      `;
+      return;
+    }
+
+    showDuelQuestion();
+  };
+
+  showDuelQuestion();
 }
 function showShop(){
   hide();$("shop").classList.remove("hidden");
