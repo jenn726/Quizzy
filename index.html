@@ -287,6 +287,11 @@ function showCustomize(){
     <button onclick="showCustomize()">← Volver</button>
   `;
 }
+  function setDragonColor(color){
+  dragonColor = color;
+  localStorage.setItem("quizzyDragonColor", color);
+  showDragon();
+}
 function saveDragon(){
   const n=$("dragonInput").value.trim();
   if(!n){alert("Escribe un nombre");return}
