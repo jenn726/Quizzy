@@ -251,10 +251,13 @@ function showDragon(){
 }
 function showCustomize(){
   hide();
-  $("#dragon").classList.remove("hidden");
 
-  $("#dragon").innerHTML = `
+  const dragonScreen = document.getElementById("dragon");
+  dragonScreen.classList.remove("hidden");
+
+  dragonScreen.innerHTML = `
     <h2>🎨 Personalizar a Draco</h2>
+
     <div class="evo">
       🐲 Elige cómo quieres que sea tu dragón
     </div>
