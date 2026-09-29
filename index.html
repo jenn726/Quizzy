@@ -349,19 +349,36 @@ function startDuel(){
 
     duelIndex++;
 
-    if(duelIndex >= duelQuestions.length){
-      $("duels").innerHTML = `
-        <h2>🏆 Fin del duelo</h2>
+ if(duelIndex >= duelQuestions.length){
 
-        <div class="notice">
-          👤 Jugador 1: <b>${duelScores[0]} puntos</b><br>
-          👤 Jugador 2: <b>${duelScores[1]} puntos</b>
-        </div>
+  if(duelScores[0] > duelScores[1]){
+    xp += 50;
+    coins += 30;
+    save();
+  }
 
-        <button class="primary" onclick="showDuels()">
-          ⚔️ Volver a Duelos
-        </button>
-      `;
+  $("duels").innerHTML = `
+    <h2>🏆 Fin del duelo</h2>
+
+    <div class="notice">
+      👤 Jugador 1: <b>${duelScores[0]} puntos</b><br>
+      👤 Jugador 2: <b>${duelScores[1]} puntos</b>
+    </div>
+
+    ${
+      duelScores[0] > duelScores[1]
+      ? `<div class="notice">🎉 ¡Has ganado!<br><b>+50 XP · +30 🪙</b></div>`
+      : duelScores[0] === duelScores[1]
+      ? `<div class="notice">🤝 ¡Empate!</div>`
+      : `<div class="notice">💪 ¡Buen duelo! Sigue intentándolo.</div>`
+    }
+
+    <button class="primary" onclick="showDuels()">
+      ⚔️ Volver a Duelos
+    </button>
+  `;
+  return;
+}
       return;
     }
 
