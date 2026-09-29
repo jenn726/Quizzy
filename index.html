@@ -189,12 +189,20 @@ function showProfile(){
     <button onclick="showCourse()">📚 Cambiar curso</button>${backButton()}`;
 }
 function showAchievements(){
-  hide();$("achievements").classList.remove("hidden");
+  hide();
+  $("#achievements").classList.remove("hidden");
+
   const level=Math.floor(xp/100)+1;
-  $("achievements").innerHTML=`<h2>🏆 Logros</h2>
-    <div class="notice">${xp>=100?"🏅":"🔒"} Llegar a 100 XP<br>
-    ${categoriesPlayed.size>=2?"🏅":"🔒"} Jugar 2 categorías<br>
-    ${level>=5?"🏅":"🔒"} Llegar al nivel 5</div>${backButton()}`;
+
+  $("#achievements").innerHTML=`
+    <h2>🏆 Logros</h2>
+    <div class="notice">
+      ${xp>=100?"🏆":"🔒"} Llegar a 100 XP<br>
+      ${categoriesPlayed.size>=2?"🏆":"🔒"} Jugar 2 categorías<br>
+      ${level>=5?"🏆":"🔒"} Llegar al nivel 5
+    </div>
+    ${backButton()}
+  `;
 }
 function showDragon(){
   hide();
