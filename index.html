@@ -378,8 +378,6 @@ function startDuel(){
     </button>
   `;
   return;
-}
-      return;
     }
 
     duelTurn = duelTurn === 0 ? 1 : 0;
@@ -458,20 +456,3 @@ window.guardarProgresoQuizzy = async function(datos) {
       doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a"),
       {
         ...datos,
-        actualizadoEn: new Date()
-      },
-      { merge: true }
-    );
-
-    console.log("💾 Progreso guardado en Firebase", datos);
-  } catch (error) {
-    console.error("❌ Error guardando progreso:", error);
-  }
-};
-  } catch (error) {
-    console.error("❌ Error conectando Firebase:", error);
-  }
-})();
-</script>
-</body>
-</html>
