@@ -249,13 +249,12 @@ function showDragon(){
     ${backButton()}
   `;
 }
-  function showCustomize(){
+function showCustomize(){
   hide();
   $("#dragon").classList.remove("hidden");
 
   $("#dragon").innerHTML = `
     <h2>🎨 Personalizar a Draco</h2>
-
     <div class="evo">
       🐲 Elige cómo quieres que sea tu dragón
     </div>
@@ -264,7 +263,7 @@ function showDragon(){
     <button class="primary">👑 Accesorios</button>
     <button class="primary">✨ Efectos</button>
 
-    ${backButton()}
+    <button onclick="showDragon()">← Volver</button>
   `;
 }
 function saveDragon(){
