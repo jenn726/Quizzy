@@ -319,6 +319,11 @@ function showCustomize(){
     <button onclick="showCustomize()">← Volver</button>
   `;
 }
+  function setDragonAccessory(accessory){
+  dragonAccessory = accessory;
+  localStorage.setItem("quizzyDragonAccessory", accessory);
+  showDragon();
+}
 function saveDragon(){
   const n=$("dragonInput").value.trim();
   if(!n){alert("Escribe un nombre");return}
