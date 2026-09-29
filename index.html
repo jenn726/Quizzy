@@ -203,14 +203,14 @@ function showAchievements(){
 
   const level=Math.floor(xp/100)+1;
   claimAchievement("xp100",20);
-
+claimAchievement("categories2",30);
  $("achievements").innerHTML=`
     <h2>🏆 Logros</h2>
     <div class="notice">
       ${xp>=100?"🏆":"🔒"} Llegar a 100 XP<br>
       ${categoriesPlayed.size>=2?"🏆":"🔒"} Jugar 2 categorías<br>
       ${level>=5?"🏆":"🔒"} Llegar al nivel 5<br>
-      claimAchievement("categories2",30);
+     
             ${xp>=500?"🏆":"🔒"} Conseguir 500 XP<br>
       ${categoriesPlayed.size>=6?"🏆":"🔒"} Explorar todas las categorías<br>
       ${level>=20?"🏆":"🔒"} Llegar al nivel 20<br>
