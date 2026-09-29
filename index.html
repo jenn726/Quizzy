@@ -72,6 +72,7 @@ let dragonItem = localStorage.getItem("quizzyDragonItem") || "draco";
 let dragonName = localStorage.getItem("quizzyDragonName") || "Draco";
 let categoriesPlayed = new Set(JSON.parse(localStorage.getItem("quizzyCategories") || "[]"));
 let missions = JSON.parse(localStorage.getItem("quizzyMissions") || "null");
+let claimedAchievements = JSON.parse(localStorage.getItem("quizzyClaimedAchievements") || "[]");
 let list = [], pos = 0, points = 0, currentCategory = "";
 
 function save(){
