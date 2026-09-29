@@ -273,7 +273,7 @@ function showCustomize(){
     </div>
 
    <button class="primary" onclick="showColors()">🎨 Color</button>
-    <button class="primary">👑 Accesorios</button>
+    <button class="primary" onclick="showAccessories()">👑 Accesorios</button>
     <button class="primary">✨ Efectos</button>
 
     <button onclick="showDragon()">← Volver</button>
@@ -300,6 +300,24 @@ function showCustomize(){
   dragonColor = color;
   localStorage.setItem("quizzyDragonColor", color);
   showDragon();
+}
+  function showAccessories(){
+  const dragonScreen = document.getElementById("dragon");
+
+  dragonScreen.innerHTML = `
+    <h2>👑 Accesorios de Draco</h2>
+
+    <div class="evo">
+      Elige un accesorio para tu dragón
+    </div>
+
+    <button class="primary" onclick="setDragonAccessory('corona')">👑 Corona</button>
+    <button class="primary" onclick="setDragonAccessory('sombrero')">🎩 Sombrero</button>
+    <button class="primary" onclick="setDragonAccessory('gafas')">🕶️ Gafas</button>
+    <button onclick="setDragonAccessory('ninguno')">❌ Ninguno</button>
+
+    <button onclick="showCustomize()">← Volver</button>
+  `;
 }
 function saveDragon(){
   const n=$("dragonInput").value.trim();
