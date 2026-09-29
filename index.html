@@ -189,6 +189,14 @@ function showProfile(){
     <div class="stats"><b>🎓 Curso:</b> ${playerCourse||"Sin elegir"}<br><b>⭐ XP:</b> ${xp}<br><b>🪙 Monedas:</b> ${coins}<br><b>📚 Categorías jugadas:</b> ${[...categoriesPlayed].join(", ")||"Ninguna"}</div>
     <button onclick="showCourse()">📚 Cambiar curso</button>${backButton()}`;
 }
+  function claimAchievement(id,reward){
+  if(claimedAchievements.includes(id)) return false;
+  claimedAchievements.push(id);
+  coins += reward;
+  localStorage.setItem("quizzyClaimedAchievements",JSON.stringify(claimedAchievements));
+  save();
+  return true;
+}
 function showAchievements(){
   hide();
   $("achievements").classList.remove("hidden");
