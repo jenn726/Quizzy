@@ -263,11 +263,28 @@ function showCustomize(){
       🐲 Elige cómo quieres que sea tu dragón
     </div>
 
-    <button class="primary">🎨 Color</button>
+   <button class="primary" onclick="showColors()">🎨 Color</button>
     <button class="primary">👑 Accesorios</button>
     <button class="primary">✨ Efectos</button>
 
     <button onclick="showDragon()">← Volver</button>
+  `;
+}
+  function showColors(){
+  const dragonScreen = document.getElementById("dragon");
+
+  dragonScreen.innerHTML = `
+    <h2>🎨 Color de Draco</h2>
+
+    <div class="evo">
+      Elige un color para tu dragón
+    </div>
+
+    <button class="primary" onclick="setDragonColor('original')">💜 Morado</button>
+    <button class="primary" onclick="setDragonColor('azul')">💙 Azul</button>
+    <button class="primary" onclick="setDragonColor('verde')">💚 Verde</button>
+
+    <button onclick="showCustomize()">← Volver</button>
   `;
 }
 function saveDragon(){
