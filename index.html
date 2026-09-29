@@ -195,6 +195,7 @@ function showProfile(){
   coins += reward;
   localStorage.setItem("quizzyClaimedAchievements",JSON.stringify(claimedAchievements));
   save();
+    alert(`🎉 ¡Logro desbloqueado! +${reward} 🪙`);
   return true;
 }
 function showAchievements(){
