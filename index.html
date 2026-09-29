@@ -245,6 +245,25 @@ function showDragon(){
     <input id="dragonInput" value="${dragonName}" maxlength="18" placeholder="Nombre del dragón">
     <button class="primary" onclick="saveDragon()">💾 Guardar nombre</button>
     <div class="evo">🌟 Evolución<br>🥚 Nivel 1 → 🐣 Nivel 2 → 🐲 Nivel 5 → 🐉 Nivel 10 → 👑 Nivel 20</div>
+    <button class="primary" onclick="showCustomize()">🎨 Personalizar</button>
+    ${backButton()}
+  `;
+}
+  function showCustomize(){
+  hide();
+  $("#dragon").classList.remove("hidden");
+
+  $("#dragon").innerHTML = `
+    <h2>🎨 Personalizar a Draco</h2>
+
+    <div class="evo">
+      🐲 Elige cómo quieres que sea tu dragón
+    </div>
+
+    <button class="primary">🎨 Color</button>
+    <button class="primary">👑 Accesorios</button>
+    <button class="primary">✨ Efectos</button>
+
     ${backButton()}
   `;
 }
