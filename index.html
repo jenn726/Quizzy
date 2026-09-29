@@ -202,6 +202,7 @@ function showAchievements(){
   $("achievements").classList.remove("hidden");
 
   const level=Math.floor(xp/100)+1;
+  claimAchievement("xp100",20);
 
  $("achievements").innerHTML=`
     <h2>🏆 Logros</h2>
