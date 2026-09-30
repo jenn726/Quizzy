@@ -512,6 +512,8 @@ function showShop(){
 }
   function showParents(){
   hide();
+      const level = Math.floor(xp/100)+1;
+  const evolutionName = level>=20?"Dragón supremo":level>=10?"Dragón legendario":level>=5?"Dragón poderoso":level>=3?"Dragón mágico":level>=2?"Dragón joven":"Dragón bebé";
   $("parents").classList.remove("hidden");
 
   $("parents").innerHTML = `
