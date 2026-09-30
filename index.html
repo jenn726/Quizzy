@@ -248,11 +248,17 @@ function showDragon(){
     "#f3e8ff"
   };
 ">
-  <img src="${evolutionImage}" alt="Mi dragón" style="max-width:180px;max-height:180px">
- ${dragonAccessory === "corona" ? '<div style="font-size:48px;">👑</div>' : ""}
-${dragonAccessory === "sombrero" ? '<div style="font-size:48px;">🎩</div>' : ""}
-${dragonAccessory === "gafas" ? '<div style="font-size:42px;">👓</div>' : ""}
-${dragonEffect === "brillo" ? '<div style="font-size:32px;">✨</div>' : ""}
+ <div style="position:relative;display:inline-block;width:180px;height:180px;">
+  <img src="${evolutionImage}" alt="Mi dragón" style="width:180px;height:180px;object-fit:contain;">
+
+  ${dragonAccessory === "corona" ? '<div style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:48px;pointer-events:none;">👑</div>' : ""}
+
+  ${dragonAccessory === "sombrero" ? '<div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);font-size:48px;pointer-events:none;">🎩</div>' : ""}
+
+  ${dragonAccessory === "gafas" ? '<div style="position:absolute;top:55px;left:50%;transform:translateX(-50%);font-size:42px;pointer-events:none;">👓</div>' : ""}
+
+  ${dragonEffect === "brillo" ? '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;pointer-events:none;">✨</div>' : ""}
+</div>
 </div>
     <div style="font-size:20px;font-weight:bold">Nivel ${level} ${emoji}</div>
     <p>💜 Tu compañero: <b>${dragonName}</b></p>
