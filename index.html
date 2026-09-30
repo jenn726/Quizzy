@@ -49,6 +49,7 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
     <button onclick="showMissions()">🎯 Misiones</button>
     <button onclick="showDuels()">⚔️ Duelos</button>
     <button onclick="showShop()">🛍️ Tienda</button>
+    <button onclick="showParents()">👨‍👩‍👧 Zona de padres</button>
   </div>
 
   <div id="course" class="hidden"></div>
@@ -60,6 +61,7 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
   <div id="missions" class="hidden"></div>
   <div id="duels" class="hidden"></div>
   <div id="shop" class="hidden"></div>
+  <div id="parents" class="hidden"></div>
 </div>
 
 <script>
@@ -507,6 +509,25 @@ function showShop(){
   $("shop").innerHTML=`<h2>🛍️ Tienda</h2><div class="notice">🪙 Tienes ${coins} monedas</div>
     ${items.map(([id,n,p])=>`<button onclick="buyItem('${id}',${p})">${n} · ${p} 🪙 ${dragonItem===id?"✅ Equipado":""}</button>`).join("")}
     ${backButton()}`;
+}
+  function showParents(){
+  hide();
+  $("#parents").classList.remove("hidden");
+
+  $("#parents").innerHTML = `
+    <h2>👨‍👩‍👧 Zona de padres</h2>
+
+    <div class="notice">
+      <h3>📊 Progreso de Quizzy</h3>
+      <p>🐉 Dragón: <b>${dragonName}</b></p>
+      <p>⭐ Nivel: <b>${level}</b></p>
+      <p>✨ XP: <b>${xp}</b></p>
+      <p>🪙 Monedas: <b>${coins}</b></p>
+      <p>🏆 Evolución: <b>${evolutionName}</b></p>
+    </div>
+
+    ${backButton()}
+  `;
 }
 function buyItem(id,p){
   if(dragonItem===id){showShop();return}
