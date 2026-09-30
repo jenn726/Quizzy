@@ -62,7 +62,6 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
   <div id="duels" class="hidden"></div>
   <div id="shop" class="hidden"></div>
   <div id="parents" class="hidden"></div>
-  <div id="parents" class="hidden"></div>
 </div>
 
 <script>
@@ -513,9 +512,9 @@ function showShop(){
 }
   function showParents(){
   hide();
-  $("#parents").classList.remove("hidden");
+  $("parents").classList.remove("hidden");
 
-  $("#parents").innerHTML = `
+  $("parents").innerHTML = `
     <h2>👨‍👩‍👧 Zona de padres</h2>
 
     <div class="notice">
