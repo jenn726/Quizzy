@@ -520,6 +520,7 @@ function showShop(){
   hide();
       const level = Math.floor(xp/100)+1;
   const evolutionName = level>=20?"Dragón supremo":level>=10?"Dragón legendario":level>=5?"Dragón poderoso":level>=3?"Dragón mágico":level>=2?"Dragón joven":"Dragón bebé";
+    const accuracy = questionsAnswered ? Math.round((correctAnswers / questionsAnswered) * 100) : 0;
   $("parents").classList.remove("hidden");
 
   $("parents").innerHTML = `
@@ -533,6 +534,7 @@ function showShop(){
       <p>🪙 Monedas: <b>${coins}</b></p>
       <p>📚 Preguntas respondidas: <b>${questionsAnswered}</b></p>
 <p>✅ Respuestas correctas: <b>${correctAnswers}</b></p>
+<p>🎯 Precisión: <b>${accuracy}%</b></p>
       <p>🏆 Evolución: <b>${evolutionName}</b></p>
     </div>
 
