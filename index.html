@@ -79,6 +79,8 @@ let categoriesPlayed = new Set(JSON.parse(localStorage.getItem("quizzyCategories
 let missions = JSON.parse(localStorage.getItem("quizzyMissions") || "null");
 let claimedAchievements = JSON.parse(localStorage.getItem("quizzyClaimedAchievements") || "[]");
 let list = [], pos = 0, points = 0, currentCategory = "";
+  let questionsAnswered = Number(localStorage.getItem("quizzyQuestionsAnswered") || 0);
+let correctAnswers = Number(localStorage.getItem("quizzyCorrectAnswers") || 0);
 
 function save(){
   localStorage.setItem("quizzyXP",xp);
@@ -170,9 +172,11 @@ function renderQuestion(){
 }
 function answer(i){
   const q=list[pos];
+  questionsAnswered++;
   const buttons=[...$("quiz").querySelectorAll(".answer")];
   buttons.forEach((b,n)=>b.disabled=true);
   if(i===q[2]){
+    correctAnswers++;
     points++; xp+=10; coins+=5; buttons[i].classList.add("correct");missions.q++;
   }else{
     buttons[i].classList.add("wrong");
