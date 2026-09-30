@@ -92,6 +92,8 @@ function save(){
 localStorage.setItem("quizzyDragonAccessory",dragonAccessory);
 localStorage.setItem("quizzyDragonEffect",dragonEffect);
   localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
+  localStorage.setItem("quizzyQuestionsAnswered",questionsAnswered);
+localStorage.setItem("quizzyCorrectAnswers",correctAnswers);
   updateHeader();
 
   // Guardar también el progreso en Firebase
