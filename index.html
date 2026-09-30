@@ -278,7 +278,7 @@ function showCustomize(){
 
    <button class="primary" onclick="showColors()">🎨 Color</button>
     <button class="primary" onclick="showAccessories()">👑 Accesorios</button>
-    <button class="primary">✨ Efectos</button>
+   <button class="primary" onclick="showEffects()">✨ Efectos</button>
 
     <button onclick="showDragon()">← Volver</button>
   `;
@@ -327,6 +327,24 @@ function showCustomize(){
   dragonAccessory = accessory;
   localStorage.setItem("quizzyDragonAccessory", accessory);
   showDragon();
+}
+function showEffects(){
+  const dragonScreen = document.getElementById("dragon");
+
+  dragonScreen.innerHTML = `
+    <h2>✨ Efectos de Draco</h2>
+
+    <div class="evo">
+      Elige un efecto para tu dragón
+    </div>
+
+    <button class="primary" onclick="setDragonEffect('brillo')">✨ Brillo mágico</button>
+    <button class="primary" onclick="setDragonEffect('fuego')">🔥 Fuego</button>
+    <button class="primary" onclick="setDragonEffect('estrellas')">💫 Estrellas</button>
+    <button onclick="setDragonEffect('ninguno')">❌ Ninguno</button>
+
+    <button onclick="showCustomize()">← Volver</button>
+  `;
 }
 function saveDragon(){
   const n=$("dragonInput").value.trim();
