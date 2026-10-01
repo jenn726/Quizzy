@@ -463,7 +463,7 @@ function startDuel(){
       </div>
 
       <div class="notice">
-        Pregunta ${duelIndex + 1} de ${duelQuestions.length}
+        🎯 Turno del ${duelTurn === 0 ? "Jugador 1" : "Jugador 2"} · Pregunta ${Math.floor(duelIndex / 2) + 1} de 3
       </div>
 
       <h3>${q[0]}</h3>
