@@ -198,10 +198,63 @@ function finishQuiz(){
 function startHome(){ if(!playerCourse){showCourse()}else{showCats()} }
 
 function showProfile(){
-  hide();$("profile").classList.remove("hidden");
-  $("profile").innerHTML=`<h2>👤 Perfil</h2>
-    <div class="stats"><b>🎓 Curso:</b> ${playerCourse||"Sin elegir"}<br><b>⭐ XP:</b> ${xp}<br><b>🪙 Monedas:</b> ${coins}<br><b>📚 Categorías jugadas:</b> ${[...categoriesPlayed].join(", ")||"Ninguna"}</div>
-    <button onclick="showCourse()">📚 Cambiar curso</button>${backButton()}`;
+  hide();
+  $("#profile").classList.remove("hidden");
+
+  const level = Math.floor(xp/100)+1;
+  const xpActual = xp % 100;
+  const xpFaltante = 100 - xpActual;
+
+  const history = JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]");
+  const victorias = history.filter(d =>
+    (d.result || "").includes("Jugador 1") && d.scores && d.scores[0] > d.scores[1]
+  ).length;
+
+  const derrotas = history.filter(d =>
+    (d.result || "").includes("Jugador 2") && d.scores && d.scores[1] > d.scores[0]
+  ).length;
+
+  $("#profile").innerHTML = `
+    <h2>👤 Perfil</h2>
+
+    <div class="notice" style="text-align:center;">
+      <div style="font-size:48px;">🐉</div>
+      <div style="font-size:24px;font-weight:bold;">
+        ${dragonName || "Mi dragón"}
+      </div>
+      <div>Nivel ${level}</div>
+    </div>
+
+    <div class="notice">
+      <b>⭐ Experiencia</b><br>
+      ${xpActual} / 100 XP para el siguiente nivel<br>
+      <small>Te faltan ${xpFaltante} XP</small>
+    </div>
+
+    <div class="notice">
+      <b>🪙 Monedas</b><br>
+      ${coins}
+    </div>
+
+    <div class="notice">
+      <b>📚 Curso</b><br>
+      ${playerCourse || "Sin elegir"}
+    </div>
+
+    <div class="notice">
+      <b>📖 Categorías jugadas</b><br>
+      ${categoriesPlayed.size}
+    </div>
+
+    <div class="notice">
+      <b>⚔️ Duelos</b><br>
+      🏆 Victorias: ${victorias}<br>
+      💫 Duelos registrados: ${history.length}
+    </div>
+
+    <button onclick="showCourse()">📚 Cambiar curso</button>
+    ${backButton()}
+  `;
 }
   function claimAchievement(id,reward){
   if(claimedAchievements.includes(id)) return false;
