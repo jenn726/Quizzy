@@ -27,6 +27,25 @@ button.answer.wrong{background:#fecaca;border-color:#ef4444}
 input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;font-size:16px;margin:6px 0}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .notice{padding:12px;background:#f3e8ff;border-radius:14px;margin:10px 0}
+/* ===== ANIMACIÓN DE GOLPE EN DUELOS ===== */
+.duel-hit {
+  animation: duelHit 0.45s ease;
+}
+
+@keyframes duelHit {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.12) rotate(-3deg);
+  }
+  65% {
+    transform: scale(0.95) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
 </style>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
 </head>
