@@ -521,13 +521,13 @@ localStorage.setItem("quizzyDuelHistory", JSON.stringify(duelHistory));
       👤 Jugador 2: <b>${duelScores[1]} puntos</b>
     </div>
 
-    ${
-      duelScores[0] > duelScores[1]
-      ? `<div class="notice">🎉 ¡Has ganado!<br><b>+50 XP · +30 🪙</b></div>`
+  ${
+    duelScores[0] > duelScores[1]
+      ? `<div class="notice">🏆 ¡Jugador 1 gana!<br><b>+50 XP · +30 🪙</b></div>`
       : duelScores[0] === duelScores[1]
       ? `<div class="notice">🤝 ¡Empate!</div>`
-      : `<div class="notice">💪 ¡Buen duelo! Sigue intentándolo.</div>`
-    }
+      : `<div class="notice">🏆 ¡Jugador 2 gana!<br><b>+50 XP · +30 🪙</b></div>`
+}
 
     <button class="primary" onclick="showDuels()">
       ⚔️ Volver a Duelos
