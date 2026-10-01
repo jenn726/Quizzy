@@ -218,7 +218,7 @@ function showProfile(){
     <h2>👤 Perfil</h2>
 
     <div class="notice" style="text-align:center;">
-      <div style="font-size:48px;">🐉</div>
+      <img src="${level>=20 ? 'dragon-supremo.png' : level>=10 ? 'dragon-legendario.png' : level>=5 ? 'dragon-poderoso.png' : level>=3 ? 'dragon-mágico.png' : level>=2 ? 'dragon-joven.png' : 'dragon-morado.png'}" alt="Mi dragón" style="width:120px;height:120px;object-fit:contain;">
       <div style="font-size:24px;font-weight:bold;">
         ${dragonName || "Mi dragón"}
       </div>
