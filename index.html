@@ -211,6 +211,7 @@ function showReward(text){
   }else{
     buttons[i].classList.add("wrong");
     if(buttons[q[2]])buttons[q[2]].classList.add("correct");
+    showReward("❌ Incorrecto. ¡Sigue intentándolo!");
   }
   save();
   setTimeout(()=>{pos++;renderQuestion()},500);
