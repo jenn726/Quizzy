@@ -116,7 +116,7 @@ function updateHeader(){
   $("xpfill").style.width=(xp%100)+"%";
   $("dragonHome").textContent=level>=20?"👑":level>=10?"🐉":level>=5?"🐲":level>=3?"✨":level>=2?"🐣":"🥚";
 }
-function hide(){screens.forEach(s=>{if(s)s.classList.add("hidden")})}
+function hide(){screens.forEach(s=>{if($(s))$(s).classList.add("hidden")})}
 function home(){hide();$("home").classList.remove("hidden");updateHeader()}
 function backButton(){return `<button onclick="home()">⬅️ Volver</button>`}
 
