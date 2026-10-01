@@ -103,6 +103,8 @@ let list = [], pos = 0, points = 0, currentCategory = "";
 let correctAnswers = Number(localStorage.getItem("quizzyCorrectAnswers") || 0);
 
 function save(){
+ const oldXp=Number(localStorage.getItem("quizzyXP")||0);
+const oldLevel=Math.floor(oldXp/100)+1;
   localStorage.setItem("quizzyXP",xp);
   localStorage.setItem("quizzyCoins",coins);
   localStorage.setItem("quizzyCourse",playerCourse);
@@ -115,6 +117,10 @@ localStorage.setItem("quizzyDragonEffect",dragonEffect);
   localStorage.setItem("quizzyQuestionsAnswered",questionsAnswered);
 localStorage.setItem("quizzyCorrectAnswers",correctAnswers);
   updateHeader();
+  const newLevel=Math.floor(xp/100)+1;
+if(newLevel>oldLevel){
+  showReward("🎉 ¡Subiste al nivel "+newLevel+"!");
+}
 
   // Guardar también el progreso en Firebase
   if(window.guardarProgresoQuizzy){
