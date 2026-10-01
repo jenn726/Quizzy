@@ -674,7 +674,7 @@ updateHeader();
       "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
     );
 
-    const { getFirestore, doc, setDoc } = await import(
+    const { getFirestore, doc, setDoc, getDoc } = await import(
       "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
     );
 
@@ -690,6 +690,34 @@ updateHeader();
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    // ===== CARGAR PROGRESO DESDE FIREBASE =====
+try {
+  const ref = doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a");
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    const datos = snap.data();
+
+    if (datos.xp !== undefined)
+      localStorage.setItem("quizzyXP", datos.xp);
+
+    if (datos.monedas !== undefined)
+      localStorage.setItem("quizzyCoins", datos.monedas);
+
+    if (datos.curso !== undefined)
+      localStorage.setItem("quizzyCourse", datos.curso);
+
+    if (datos.dragonItem !== undefined)
+      localStorage.setItem("quizzyDragonItem", datos.dragonItem);
+
+    if (datos.dragonNombre !== undefined)
+      localStorage.setItem("quizzyDragonName", datos.dragonNombre);
+
+    console.log("📥 Progreso cargado desde Firebase", datos);
+  }
+} catch (error) {
+  console.error("❌ Error cargando progreso:", error);
+}
 
     window.quizzyFirebase = {
       db,
