@@ -199,7 +199,7 @@ function startHome(){ if(!playerCourse){showCourse()}else{showCats()} }
 
 function showProfile(){
   hide();
-  $("#profile").classList.remove("hidden");
+  $("profile").classList.remove("hidden");
 
   const level = Math.floor(xp/100)+1;
   const xpActual = xp % 100;
@@ -214,7 +214,7 @@ function showProfile(){
     (d.result || "").includes("Jugador 2") && d.scores && d.scores[1] > d.scores[0]
   ).length;
 
-  $("#profile").innerHTML = `
+  $("profile").innerHTML = `
     <h2>👤 Perfil</h2>
 
     <div class="notice" style="text-align:center;">
