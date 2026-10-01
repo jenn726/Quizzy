@@ -300,9 +300,8 @@ $("#achievements").innerHTML=`
     ${!claimedAchievements.includes("level20") ? "🔒 Llegar al nivel 20<br>" : ""}
     ${!claimedAchievements.includes("coins1000") ? "🔒 Conseguir 1.000 monedas" : ""}
   </div>
+${backButton()}
 `;
-    ${backButton()}
-  `;
 }
 function showDragon(){
   hide();
