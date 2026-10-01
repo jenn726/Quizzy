@@ -168,6 +168,8 @@ localStorage.setItem("quizzyCorrectAnswers",correctAnswers);
   const newLevel=Math.floor(xp/100)+1;
 if(newLevel>oldLevel){
   showReward("🎉 ¡Subiste al nivel "+newLevel+"!");
+  coins += 25;
+save();
 }
 
   // Guardar también el progreso en Firebase
