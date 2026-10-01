@@ -278,17 +278,29 @@ if(xp>=500) claimAchievement("xp500",75);
 if(categoriesPlayed.size>=6) claimAchievement("allCategories",100);
 if(level>=20) claimAchievement("level20",200);
 if(coins>=1000) claimAchievement("coins1000",250);
- $("achievements").innerHTML=`
-    <h2>🏆 Logros</h2>
-    <div class="notice">
-${!claimedAchievements.includes("xp100") ? "🏆 Llegar a 100 XP<br>" : ""}
-${!claimedAchievements.includes("categories2") ? "🏆 Jugar 2 categorías<br>" : ""}
-${!claimedAchievements.includes("level5") ? "🏆 Llegar al nivel 5<br>" : ""}
-${!claimedAchievements.includes("xp500") ? "🏆 Conseguir 500 XP<br>" : ""}
-${!claimedAchievements.includes("allCategories") ? "🏆 Explorar todas las categorías<br>" : ""}
-${!claimedAchievements.includes("level20") ? "🏆 Llegar al nivel 20<br>" : ""}
-${!claimedAchievements.includes("coins1000") ? "🏆 Conseguir 1.000 monedas" : ""}
-    </div>
+
+$("#achievements").innerHTML=`
+  <h2>🏆 Logros</h2>
+  <div class="notice">
+    <b>🏆 Conseguido</b><br>
+    ${claimedAchievements.includes("xp100") ? "🏆 Llegar a 100 XP<br>" : ""}
+    ${claimedAchievements.includes("categories2") ? "🏆 Jugar 2 categorías<br>" : ""}
+    ${claimedAchievements.includes("level5") ? "🏆 Llegar al nivel 5<br>" : ""}
+    ${claimedAchievements.includes("xp500") ? "🏆 Conseguir 500 XP<br>" : ""}
+    ${claimedAchievements.includes("allCategories") ? "🏆 Explorar todas las categorías<br>" : ""}
+    ${claimedAchievements.includes("level20") ? "🏆 Llegar al nivel 20<br>" : ""}
+    ${claimedAchievements.includes("coins1000") ? "🏆 Conseguir 1.000 monedas<br>" : ""}
+
+    <br><b>🔒 Por conseguir</b><br>
+    ${!claimedAchievements.includes("xp100") ? "🔒 Llegar a 100 XP<br>" : ""}
+    ${!claimedAchievements.includes("categories2") ? "🔒 Jugar 2 categorías<br>" : ""}
+    ${!claimedAchievements.includes("level5") ? "🔒 Llegar al nivel 5<br>" : ""}
+    ${!claimedAchievements.includes("xp500") ? "🔒 Conseguir 500 XP<br>" : ""}
+    ${!claimedAchievements.includes("allCategories") ? "🔒 Explorar todas las categorías<br>" : ""}
+    ${!claimedAchievements.includes("level20") ? "🔒 Llegar al nivel 20<br>" : ""}
+    ${!claimedAchievements.includes("coins1000") ? "🔒 Conseguir 1.000 monedas" : ""}
+  </div>
+`;
     ${backButton()}
   `;
 }
