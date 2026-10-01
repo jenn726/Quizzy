@@ -217,13 +217,13 @@ function showAchievements(){
   $("achievements").classList.remove("hidden");
 
   const level=Math.floor(xp/100)+1;
-  claimAchievement("xp100",20);
-claimAchievement("categories2",30);
-  claimAchievement("level5",50);
-  claimAchievement("xp500",75);
-  claimAchievement("allCategories",100);
-  claimAchievement("level20",200);
-  claimAchievement("coins1000",250);
+if(xp>=100) claimAchievement("xp100",20);
+if(categoriesPlayed.size>=2) claimAchievement("categories2",30);
+if(level>=5) claimAchievement("level5",50);
+if(xp>=500) claimAchievement("xp500",75);
+if(categoriesPlayed.size>=6) claimAchievement("allCategories",100);
+if(level>=20) claimAchievement("level20",200);
+if(coins>=1000) claimAchievement("coins1000",250);
  $("achievements").innerHTML=`
     <h2>🏆 Logros</h2>
     <div class="notice">
