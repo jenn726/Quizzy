@@ -409,6 +409,23 @@ function showDuels(){
       ⚔️ ¡Empezar duelo!
     </button>
 
+    <div class="notice">
+  <h3>📜 Historial de duelos</h3>
+  ${
+    JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]").length === 0
+      ? "<p>Aún no hay duelos registrados.</p>"
+      : JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]")
+          .slice(0, 5)
+          .map((d, i) => `
+            <p>
+              <b>Duelo ${i + 1}</b><br>
+              ${d.result}<br>
+              ${d.scores[0]} - ${d.scores[1]}<br>
+              <small>${d.date}</small>
+            </p>
+          `).join("")
+  }
+</div>
     ${backButton()}
   `;
 }
