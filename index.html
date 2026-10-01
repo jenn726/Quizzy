@@ -46,6 +46,54 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
     transform: scale(1) rotate(0);
   }
 }
+/* ===== MEJORAS VISUALES QUIZZY ===== */
+
+.quiz-card{
+  animation: aparecer .25s ease-out;
+}
+
+.answer{
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.answer:hover{
+  transform: scale(1.02);
+}
+
+.answer.correct{
+  animation: correcta .35s ease;
+}
+
+.answer.wrong{
+  animation: incorrecta .35s ease;
+}
+
+.notice{
+  animation: aparecer .25s ease-out;
+}
+
+@keyframes aparecer{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes correcta{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.04)}
+  100%{transform:scale(1)}
+}
+
+@keyframes incorrecta{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  75%{transform:translateX(5px)}
+}
 </style>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
 </head>
