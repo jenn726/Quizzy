@@ -262,7 +262,7 @@ function showReward(text){
   buttons.forEach((b,n)=>b.disabled=true);
   if(i===q[2]){
     correctAnswers++;
-    points++; xp+=10; coins+=5; buttons[i].classList.add("correct");missions.q++;
+    points++; xp+=10; coins+=5; buttons[i].classList.add("correct");
     showReward("🎉 ¡Correcto! +10 XP ⭐ +5 🪙");
   }else{
     buttons[i].classList.add("wrong");
