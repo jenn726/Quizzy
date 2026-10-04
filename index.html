@@ -815,6 +815,18 @@ try {
     if (datos.dragonNombre !== undefined)
       localStorage.setItem("quizzyDragonName", datos.dragonNombre);
 
+   xp = Number(datos.xp ?? xp);
+coins = Number(datos.monedas ?? coins);
+playerCourse = datos.curso ?? playerCourse;
+dragonItem = datos.dragonItem ?? dragonItem;
+dragonName = datos.dragonNombre ?? dragonName;
+
+if (Array.isArray(datos.categoriasJugadas)) {
+  categoriesPlayed = new Set(datos.categoriasJugadas);
+}
+
+updateHeader();
+resetMissions();
     console.log("📥 Progreso cargado desde Firebase", datos);
   }
 } catch (error) {
