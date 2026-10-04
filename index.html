@@ -1,2 +1,853 @@
 <!DOCTYPE html>
-<!-- AUDIT NOTE: Before applying code cleanup, preserve all currently tested gameplay behavior. -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quizzy 🐉</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(145deg,#6d28d9,#a855f7);color:#4c1d95;min-height:100vh}
+.card{background:#fff;border-radius:24px;padding:22px;max-width:520px;margin:18px auto;box-shadow:0 8px 25px rgba(0,0,0,.15)}
+h1,h2,h3{margin:8px 0}
+.dragon{font-size:76px;text-align:center}
+.evo{font-weight:bold;background:#f3e8ff;border-radius:16px;padding:12px;text-align:center}
+.stats{background:#f0e7ff;border-radius:16px;padding:12px;margin:10px 0}
+button{display:block;width:100%;padding:15px;margin:9px 0;border:0;border-radius:15px;font-size:17px;font-weight:bold;color:#4c1d95;background:#efe7ff;box-shadow:0 3px 0 #d8c4f6;cursor:pointer}
+button:hover{filter:brightness(.98)}
+button.primary{background:#facc15;color:#4c1d95;box-shadow:0 4px 0 #d3a800}
+button.answer{background:#fff;border:2px solid #e9d5ff;box-shadow:none;text-align:left}
+button.answer.correct{background:#bbf7d0;border-color:#22c55e}
+button.answer.wrong{background:#fecaca;border-color:#ef4444}
+.top{background:#efe7ff;border-radius:18px;padding:12px;margin-bottom:10px;text-align:center;font-weight:bold}
+.bar{height:14px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:8px}
+.fill{height:100%;background:#facc15;width:0;transition:.25s}
+.hidden{display:none!important}
+.badge{display:inline-block;background:#fef3c7;border-radius:12px;padding:6px 10px;margin:4px}
+.small{font-size:13px;color:#6b7280}
+input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;font-size:16px;margin:6px 0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.notice{padding:12px;background:#f3e8ff;border-radius:14px;margin:10px 0}
+/* ===== ANIMACIÓN DE GOLPE EN DUELOS ===== */
+.duel-hit {
+  animation: duelHit 0.45s ease;
+}
+
+@keyframes duelHit {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.12) rotate(-3deg);
+  }
+  65% {
+    transform: scale(0.95) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+/* ===== MEJORAS VISUALES QUIZZY ===== */
+
+.quiz-card{
+  animation: aparecer .25s ease-out;
+}
+
+.answer{
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.answer:hover{
+  transform: scale(1.02);
+}
+
+.answer.correct{
+  animation: correcta .35s ease;
+}
+
+.answer.wrong{
+  animation: incorrecta .35s ease;
+}
+
+.notice{
+  animation: aparecer .25s ease-out;
+}
+
+@keyframes aparecer{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes correcta{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.04)}
+  100%{transform:scale(1)}
+}
+
+@keyframes incorrecta{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  75%{transform:translateX(5px)}
+}
+</style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
+</head>
+<body>
+<div id="app" class="card">
+  <div id="home">
+    <div class="top">⭐ Nivel <span id="level">1</span> · <span id="xp">0</span> XP
+      <div class="bar"><div id="xpfill" class="fill"></div></div>
+    </div>
+    <div class="top">🪙 <span id="coins">100</span> monedas</div>
+    <div class="dragon" id="dragonHome">🐣</div>
+    <h1>Quizzy 🐉</h1>
+    <h2>¡Hola, aventurero!</h2>
+    <p>🎓 Aprende jugando, gana XP y haz crecer a tu dragón.</p>
+    <button class="primary" onclick="startHome()">🎮 JUGAR</button>
+    <button onclick="showCourse()">📚 Mi curso</button>
+    <button onclick="showProfile()">👤 Perfil</button>
+    <button onclick="showCats()">📚 Categorías</button>
+    <button onclick="showAchievements()">🏆 Logros</button>
+    <button onclick="showDragon()">🐉 Mi dragón</button>
+    <button onclick="showMissions()">🎯 Misiones</button>
+    <button onclick="showDuels()">⚔️ Duelos</button>
+    <button onclick="showShop()">🛍️ Tienda</button>
+    <button onclick="showParents()">👨‍👩‍👧 Zona de padres</button>
+  </div>
+
+  <div id="course" class="hidden"></div>
+  <div id="cats" class="hidden"></div>
+  <div id="quiz" class="hidden"></div>
+  <div id="profile" class="hidden"></div>
+  <div id="achievements" class="hidden"></div>
+  <div id="dragon" class="hidden"></div>
+  <div id="missions" class="hidden"></div>
+  <div id="duels" class="hidden"></div>
+  <div id="shop" class="hidden"></div>
+  <div id="parents" class="hidden"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const screens = ["home","course","cats","quiz","profile","achievements","dragon","missions","duels","shop","parents"];
+let playerCourse = localStorage.getItem("quizzyCourse") || "";
+let xp = Number(localStorage.getItem("quizzyXP") || 0);
+let coins = Number(localStorage.getItem("quizzyCoins") || 100);
+let dragonItem = localStorage.getItem("quizzyDragonItem") || "draco";
+let dragonName = localStorage.getItem("quizzyDragonName") || "Draco";
+let dragonColor = localStorage.getItem("quizzyDragonColor") || "original";
+let dragonAccessory = localStorage.getItem("quizzyDragonAccessory") || "ninguno";
+let dragonEffect = localStorage.getItem("quizzyDragonEffect") || "ninguno";
+let categoriesPlayed = new Set(JSON.parse(localStorage.getItem("quizzyCategories") || "[]"));
+let missions = JSON.parse(localStorage.getItem("quizzyMissions") || "null");
+let claimedAchievements = JSON.parse(localStorage.getItem("quizzyClaimedAchievements") || "[]");
+let list = [], pos = 0, points = 0, currentCategory = "";
+  let questionsAnswered = Number(localStorage.getItem("quizzyQuestionsAnswered") || 0);
+let correctAnswers = Number(localStorage.getItem("quizzyCorrectAnswers") || 0);
+
+function save(){
+ const oldXp=Number(localStorage.getItem("quizzyXP")||0);
+const oldLevel=Math.floor(oldXp/100)+1;
+  localStorage.setItem("quizzyXP",xp);
+  localStorage.setItem("quizzyCoins",coins);
+  localStorage.setItem("quizzyCourse",playerCourse);
+  localStorage.setItem("quizzyDragonItem",dragonItem);
+  localStorage.setItem("quizzyDragonName",dragonName);
+  localStorage.setItem("quizzyDragonColor",dragonColor);
+localStorage.setItem("quizzyDragonAccessory",dragonAccessory);
+localStorage.setItem("quizzyDragonEffect",dragonEffect);
+  localStorage.setItem("quizzyCategories",JSON.stringify([...categoriesPlayed]));
+  localStorage.setItem("quizzyQuestionsAnswered",questionsAnswered);
+localStorage.setItem("quizzyCorrectAnswers",correctAnswers);
+  updateHeader();
+  const newLevel=Math.floor(xp/100)+1;
+if(newLevel>oldLevel){
+  showReward("🎉 ¡Subiste al nivel "+newLevel+"!");
+  coins += 25;
+save();
+}
+
+  // Guardar también el progreso en Firebase
+  if(window.guardarProgresoQuizzy){
+    window.guardarProgresoQuizzy({
+      xp: xp,
+      monedas: coins,
+      curso: playerCourse,
+      dragonItem: dragonItem,
+      dragonNombre: dragonName,
+      categoriasJugadas: [...categoriesPlayed]
+    });
+  }
+}
+function updateHeader(){
+  const level = Math.floor(xp/100)+1;
+  $("level").textContent=level;
+  $("xp").textContent=xp;
+  $("coins").textContent=coins;
+  $("xpfill").style.width=(xp%100)+"%";
+  $("dragonHome").textContent=level>=20?"👑":level>=10?"🐉":level>=5?"🐲":level>=3?"✨":level>=2?"🐣":"🥚";
+}
+function hide(){screens.forEach(s=>{if($(s))$(s).classList.add("hidden")})}
+function home(){hide();$("home").classList.remove("hidden");updateHeader()}
+function backButton(){return `<button onclick="home()">⬅️ Volver</button>`}
+
+function showCourse(){
+  hide(); $("course").classList.remove("hidden");
+  $("course").innerHTML=`<h2>📚 Mi curso</h2>
+    <p>Elige tu curso para adaptar las preguntas.</p>
+    <select id="courseSelect">
+      <option value="">Selecciona...</option>
+      ${["1º de Primaria","2º de Primaria","3º de Primaria","4º de Primaria","5º de Primaria","6º de Primaria"].map(c=>`<option ${playerCourse===c?"selected":""}>${c}</option>`).join("")}
+    </select>
+    <button class="primary" onclick="saveCourse()">💾 Guardar curso</button>
+    ${playerCourse?`<div class="notice">✅ Curso guardado: <b>${playerCourse}</b></div>`:""}
+    ${backButton()}`;
+}
+function saveCourse(){
+  const c=$("courseSelect").value;
+  if(!c){alert("Elige un curso");return}
+  playerCourse=c; save(); showCats();
+}
+function showCats(){
+  hide(); $("cats").classList.remove("hidden");
+  $("cats").innerHTML=`<h2>📚 Categorías</h2>
+    ${playerCourse?`<div class="notice">🎓 ${playerCourse}</div>`:`<div class="notice">Elige primero tu curso.</div>`}
+    <button class="primary" onclick="startQuiz('Matemáticas')">➗ Matemáticas</button>
+    <button onclick="startQuiz('Lengua')">📖 Lengua</button>
+    <button onclick="startQuiz('Ciencias')">🔬 Ciencias</button>
+    <button onclick="startQuiz('Geografía')">🌍 Geografía</button>
+<button onclick="startQuiz('Inglés')">🇬🇧 Inglés</button>
+<button onclick="startQuiz('Historia')">🧠 Historia</button>
+    ${backButton()}`;
+}
+async function startQuiz(category){
+  if(!playerCourse){showCourse();return}
+  currentCategory=category;
+  categoriesPlayed.add(category); save();
+  try{
+    const r=await fetch("preguntas.json?"+Date.now());
+    const data=await r.json();
+    list=(data[playerCourse]&&data[playerCourse][category])||[];
+  }catch(e){list=[]}
+  if(!list.length){alert("No hay preguntas disponibles para esta categoría.");return}
+  pos=0;points=0;
+  hide();$("quiz").classList.remove("hidden");
+  renderQuestion();
+}
+function renderQuestion(){
+  if(pos>=list.length){finishQuiz();return}
+  const q=list[pos];
+  $("quiz").innerHTML=`<h2>🎯 ${currentCategory}</h2>
+    <div class="notice">Pregunta ${pos+1} de ${list.length}</div>
+    <h3>${q[0]}</h3>
+    ${q[1].map((a,i)=>`<button class="answer" onclick="answer(${i})">${a}</button>`).join("")}
+    ${backButton()}`;
+}
+function showReward(text){
+  const reward=document.createElement("div");
+  reward.textContent=text;
+  reward.style="position:fixed;top:35%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:18px 28px;border-radius:18px;font-size:22px;font-weight:bold;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:9999;text-align:center;";
+  document.body.appendChild(reward);
+  setTimeout(()=>reward.remove(),800);
+}
+  function answer(i){
+  const q=list[pos];
+  questionsAnswered++;
+  const buttons=[...$("quiz").querySelectorAll(".answer")];
+  buttons.forEach((b,n)=>b.disabled=true);
+  if(i===q[2]){
+    correctAnswers++;
+    points++; xp+=10; coins+=5; buttons[i].classList.add("correct");missions.q++;
+    showReward("🎉 ¡Correcto! +10 XP ⭐ +5 🪙");
+  }else{
+    buttons[i].classList.add("wrong");
+    if(buttons[q[2]])buttons[q[2]].classList.add("correct");
+    showReward("❌ Incorrecto. ¡Sigue intentándolo!");
+  }
+  save();
+  setTimeout(()=>{pos++;renderQuestion()},500);
+}
+function finishQuiz(){
+  const bonus=points*5; xp+=bonus;
+  $("quiz").innerHTML=`<h2>🎉 ¡Quiz terminado!</h2>
+    <div class="notice">Has acertado <b>${points}</b> de ${list.length}.<br>⭐ Ganaste ${points*10+bonus} XP.</div>
+    <button class="primary" onclick="showCats()">🔄 Otra categoría</button>
+    ${backButton()}`;
+  save();
+}
+function startHome(){ if(!playerCourse){showCourse()}else{showCats()} }
+
+function showProfile(){
+  hide();
+  $("profile").classList.remove("hidden");
+
+  const level = Math.floor(xp/100)+1;
+  const xpActual = xp % 100;
+  const xpFaltante = 100 - xpActual;
+
+  const history = JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]");
+  const victorias = history.filter(d =>
+    (d.result || "").includes("Jugador 1") && d.scores && d.scores[0] > d.scores[1]
+  ).length;
+
+  const derrotas = history.filter(d =>
+    (d.result || "").includes("Jugador 2") && d.scores && d.scores[1] > d.scores[0]
+  ).length;
+
+  $("profile").innerHTML = `
+    <h2>👤 Perfil</h2>
+
+    <div class="notice" style="text-align:center;">
+      <img src="${level>=20 ? 'dragon-supremo.png' : level>=10 ? 'dragon-legendario.png' : level>=5 ? 'dragon-poderoso.png' : level>=3 ? 'dragon-mágico.png' : level>=2 ? 'dragon-joven.png' : 'dragon-morado.png'}" alt="Mi dragón" style="width:120px;height:120px;object-fit:contain;">
+      <div style="font-size:24px;font-weight:bold;">
+        ${dragonName || "Mi dragón"}
+      </div>
+      <div>Nivel ${level}</div>
+    </div>
+
+    <div class="notice">
+      <b>⭐ Experiencia</b><br>
+      ${xpActual} / 100 XP para el siguiente nivel<br>
+      <small>Te faltan ${xpFaltante} XP</small>
+    </div>
+
+    <div class="notice">
+      <b>🪙 Monedas</b><br>
+      ${coins}
+    </div>
+
+    <div class="notice">
+      <b>📚 Curso</b><br>
+      ${playerCourse || "Sin elegir"}
+    </div>
+
+    <div class="notice">
+      <b>📖 Categorías jugadas</b><br>
+      ${categoriesPlayed.size}
+    </div>
+
+    <div class="notice">
+      <b>⚔️ Duelos</b><br>
+      🏆 Victorias: ${victorias}<br>
+      💫 Duelos registrados: ${history.length}
+    </div>
+
+    <button onclick="showCourse()">📚 Cambiar curso</button>
+    ${backButton()}
+  `;
+}
+  function claimAchievement(id,reward){
+  if(claimedAchievements.includes(id)) return false;
+  claimedAchievements.push(id);
+  coins += reward;
+  localStorage.setItem("quizzyClaimedAchievements",JSON.stringify(claimedAchievements));
+  save();
+    alert(`🎉 ¡Logro desbloqueado! +${reward} 🪙`);
+  return true;
+}
+function showAchievements(){
+  hide();
+  $("achievements").classList.remove("hidden");
+
+  const level=Math.floor(xp/100)+1;
+if(xp>=100) claimAchievement("xp100",20);
+if(categoriesPlayed.size>=2) claimAchievement("categories2",30);
+if(level>=5) claimAchievement("level5",50);
+if(xp>=500) claimAchievement("xp500",75);
+if(categoriesPlayed.size>=6) claimAchievement("allCategories",100);
+if(level>=20) claimAchievement("level20",200);
+if(coins>=1000) claimAchievement("coins1000",250);
+
+$("achievements").innerHTML=`
+  <h2>🏆 Logros</h2>
+  <div class="notice">
+    <b>🏆 Conseguido</b><br>
+    ${claimedAchievements.includes("xp100") ? "🏆 Llegar a 100 XP<br>" : ""}
+    ${claimedAchievements.includes("categories2") ? "🏆 Jugar 2 categorías<br>" : ""}
+    ${claimedAchievements.includes("level5") ? "🏆 Llegar al nivel 5<br>" : ""}
+    ${claimedAchievements.includes("xp500") ? "🏆 Conseguir 500 XP<br>" : ""}
+    ${claimedAchievements.includes("allCategories") ? "🏆 Explorar todas las categorías<br>" : ""}
+    ${claimedAchievements.includes("level20") ? "🏆 Llegar al nivel 20<br>" : ""}
+    ${claimedAchievements.includes("coins1000") ? "🏆 Conseguir 1.000 monedas<br>" : ""}
+
+    <br><b>🔒 Por conseguir</b><br>
+    ${!claimedAchievements.includes("xp100") ? "🔒 Llegar a 100 XP<br>" : ""}
+    ${!claimedAchievements.includes("categories2") ? "🔒 Jugar 2 categorías<br>" : ""}
+    ${!claimedAchievements.includes("level5") ? "🔒 Llegar al nivel 5<br>" : ""}
+    ${!claimedAchievements.includes("xp500") ? "🔒 Conseguir 500 XP<br>" : ""}
+    ${!claimedAchievements.includes("allCategories") ? "🔒 Explorar todas las categorías<br>" : ""}
+    ${!claimedAchievements.includes("level20") ? "🔒 Llegar al nivel 20<br>" : ""}
+    ${!claimedAchievements.includes("coins1000") ? "🔒 Conseguir 1.000 monedas" : ""}
+  </div>
+${backButton()}
+`;
+}
+function showDragon(){
+  hide();
+  $("dragon").classList.remove("hidden");
+
+  const level=Math.floor(xp/100)+1;
+  const emoji=level>=20?"👑":level>=10?"🐉":level>=5?"🐲":level>=3?"✨":level>=2?"🐣":"🥚";
+  const evolutionName=level>=20?"Dragón supremo":level>=10?"Dragón legendario":level>=5?"Dragón poderoso":level>=3?"Dragón mágico":level>=2?"Dragón joven":"Dragón bebé";
+ const evolutionImage=level>=20?"dragon-supremo.png":level>=10?"dragon-legendario.png":level>=5?"dragon-poderoso.png":level>=3?"dragon-magico.png":level>=2?"dragon-joven.png":"huevo.png";
+  const companionName = dragonItem==="fenix" ? "Fénix" : dragonItem==="supremo" ? "Dragón Supremo" : "Draco";
+const companionImage = dragonItem==="fenix" ? "fenix.png" : evolutionImage;
+
+  $("dragon").innerHTML=`
+    <h2>🐉 Mi dragón</h2>
+  <div class="dragon" style="
+  padding:18px;
+  border-radius:50%;
+  background:${
+    dragonColor==="azul" ? "#dbeafe" :
+    dragonColor==="verde" ? "#dcfce7" :
+    "#f3e8ff"
+  };
+">
+ <div style="position:relative;display:inline-block;width:180px;height:180px;">
+  <img src="${companionImage}" alt="Mi dragón" style="width:180px;height:180px;object-fit:contain;">
+
+  ${dragonAccessory === "corona" ? '<div style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:48px;pointer-events:none;">👑</div>' : ""}
+
+  ${dragonAccessory === "sombrero" ? '<div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);font-size:48px;pointer-events:none;">🎩</div>' : ""}
+
+${dragonAccessory === "gafas" ? '<div style="position:absolute;top:48px;left:50%;transform:translateX(-50%);font-size:50px;pointer-events:none;">👓</div>' : ""}
+
+${dragonEffect === "brillo" ? '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;pointer-events:none;">✨</div>' : ""}
+${dragonEffect === "fuego" ? '<div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font-size:38px;pointer-events:none;">🔥</div>' : ""}
+${dragonEffect === "estrellas" ? '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;letter-spacing:12px;pointer-events:none;">⭐✨⭐</div>' : ""}
+</div>
+</div>
+    <div style="font-size:20px;font-weight:bold">Nivel ${level} ${emoji}</div>
+    <p>💜 Tu compañero: <b>${dragonName}</b> · 🔥 ${companionName}</p>
+    <div style="font-size:18px;font-weight:bold">✨ ${evolutionName}</div>
+    <input id="dragonInput" value="${dragonName}" maxlength="18" placeholder="Nombre del dragón">
+    <button class="primary" onclick="saveDragon()">💾 Guardar nombre</button>
+    <div class="evo">🌟 Evolución<br>🥚 Nivel 1 → 🐣 Nivel 2 → 🐲 Nivel 5 → 🐉 Nivel 10 → 👑 Nivel 20</div>
+    <button class="primary" onclick="showCustomize()">🎨 Personalizar</button>
+    ${backButton()}
+  `;
+}
+function showCustomize(){
+  hide();
+
+  const dragonScreen = document.getElementById("dragon");
+  dragonScreen.classList.remove("hidden");
+
+  dragonScreen.innerHTML = `
+    <h2>🎨 Personalizar a Draco</h2>
+
+    <div class="evo">
+      🐲 Elige cómo quieres que sea tu dragón
+    </div>
+
+   <button class="primary" onclick="showColors()">🎨 Color</button>
+    <button class="primary" onclick="showAccessories()">👑 Accesorios</button>
+   <button class="primary" onclick="showEffects()">✨ Efectos</button>
+
+    <button onclick="showDragon()">← Volver</button>
+  `;
+}
+  function showColors(){
+  const dragonScreen = document.getElementById("dragon");
+
+  dragonScreen.innerHTML = `
+    <h2>🎨 Color de Draco</h2>
+
+    <div class="evo">
+      Elige un color para tu dragón
+    </div>
+
+    <button class="primary" onclick="setDragonColor('original')">💜 Morado</button>
+    <button class="primary" onclick="setDragonColor('azul')">💙 Azul</button>
+    <button class="primary" onclick="setDragonColor('verde')">💚 Verde</button>
+
+    <button onclick="showCustomize()">← Volver</button>
+  `;
+}
+  function setDragonColor(color){
+  dragonColor = color;
+  localStorage.setItem("quizzyDragonColor", color);
+  showDragon();
+}
+  function showAccessories(){
+  const dragonScreen = document.getElementById("dragon");
+
+  dragonScreen.innerHTML = `
+    <h2>👑 Accesorios de Draco</h2>
+
+    <div class="evo">
+      Elige un accesorio para tu dragón
+    </div>
+
+    <button class="primary" onclick="setDragonAccessory('corona')">👑 Corona</button>
+    <button class="primary" onclick="setDragonAccessory('sombrero')">🎩 Sombrero</button>
+    <button class="primary" onclick="setDragonAccessory('gafas')">🕶️ Gafas</button>
+    <button onclick="setDragonAccessory('ninguno')">❌ Ninguno</button>
+
+    <button onclick="showCustomize()">← Volver</button>
+  `;
+}
+  function setDragonAccessory(accessory){
+  dragonAccessory = accessory;
+  localStorage.setItem("quizzyDragonAccessory", accessory);
+  showDragon();
+}
+function showEffects(){
+  const dragonScreen = document.getElementById("dragon");
+
+  dragonScreen.innerHTML = `
+    <h2>✨ Efectos de Draco</h2>
+
+    <div class="evo">
+      Elige un efecto para tu dragón
+    </div>
+
+    <button class="primary" onclick="setDragonEffect('brillo')">✨ Brillo mágico</button>
+    <button class="primary" onclick="setDragonEffect('fuego')">🔥 Fuego</button>
+    <button class="primary" onclick="setDragonEffect('estrellas')">💫 Estrellas</button>
+    <button onclick="setDragonEffect('ninguno')">❌ Ninguno</button>
+
+    <button onclick="showCustomize()">← Volver</button>
+  `;
+}
+  function setDragonEffect(effect){
+  dragonEffect = effect;
+  localStorage.setItem("quizzyDragonEffect", effect);
+  showDragon();
+}
+function saveDragon(){
+  const n=$("dragonInput").value.trim();
+  if(!n){alert("Escribe un nombre");return}
+  dragonName=n;save();showDragon();
+}
+function resetMissions(){
+  const today=new Date().toISOString().slice(0,10);
+  if(!missions||missions.date!==today){
+    missions={date:today,q:0,xp:false,cats:[],xpStart:xp};
+    localStorage.setItem("quizzyMissions",JSON.stringify(missions));
+  }
+}
+function showMissions(){
+  resetMissions();hide();$("missions").classList.remove("hidden");
+  $("missions").innerHTML=`<h2>🎯 Misiones de hoy</h2>
+    <div class="notice">${missions.q>=5?"✅":"⬜"} Responde 5 preguntas: <b>${Math.min(missions.q,5)}/5</b><br>
+    ${missions.xp?"✅":"⬜"} Consigue 30 XP<br>
+    ${missions.cats.length>=2?"✅":"⬜"} Juega 2 categorías diferentes: <b>${Math.min(missions.cats.length,2)}/2</b></div>
+    ${backButton()}`;
+}
+function showDuels(){
+  hide();
+  $("duels").classList.remove("hidden");
+
+  $( "duels" ).innerHTML = `
+    <h2>⚔️ Duelos</h2>
+    <div class="notice">
+      🐉 ¡Prepárate para el duelo!
+    </div>
+
+    <div class="stats">
+      <b>Jugador 1:</b> ${dragonName}<br>
+      <b>🐉 Dragón:</b> ${dragonItem==="supremo" ? "👑 Dragón Supremo" : dragonItem==="fenix" ? "🔥 Fénix" : "🐉 Draco"}<br>
+      <b>⭐ Nivel:</b> ${Math.floor(xp/100)+1}
+    </div>
+
+    <button class="primary" onclick="startDuel()">
+      ⚔️ ¡Empezar duelo!
+    </button>
+
+    <div class="notice">
+  <h3>📜 Historial de duelos</h3>
+  ${
+    JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]").length === 0
+      ? "<p>Aún no hay duelos registrados.</p>"
+      : JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]")
+          .slice(0, 5)
+          .map((d, i) => `
+            <p>
+              <b>Duelo ${i + 1}</b><br>
+              ${d.result}<br>
+              ${d.scores[0]} - ${d.scores[1]}<br>
+              <small>${d.date}</small>
+            </p>
+          `).join("")
+  }
+</div>
+    ${backButton()}
+  `;
+}
+
+function startDuel(){
+  hide();
+  $("duels").classList.remove("hidden");
+
+  const duelQuestions = [
+    ["¿Cuál es la capital de España?", ["Madrid","Vigo","Sevilla"], 0],
+    ["¿Cuántos días tiene una semana?", ["5","7","10"], 1],
+    ["¿Qué planeta habitamos?", ["Marte","Tierra","Júpiter"], 1],
+    ["¿Cuánto es 6 × 4?", ["20","24","28"], 1],
+    ["¿Qué animal es un mamífero?", ["Perro","Gallina","Pez"], 0],
+["¿Cuántos continentes hay en la Tierra?", ["5","7","9"], 1]
+  ];
+
+  let duelIndex = 0;
+  let duelQuestionCount = 0;
+  let duelTurn = 0;
+  let duelScores = [0,0];
+
+  function showDuelQuestion(){
+    const q = duelQuestions[duelIndex];
+
+    $("duels").innerHTML = `
+      <h2>⚔️ Duelo</h2>
+
+      <div class="notice">
+        🎮 Turno del Jugador ${duelTurn + 1}
+      </div>
+
+      <div class="stats">
+        <b>👤 Jugador 1:</b> ${duelScores[0]} puntos<br>
+        <b>👤 Jugador 2:</b> ${duelScores[1]} puntos
+      </div>
+
+      <div class="notice">
+        🎯 Turno del ${duelTurn === 0 ? "Jugador 1" : "Jugador 2"} · Pregunta ${Math.floor(duelIndex / 2) + 1} de 3
+      </div>
+
+      <h3>${q[0]}</h3>
+
+      ${q[1].map((answer,index) => `
+        <button class="answer" onclick="answerDuel(${index})">
+          ${answer}
+        </button>
+      `).join("")}
+    `;
+  }
+
+  window.answerDuel = function(index){
+    const q = duelQuestions[duelIndex];
+
+    if(index === q[2]){
+      duelScores[duelTurn]++;
+      alert("✅ ¡Correcto!");
+    }else{
+      alert("❌ ¡Incorrecto!");
+    }
+
+    duelIndex++;
+    duelQuestionCount++;
+
+ if(duelIndex >= duelQuestions.length){
+
+ if(duelScores[0] > duelScores[1]){
+    xp += 50;
+    coins += 30;
+}else if(duelScores[1] > duelScores[0]){
+    xp += 50;
+    coins += 30;
+}
+
+save();
+const duelHistory = JSON.parse(localStorage.getItem("quizzyDuelHistory") || "[]");
+
+duelHistory.unshift({
+  scores: [...duelScores],
+  result:
+    duelScores[0] > duelScores[1]
+      ? "Jugador 1"
+      : duelScores[1] > duelScores[0]
+      ? "Jugador 2"
+      : "Empate",
+  date: new Date().toLocaleString("es-ES")
+});
+
+localStorage.setItem("quizzyDuelHistory", JSON.stringify(duelHistory));
+  $("duels").innerHTML = `
+    <h2>🏆 Fin del duelo</h2>
+
+    <div class="notice">
+      👤 Jugador 1: <b>${duelScores[0]} puntos</b><br>
+      👤 Jugador 2: <b>${duelScores[1]} puntos</b>
+    </div>
+
+${duelScores[0] > duelScores[1]
+  ? `<div class="notice" style="text-align:center;">
+      <div style="font-size:42px;">🏆</div>
+      <div style="font-size:24px;font-weight:bold;">¡Victoria del Jugador 1!</div>
+      <div style="font-size:18px;margin-top:8px;">🎉 ¡Gran duelo!</div>
+      <div style="margin-top:10px;font-weight:bold;">+50 XP · +30 🪙</div>
+    </div>`
+  : duelScores[0] === duelScores[1]
+  ? `<div class="notice" style="text-align:center;">
+      <div style="font-size:42px;">🤝</div>
+      <div style="font-size:24px;font-weight:bold;">¡Empate!</div>
+      <div style="font-size:18px;margin-top:8px;">⚔️ ¡Los dos habéis estado genial!</div>
+    </div>`
+  : `<div class="notice" style="text-align:center;">
+      <div style="font-size:42px;">🏆</div>
+      <div style="font-size:24px;font-weight:bold;">¡Victoria del Jugador 2!</div>
+      <div style="font-size:18px;margin-top:8px;">🎉 ¡Gran duelo!</div>
+      <div style="margin-top:10px;font-weight:bold;">+50 XP · +30 🪙</div>
+    </div>`
+}
+
+    <button class="primary" onclick="showDuels()">
+      ⚔️ Volver a Duelos
+    </button>
+  `;
+  return;
+    }
+
+   if(duelQuestionCount % 3 === 0){
+  duelTurn = duelTurn === 0 ? 1 : 0;
+}
+
+    showDuelQuestion();
+  };
+
+  showDuelQuestion();
+}
+function showShop(){
+  hide();$("shop").classList.remove("hidden");
+  const items=[["draco","🐉 Draco",50],["fenix","🔥 Fénix",120],["supremo","👑 Dragón Supremo",250]];
+  $("shop").innerHTML=`<h2>🛍️ Tienda</h2><div class="notice">🪙 Tienes ${coins} monedas</div>
+    ${items.map(([id,n,p])=>`<button onclick="buyItem('${id}',${p})">${n} · ${p} 🪙 ${dragonItem===id?"✅ Equipado":""}</button>`).join("")}
+    ${backButton()}`;
+}
+  function showParents(){
+  hide();
+      const level = Math.floor(xp/100)+1;
+  const evolutionName = level>=20?"Dragón supremo":level>=10?"Dragón legendario":level>=5?"Dragón poderoso":level>=3?"Dragón mágico":level>=2?"Dragón joven":"Dragón bebé";
+    const accuracy = questionsAnswered ? Math.round((correctAnswers / questionsAnswered) * 100) : 0;
+  $("parents").classList.remove("hidden");
+
+  $("parents").innerHTML = `
+    <h2>👨‍👩‍👧 Zona de padres</h2>
+
+    <div class="notice">
+      <h3>📊 Progreso de Quizzy</h3>
+      <p>🐉 Dragón: <b>${dragonName}</b></p>
+      <p>⭐ Nivel: <b>${level}</b></p>
+      <p>✨ XP: <b>${xp}</b></p>
+      <p>🪙 Monedas: <b>${coins}</b></p>
+      <p>📚 Preguntas respondidas: <b>${questionsAnswered}</b></p>
+<p>✅ Respuestas correctas: <b>${correctAnswers}</b></p>
+<p>🎯 Precisión: <b>${accuracy}%</b></p>
+      <p>🏆 Evolución: <b>${evolutionName}</b></p>
+    </div>
+
+    ${backButton()}
+  `;
+}
+function buyItem(id,p){
+  if(dragonItem===id){showShop();return}
+  if(coins<p){alert("No tienes suficientes monedas.");return}
+  coins-=p;dragonItem=id;save();showShop();
+}
+
+const oldAnswer=answer;
+const oldFinish=finishQuiz;
+function missionUpdate(){
+  resetMissions();
+  missions.q=Math.min(5,missions.q+1);
+  if(xp-missions.xpStart>=30)missions.xp=true;
+  if(currentCategory&&!missions.cats.includes(currentCategory))missions.cats.push(currentCategory);
+  localStorage.setItem("quizzyMissions",JSON.stringify(missions));
+}
+// wrap answer safely so missions always update
+answer=function(i){
+  missionUpdate();
+  oldAnswer(i);
+}
+finishQuiz=oldFinish;
+
+resetMissions();
+updateHeader();
+// ===== FIREBASE =====
+(async function () {
+  try {
+    const { initializeApp } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
+    );
+
+    const { getFirestore, doc, setDoc, getDoc } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+    );
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDlB9B0bGZcj6GkCQ6y2ciPPxxYHJxccxo",
+      authDomain: "quizzy-8ddf4.firebaseapp.com",
+      projectId: "quizzy-8ddf4",
+      storageBucket: "quizzy-8ddf4.firebasestorage.app",
+      messagingSenderId: "1047881908068",
+      appId: "1:1047881908068:web:0c173bc4d790a4f3a88471",
+      measurementId: "G-1SBGWFDDNF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    // ===== CARGAR PROGRESO DESDE FIREBASE =====
+try {
+  const ref = doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a");
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    const datos = snap.data();
+
+    if (datos.xp !== undefined)
+      localStorage.setItem("quizzyXP", datos.xp);
+
+    if (datos.monedas !== undefined)
+      localStorage.setItem("quizzyCoins", datos.monedas);
+
+    if (datos.curso !== undefined)
+      localStorage.setItem("quizzyCourse", datos.curso);
+
+    if (datos.dragonItem !== undefined)
+      localStorage.setItem("quizzyDragonItem", datos.dragonItem);
+
+    if (datos.dragonNombre !== undefined)
+      localStorage.setItem("quizzyDragonName", datos.dragonNombre);
+
+    console.log("📥 Progreso cargado desde Firebase", datos);
+  }
+} catch (error) {
+  console.error("❌ Error cargando progreso:", error);
+}
+
+    window.quizzyFirebase = {
+      db,
+      doc,
+      setDoc
+    };
+
+    console.log("🔥 Firebase conectado correctamente a Quizzy");
+    // ===== GUARDAR PROGRESO EN FIREBASE =====
+window.guardarProgresoQuizzy = async function(datos) {
+  try {
+    await setDoc(
+      doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a"),
+      {
+        ...datos,
+        actualizadoEn: new Date()
+      },
+      { merge: true }
+    );
+
+    console.log("💾 Progreso guardado en Firebase", datos);
+  } catch (error) {
+    console.error("❌ Error guardando progreso:", error);
+  }
+};
+  } catch (error) {
+    console.error("❌ Error conectando Firebase:", error);
+  }
+})();
+</script>
+</body>
+</html>
