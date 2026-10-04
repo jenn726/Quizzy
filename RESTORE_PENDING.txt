@@ -1,0 +1,1 @@
+Temporary safety marker. Quizzy restoration is being handled from the Git history.
