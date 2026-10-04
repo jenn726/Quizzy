@@ -169,7 +169,8 @@ localStorage.setItem("quizzyCorrectAnswers",correctAnswers);
 if(newLevel>oldLevel){
   showReward("🎉 ¡Subiste al nivel "+newLevel+"!");
   coins += 25;
-save();
+localStorage.setItem("quizzyCoins",coins);
+updateHeader();
 }
 
   // Guardar también el progreso en Firebase
