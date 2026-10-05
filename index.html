@@ -807,7 +807,7 @@ signInAnonymously(auth)
     const db = getFirestore(app);
     // ===== CARGAR PROGRESO DESDE FIREBASE =====
 try {
-  const ref = doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a");
+ const ref = doc(db, "usuarios", auth.currentUser.uid);
   const snap = await getDoc(ref);
 
   if (snap.exists()) {
@@ -857,7 +857,7 @@ resetMissions();
 window.guardarProgresoQuizzy = async function(datos) {
   try {
     await setDoc(
-      doc(db, "usuarios", "nMUhUp5ak3HwNrrY091a"),
+      doc(db, "usuarios", "${auth.currentUser.uid}"),
       {
         ...datos,
         actualizadoEn: new Date()
