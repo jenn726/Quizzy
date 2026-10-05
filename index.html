@@ -780,6 +780,9 @@ updateHeader();
     const { getFirestore, doc, setDoc, getDoc } = await import(
       "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
     );
+    const { getAuth, signInAnonymously } = await import(
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
+);
 
     const firebaseConfig = {
       apiKey: "AIzaSyDlB9B0bGZcj6GkCQ6y2ciPPxxYHJxccxo",
@@ -792,6 +795,15 @@ updateHeader();
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+signInAnonymously(auth)
+  .then(() => {
+    console.log("👤 Usuario anónimo conectado a Quizzy");
+  })
+  .catch((error) => {
+    console.error("❌ Error de autenticación:", error);
+  });
     const db = getFirestore(app);
     // ===== CARGAR PROGRESO DESDE FIREBASE =====
 try {
