@@ -233,7 +233,8 @@ async function startQuiz(category){
   try{
     const r=await fetch("preguntas.json?"+Date.now());
     const data=await r.json();
-    list=(data[playerCourse]&&data[playerCourse][category])||[];
+   const courseKey=Object.keys(data).find(k=>k.trim()===String(playerCourse).trim());
+list=(courseKey&&data[courseKey]&&data[courseKey][category])||[];
   }catch(e){list=[]}
   if(!list.length){alert("No hay preguntas disponibles para esta categoría.");return}
   pos=0;points=0;
