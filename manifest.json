@@ -1,0 +1,9 @@
+{
+  "name": "Quizzy 🐉",
+  "short_name": "Quizzy",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#6d28d9",
+  "theme_color": "#6d28d9",
+  "description": "Aprende jugando, gana XP y haz crecer a tu dragón."
+}
