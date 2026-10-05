@@ -842,8 +842,13 @@ if (Array.isArray(datos.categoriasJugadas)) {
   categoriesPlayed = new Set(datos.categoriasJugadas);
 }
 
+
+if (datos.misiones !== undefined) {
+  localStorage.setItem("quizzyMissions", JSON.stringify(datos.misiones));
+  missions = datos.misiones;
+}
 updateHeader();
-resetMissions();
+ resetMissions();
     console.log("📥 Progreso cargado desde Firebase", datos);
   }
 } catch (error) {
