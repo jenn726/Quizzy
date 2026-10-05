@@ -763,8 +763,8 @@ function missionUpdate(){
 }
 // wrap answer safely so missions always update
 answer=function(i){
-  missionUpdate();
   oldAnswer(i);
+  missionUpdate();
 }
 finishQuiz=oldFinish;
 
