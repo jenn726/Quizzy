@@ -235,7 +235,7 @@ async function startQuiz(category){
     const data=await r.json();
    const courseKey=Object.keys(data).find(k=>k.trim()===String(playerCourse).trim());
 list=(courseKey&&data[courseKey]&&data[courseKey][category])||[];
-  }catch(e){list=[]}
+ }catch(e){alert("Error cargando preguntas: "+e.message);console.error(e);list=[]}
   if(!list.length){alert("No hay preguntas disponibles para esta categoría.");return}
   pos=0;points=0;
   hide();$("quiz").classList.remove("hidden");
