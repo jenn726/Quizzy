@@ -797,17 +797,14 @@ updateHeader();
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-signInAnonymously(auth)
-  .then(() => {
-    console.log("👤 Usuario anónimo conectado a Quizzy");
-  })
-  .catch((error) => {
-    console.error("❌ Error de autenticación:", error);
-  });
+const userCredential = await signInAnonymously(auth);
+const user = userCredential.user;
+
+console.log("👤 Usuario conectado a Quizzy:", user.uid);
     const db = getFirestore(app);
     // ===== CARGAR PROGRESO DESDE FIREBASE =====
 try {
- const ref = doc(db, "usuarios", auth.currentUser.uid);
+const ref = doc(db, "usuarios", user.uid);
   const snap = await getDoc(ref);
 
   if (snap.exists()) {
@@ -857,7 +854,7 @@ resetMissions();
 window.guardarProgresoQuizzy = async function(datos) {
   try {
     await setDoc(
-      doc(db, "usuarios", "${auth.currentUser.uid}"),
+     doc(db, "usuarios", user.uid),
       {
         ...datos,
         actualizadoEn: new Date()
