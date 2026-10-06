@@ -9,7 +9,8 @@
     "preguntas-extra-4.json",
     "preguntas-extra-5.json",
     "preguntas-extra-6.json",
-    "preguntas-extra-7.json"
+    "preguntas-extra-7.json",
+    "preguntas-extra-8.json"
   ];
 
   const correcciones = {
@@ -34,22 +35,14 @@
     .replace(/\s+/g, " ")
     .trim();
 
-  // Mezcla las opciones sin cambiar cuál es la respuesta correcta.
   const barajarOpciones = (pregunta, indicePartida) => {
     const opciones = [...pregunta[1]];
     const correcta = Number(pregunta[2]);
     if (correcta < 0 || correcta >= opciones.length) return pregunta;
-
-    // Objetivo A/B/C rotatorio: evita que la correcta quede siempre en la misma posición.
     const objetivo = indicePartida % opciones.length;
     const orden = opciones.map((_, i) => i).filter(i => i !== correcta);
     orden.splice(objetivo, 0, correcta);
-
-    return [
-      pregunta[0],
-      orden.map(i => opciones[i]),
-      orden.indexOf(correcta)
-    ];
+    return [pregunta[0], orden.map(i => opciones[i]), orden.indexOf(correcta)];
   };
 
   window.cargarPreguntasAmpliadas = async function(curso, categoria){
@@ -62,18 +55,14 @@
       const claveCurso = Object.keys(banco).find(k => k.trim() === String(curso).trim());
       const preguntas = claveCurso && banco[claveCurso] && banco[claveCurso][categoria];
       if (!Array.isArray(preguntas)) continue;
-
       for (const original of preguntas) {
         if (!Array.isArray(original) || original.length < 3 || !Array.isArray(original[1])) continue;
-
         const q = [original[0], [...original[1]], original[2]];
         const correccion = correcciones[String(q[0]).trim()];
         if (correccion) q[0] = correccion;
-
         const clave = JSON.stringify(q);
         const claveEnunciado = normalizar(q[0]);
         if (vistas.has(clave) || enunciados.has(claveEnunciado)) continue;
-
         vistas.add(clave);
         enunciados.add(claveEnunciado);
         resultado.push(q);
