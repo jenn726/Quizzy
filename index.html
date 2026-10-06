@@ -199,7 +199,7 @@ function updateHeader(){
   $("xp").textContent=xp;
   $("coins").textContent=coins;
   $("xpfill").style.width=(xp%100)+"%";
- $("#dragonHome").innerHTML = `<img src="${level>=20?'dragón-supremo.png':level>=10?'dragón-legendario.png':level>=5?'dragón-poderoso.png':level>=3?'dragón-mágico.png':level>=2?'dragón-joven.png':'dragón-morado.png'}" style="width:180px;height:180px;object-fit:contain;cursor:pointer;" onclick="showDragon()">`;
+ $("dragonHome").innerHTML = `<img src="${level>=20?'dragón-supremo.png':level>=10?'dragón-legendario.png':level>=5?'dragón-poderoso.png':level>=3?'dragón-mágico.png':level>=2?'dragón-joven.png':'dragón-morado.png'}" style="width:180px;height:180px;object-fit:contain;cursor:pointer;" onclick="showDragon()">`;
 }
 function hide(){screens.forEach(s=>{if($(s))$(s).classList.add("hidden")})}
 function home(){hide();$("home").classList.remove("hidden");updateHeader()}
