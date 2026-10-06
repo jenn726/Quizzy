@@ -510,9 +510,10 @@ function showCustomize(){
     <button onclick="showCustomize()">← Volver</button>
   `;
 }
-  function setDragonAccessory(accessory){
+function setDragonAccessory(accessory){
   dragonAccessory = accessory;
   localStorage.setItem("quizzyDragonAccessory", accessory);
+  save();
   showDragon();
 }
 function showEffects(){
@@ -533,9 +534,10 @@ function showEffects(){
     <button onclick="showCustomize()">← Volver</button>
   `;
 }
-  function setDragonEffect(effect){
+function setDragonEffect(effect){
   dragonEffect = effect;
   localStorage.setItem("quizzyDragonEffect", effect);
+  save();
   showDragon();
 }
 function saveDragon(){
