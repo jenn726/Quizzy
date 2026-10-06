@@ -1,5 +1,5 @@
 // Quizzy — cargador ampliado de preguntas
-// Carga el banco principal y los 7 bancos extra.
+// Carga todos los bancos, elimina duplicados y reparte la posición de la respuesta correcta.
 (function(){
   const archivos = [
     "preguntas.json",
@@ -34,6 +34,24 @@
     .replace(/\s+/g, " ")
     .trim();
 
+  // Mezcla las opciones sin cambiar cuál es la respuesta correcta.
+  const barajarOpciones = (pregunta, indicePartida) => {
+    const opciones = [...pregunta[1]];
+    const correcta = Number(pregunta[2]);
+    if (correcta < 0 || correcta >= opciones.length) return pregunta;
+
+    // Objetivo A/B/C rotatorio: evita que la correcta quede siempre en la misma posición.
+    const objetivo = indicePartida % opciones.length;
+    const orden = opciones.map((_, i) => i).filter(i => i !== correcta);
+    orden.splice(objetivo, 0, correcta);
+
+    return [
+      pregunta[0],
+      orden.map(i => opciones[i]),
+      orden.indexOf(correcta)
+    ];
+  };
+
   window.cargarPreguntasAmpliadas = async function(curso, categoria){
     const bancos = await Promise.all(archivos.map(cargarJson));
     const resultado = [];
@@ -54,14 +72,15 @@
 
         const clave = JSON.stringify(q);
         const claveEnunciado = normalizar(q[0]);
-
         if (vistas.has(clave) || enunciados.has(claveEnunciado)) continue;
+
         vistas.add(clave);
         enunciados.add(claveEnunciado);
         resultado.push(q);
       }
     }
 
-    return resultado.sort(() => Math.random() - 0.5).slice(0, 5);
+    const mezcladas = resultado.sort(() => Math.random() - 0.5).slice(0, 5);
+    return mezcladas.map((q, i) => barajarOpciones(q, i));
   };
 })();
