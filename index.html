@@ -832,7 +832,7 @@ updateHeader();
     const { getFirestore, doc, setDoc, getDoc } = await import(
       "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
     );
-    const { getAuth, signInAnonymously } = await import(
+ const { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider } = await import(
   "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
 );
 
