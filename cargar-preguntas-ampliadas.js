@@ -1,6 +1,5 @@
 // Quizzy — cargador ampliado de preguntas
-// Carga el banco principal y los 6 bancos extra, corrige preguntas detectadas en la revisión,
-// elimina duplicados exactos y preguntas repetidas por enunciado, y mantiene 5 preguntas por partida.
+// Carga el banco principal y los 7 bancos extra.
 (function(){
   const archivos = [
     "preguntas.json",
@@ -9,7 +8,8 @@
     "preguntas-extra-3.json",
     "preguntas-extra-4.json",
     "preguntas-extra-5.json",
-    "preguntas-extra-6.json"
+    "preguntas-extra-6.json",
+    "preguntas-extra-7.json"
   ];
 
   const correcciones = {
