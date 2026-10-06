@@ -10,7 +10,8 @@
     "preguntas-extra-5.json",
     "preguntas-extra-6.json",
     "preguntas-extra-7.json",
-    "preguntas-extra-8.json"
+    "preguntas-extra-8.json",
+    "preguntas-extra-9.json"
   ];
 
   const correcciones = {
