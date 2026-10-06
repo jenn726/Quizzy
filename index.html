@@ -119,6 +119,7 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
     <button onclick="showDuels()">⚔️ Duelos</button>
     <button onclick="showShop()">🛍️ Tienda</button>
     <button onclick="showParents()">👨‍👩‍👧 Zona de padres</button>
+    <button onclick="showAccount()">🔐 Mi cuenta</button>
   </div>
 
   <div id="course" class="hidden"></div>
@@ -131,11 +132,12 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
   <div id="duels" class="hidden"></div>
   <div id="shop" class="hidden"></div>
   <div id="parents" class="hidden"></div>
+  <div id="account" class="hidden"></div>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
-const screens = ["home","course","cats","quiz","profile","achievements","dragon","missions","duels","shop","parents"];
+const screens = ["home","course","cats","quiz","profile","achievements","dragon","missions","duels","shop","parents","account"];
 let playerCourse = localStorage.getItem("quizzyCourse") || "";
 let xp = Number(localStorage.getItem("quizzyXP") || 0);
 let coins = Number(localStorage.getItem("quizzyCoins") || 100);
@@ -204,6 +206,38 @@ function updateHeader(){
 function hide(){screens.forEach(s=>{if($(s))$(s).classList.add("hidden")})}
 function home(){hide();$("home").classList.remove("hidden");updateHeader()}
 function backButton(){return `<button onclick="home()">⬅️ Volver</button>`}
+function showAccount(){
+  hide();
+  $("account").classList.remove("hidden");
+
+  $("account").innerHTML=`
+    <h2>🔐 Mi cuenta</h2>
+
+    <div class="notice" style="text-align:center;">
+      <div style="font-size:55px;">🐉</div>
+      <h3>¡Bienvenido a Quizzy!</h3>
+      <p>Guarda tu progreso y juega desde cualquier dispositivo.</p>
+    </div>
+
+    <button class="primary" onclick="alert('Próximamente: entrar con Google')">
+      🔵 Continuar con Google
+    </button>
+
+    <button onclick="alert('Próximamente: entrar con correo')">
+      📧 Entrar con correo
+    </button>
+
+    <button onclick="alert('Próximamente: crear una cuenta')">
+      🆕 Crear cuenta
+    </button>
+
+    <div class="notice" style="text-align:center;">
+      👤 Actualmente estás jugando como invitado.
+    </div>
+
+    ${backButton()}
+  `;
+}
 
 function showCourse(){
   hide(); $("course").classList.remove("hidden");
