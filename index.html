@@ -839,12 +839,23 @@ const ref = doc(db, "usuarios", user.uid);
 
     if (datos.dragonNombre !== undefined)
       localStorage.setItem("quizzyDragonName", datos.dragonNombre);
+    if (datos.dragonColor !== undefined)
+  localStorage.setItem("quizzyDragonColor", datos.dragonColor);
+
+if (datos.dragonAccessory !== undefined)
+  localStorage.setItem("quizzyDragonAccessory", datos.dragonAccessory);
+
+if (datos.dragonEffect !== undefined)
+  localStorage.setItem("quizzyDragonEffect", datos.dragonEffect);
 
    xp = Number(datos.xp ?? xp);
 coins = Number(datos.monedas ?? coins);
 playerCourse = datos.curso ?? playerCourse;
 dragonItem = datos.dragonItem ?? dragonItem;
 dragonName = datos.dragonNombre ?? dragonName;
+dragonColor = datos.dragonColor ?? dragonColor;
+dragonAccessory = datos.dragonAccessory ?? dragonAccessory;
+dragonEffect = datos.dragonEffect ?? dragonEffect;
 
 if (Array.isArray(datos.categoriasJugadas)) {
   categoriesPlayed = new Set(datos.categoriasJugadas);
