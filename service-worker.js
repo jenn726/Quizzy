@@ -41,7 +41,7 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
-  if (url.pathname.endsWith("/preguntas.json")) {
+  if (url.pathname.endsWith("/preguntas.json") && !url.searchParams.has("base")) {
     event.respondWith(cargarPreguntasAmpliadas().catch(() => caches.match(event.request)));
     return;
   }
