@@ -3,7 +3,7 @@
   const archivos = [
     "preguntas.json","preguntas-extra-1.json","preguntas-extra-2.json","preguntas-extra-3.json",
     "preguntas-extra-4.json","preguntas-extra-5.json","preguntas-extra-6.json","preguntas-extra-7.json",
-    "preguntas-extra-8.json","preguntas-extra-9.json","preguntas-extra-10.json"
+    "preguntas-extra-8.json","preguntas-extra-9.json","preguntas-extra-10.json","preguntas-extra-11.json"
   ];
   const correcciones = {
     "¿En qué planeta está la Tierra?":"¿En qué sistema está la Tierra?",
