@@ -18,6 +18,11 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
+      - name: Preparar archivos web
+        run: |
+          mkdir -p www
+          rsync -a --exclude '.git' --exclude 'android' --exclude 'www' --exclude 'node_modules' ./ www/
+
       - name: Crear proyecto Android
         run: npx cap add android
 
