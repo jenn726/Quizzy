@@ -1,0 +1,36 @@
+name: Quizzy Android
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar Quizzy
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Crear proyecto Android
+        run: npx cap add android
+
+      - name: Sincronizar Quizzy
+        run: npx cap sync android
+
+      - name: Generar AAB de prueba
+        working-directory: android
+        run: ./gradlew bundleDebug
+
+      - name: Guardar AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: quizzy-android-debug-aab
+          path: android/app/build/outputs/bundle/debug/app-debug.aab
