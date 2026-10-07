@@ -1,4 +1,4 @@
-const CACHE_NAME = "quizzy-v2";
+const CACHE_NAME = "quizzy-v3";
 
 self.addEventListener("install", event => {
   self.skipWaiting();
@@ -13,14 +13,11 @@ async function cargarPreguntasAmpliadas() {
   if (!baseResponse.ok) return baseResponse;
 
   const base = await baseResponse.json();
-  const extras = await Promise.all([
-    fetch("preguntas-extra-1.json?" + Date.now()).then(r => r.json()),
-    fetch("preguntas-extra-2.json?" + Date.now()).then(r => r.json()),
-    fetch("preguntas-extra-3.json?" + Date.now()).then(r => r.json()),
-    fetch("preguntas-extra-4.json?" + Date.now()).then(r => r.json()),
-    fetch("preguntas-extra-5.json?" + Date.now()).then(r => r.json()),
-    fetch("preguntas-extra-6.json?" + Date.now()).then(r => r.json())
-  ]);
+  const extras = await Promise.all(
+    Array.from({length: 11}, (_, i) =>
+      fetch("preguntas-extra-" + (i + 1) + ".json?" + Date.now()).then(r => r.json())
+    )
+  );
 
   for (const extra of extras) {
     for (const curso of Object.keys(extra)) {
