@@ -1,4 +1,4 @@
-const CACHE_NAME = "quizzy-v5";
+const CACHE_NAME = "quizzy-v6";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -6,6 +6,18 @@ const APP_SHELL = [
   "./cargar-preguntas-ampliadas.js",
   "./firebase-quizzy.js",
   "./quizzy-icon.svg",
+  "./preguntas.json",
+  "./preguntas-extra-1.json",
+  "./preguntas-extra-2.json",
+  "./preguntas-extra-3.json",
+  "./preguntas-extra-4.json",
+  "./preguntas-extra-5.json",
+  "./preguntas-extra-6.json",
+  "./preguntas-extra-7.json",
+  "./preguntas-extra-8.json",
+  "./preguntas-extra-9.json",
+  "./preguntas-extra-10.json",
+  "./preguntas-extra-11.json",
   "./dragon-morado.png",
   "./dragon-joven.png",
   "./dragon-magico.png",
@@ -34,76 +46,31 @@ self.addEventListener("activate", event => {
   );
 });
 
-const esPregunta = url => /\/preguntas(?:-extra-\d+)?\.json$/.test(url.pathname);
-
-async function cargarPreguntasAmpliadas() {
-  const baseResponse = await fetch("preguntas.json?base=" + Date.now());
-  if (!baseResponse.ok) throw new Error("No se pudo cargar preguntas.json");
-
-  const base = await baseResponse.json();
-  const extras = await Promise.all(
-    Array.from({length: 11}, (_, i) =>
-      fetch("preguntas-extra-" + (i + 1) + ".json?" + Date.now()).then(r => {
-        if (!r.ok) throw new Error("No se pudo cargar preguntas-extra-" + (i + 1) + ".json");
-        return r.json();
-      })
-    )
-  );
-
-  for (const extra of extras) {
-    for (const curso of Object.keys(extra)) {
-      if (!base[curso]) base[curso] = {};
-      for (const categoria of Object.keys(extra[curso])) {
-        if (!base[curso][categoria]) base[curso][categoria] = [];
-        base[curso][categoria] = base[curso][categoria].concat(extra[curso][categoria]);
-      }
-    }
-  }
-
-  return new Response(JSON.stringify(base), {
-    headers: {"Content-Type":"application/json; charset=utf-8"}
-  });
+function preguntaBase(url) {
+  const limpio = new URL(url.href);
+  limpio.search = "";
+  return limpio.href;
 }
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
+  const esPregunta = /\/preguntas(?:-extra-\d+)?\.json$/.test(url.pathname);
 
-  if (esPregunta(url) && url.pathname.endsWith("/preguntas.json") && !url.searchParams.has("base")) {
-    event.respondWith(
-      cargarPreguntasAmpliadas()
-        .then(async response => {
-          const cache = await caches.open(CACHE_NAME);
-          await cache.put(new Request(new URL("preguntas.json", url.origin).href), response.clone());
-          return response;
-        })
-        .catch(async () => {
-          const cache = await caches.open(CACHE_NAME);
-          return cache.match(new URL("preguntas.json", url.origin).href);
-        })
-    );
-    return;
-  }
-
-  if (esPregunta(url)) {
-    const stableUrl = new URL(url.href);
-    stableUrl.search = "";
-    const stableRequest = new Request(stableUrl.href);
-
+  if (esPregunta) {
     event.respondWith(
       fetch(event.request)
-        .then(async response => {
+        .then(response => {
           if (response.ok) {
-            const cache = await caches.open(CACHE_NAME);
-            await cache.put(stableRequest, response.clone());
+            const copia = response.clone();
+            caches.open(CACHE_NAME).then(cache =>
+              cache.put(new Request(preguntaBase(url)), copia)
+            );
           }
           return response;
         })
-        .catch(async () => {
-          const cache = await caches.open(CACHE_NAME);
-          return cache.match(stableRequest);
-        })
+        .catch(() => caches.match(preguntaBase(url)))
     );
     return;
   }
@@ -112,8 +79,8 @@ self.addEventListener("fetch", event => {
     fetch(event.request)
       .then(response => {
         if (response.ok) {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+          const copia = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copia));
         }
         return response;
       })
