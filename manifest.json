@@ -1,11 +1,19 @@
 {
+  "id": "./",
   "name": "Quizzy 🐉",
   "short_name": "Quizzy",
+  "lang": "es",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#6d28d9",
   "theme_color": "#6d28d9",
-  "description": "Aprende jugando, gana XP y haz crecer a tu dragón.",
+  "description": "Quizzy es un juego educativo para niños de Primaria: responde preguntas, consigue XP y monedas, completa misiones y haz crecer y personaliza tu dragón.",
+  "categories": [
+    "education",
+    "games"
+  ],
   "icons": [
     {
       "src": "./quizzy-icon.svg",
