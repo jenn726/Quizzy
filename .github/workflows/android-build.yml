@@ -66,7 +66,7 @@ jobs:
           QUIZZY_KEYSTORE_PASSWORD: ${{ secrets.QUIZZY_KEYSTORE_PASSWORD }}
           QUIZZY_KEY_ALIAS: ${{ secrets.QUIZZY_KEY_ALIAS }}
         run: |
-          npx cap build android --keystorepath android/quizzy-upload-key.jks --keystorepass "$QUIZZY_KEYSTORE_PASSWORD" --keystorealias "$QUIZZY_KEY_ALIAS" --keystorealiaspass "$QUIZZY_KEYSTORE_PASSWORD" --androidreleasetype AAB
+          npx cap build android --keystorepath quizzy-upload-key.jks --keystorepass "$QUIZZY_KEYSTORE_PASSWORD" --keystorealias "$QUIZZY_KEY_ALIAS" --keystorealiaspass "$QUIZZY_KEYSTORE_PASSWORD" --androidreleasetype AAB
 
       - name: Guardar AAB Release
         uses: actions/upload-artifact@v4
