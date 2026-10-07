@@ -50,6 +50,15 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
   <script src="cargar-preguntas-ampliadas.js"></script>
 <script type="module" src="firebase-quizzy.js"></script>
 <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("Quizzy: service worker registrado"))
+      .catch(error => console.error("Quizzy: error registrando service worker", error));
+  });
+}
+</script>
+<script>
 const $=id=>document.getElementById(id);const screens=["home","course","cats","quiz","profile","achievements","dragon","missions","duels","shop","parents","account"];
 let playerCourse=localStorage.getItem("quizzyCourse")||"";let xp=Number(localStorage.getItem("quizzyXP")||0);let coins=Number(localStorage.getItem("quizzyCoins")||100);let dragonItem=localStorage.getItem("quizzyDragonItem")||"draco";let dragonName=localStorage.getItem("quizzyDragonName")||"Draco";let dragonColor=localStorage.getItem("quizzyDragonColor")||"original";let dragonAccessory=localStorage.getItem("quizzyDragonAccessory")||"ninguno";let dragonEffect=localStorage.getItem("quizzyDragonEffect")||"ninguno";let categoriesPlayed=new Set(JSON.parse(localStorage.getItem("quizzyCategories")||"[]"));let missions=JSON.parse(localStorage.getItem("quizzyMissions")||"null");let claimedAchievements=JSON.parse(localStorage.getItem("quizzyClaimedAchievements")||"[]");let list=[],pos=0,points=0,currentCategory="";let questionsAnswered=Number(localStorage.getItem("quizzyQuestionsAnswered")||0);let correctAnswers=Number(localStorage.getItem("quizzyCorrectAnswers")||0);
 const achievementDefs=[['primeros','🌱 Primeros pasos',()=>questionsAnswered>=1,'Contesta tu primera pregunta',20],['diez','⭐ 10 aciertos',()=>correctAnswers>=10,'Consigue 10 respuestas correctas',40],['cincuenta','🏆 50 aciertos',()=>correctAnswers>=50,'Consigue 50 respuestas correctas',100],['explorador','📚 Explorador',()=>categoriesPlayed.size>=4,'Juega 4 categorías diferentes',50],['gran-explorador','🌍 Gran explorador',()=>categoriesPlayed.size>=7,'Juega las 7 categorías',100],['experto','🎓 Experto',()=>xp>=1000,'Alcanza 1000 XP',150]];
