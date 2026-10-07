@@ -1,7 +1,7 @@
 {
   "appId":"com.quizzy.app",
   "appName":"Quizzy",
-  "webDir":".",
+  "webDir":"www",
   "server":{
     "androidScheme":"https"
   }
