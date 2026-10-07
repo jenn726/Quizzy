@@ -1,4 +1,4 @@
-const CACHE_NAME = "quizzy-v4";
+const CACHE_NAME = "quizzy-v5";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -34,6 +34,8 @@ self.addEventListener("activate", event => {
   );
 });
 
+const esPregunta = url => /\/preguntas(?:-extra-\d+)?\.json$/.test(url.pathname);
+
 async function cargarPreguntasAmpliadas() {
   const baseResponse = await fetch("preguntas.json?base=" + Date.now());
   if (!baseResponse.ok) throw new Error("No se pudo cargar preguntas.json");
@@ -67,15 +69,41 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
-  if (url.pathname.endsWith("/preguntas.json") && !url.searchParams.has("base")) {
+
+  if (esPregunta(url) && url.pathname.endsWith("/preguntas.json") && !url.searchParams.has("base")) {
     event.respondWith(
       cargarPreguntasAmpliadas()
         .then(async response => {
           const cache = await caches.open(CACHE_NAME);
-          await cache.put(new Request(url.href), response.clone());
+          await cache.put(new Request(new URL("preguntas.json", url.origin).href), response.clone());
           return response;
         })
-        .catch(() => caches.match(event.request))
+        .catch(async () => {
+          const cache = await caches.open(CACHE_NAME);
+          return cache.match(new URL("preguntas.json", url.origin).href);
+        })
+    );
+    return;
+  }
+
+  if (esPregunta(url)) {
+    const stableUrl = new URL(url.href);
+    stableUrl.search = "";
+    const stableRequest = new Request(stableUrl.href);
+
+    event.respondWith(
+      fetch(event.request)
+        .then(async response => {
+          if (response.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(stableRequest, response.clone());
+          }
+          return response;
+        })
+        .catch(async () => {
+          const cache = await caches.open(CACHE_NAME);
+          return cache.match(stableRequest);
+        })
     );
     return;
   }
