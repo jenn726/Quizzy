@@ -8,14 +8,14 @@
   "description": "Aprende jugando, gana XP y haz crecer a tu dragón.",
   "icons": [
     {
-     "src": "./quizzy-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "./quizzy-icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
     },
     {
-     "src": "./quizzy-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "./quizzy-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ]
 }
