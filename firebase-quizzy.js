@@ -7,7 +7,8 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import {
   getFirestore,
@@ -151,6 +152,30 @@ window.quizzyEmailRegister = async function() {
   } catch (error) {
     console.error(error);
     alert("No se pudo crear la cuenta: " + error.message);
+  }
+};
+
+window.quizzyUpdateProfile = async function(displayName) {
+  if (!currentUser) return;
+  const name = String(displayName || "").trim().slice(0, 30);
+  if (!name) {
+    alert("Escribe un nombre.");
+    return;
+  }
+  try {
+    await updateProfile(currentUser, { displayName: name });
+    await setDoc(doc(db, "users", currentUser.uid), {
+      displayName: name,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+    window.quizzyUser = currentUser;
+    if (typeof window.actualizarCuentaFirebase === "function") {
+      window.actualizarCuentaFirebase(currentUser);
+    }
+    showFirebaseMessage("✅ ¡Nombre guardado!");
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo guardar el nombre: " + error.message);
   }
 };
 
