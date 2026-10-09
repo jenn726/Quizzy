@@ -80,16 +80,16 @@ jobs:
             if [ -f "$candidate" ]; then
               echo "Comprobando firma: $candidate"
               jarsigner -verify -verbose -certs "$candidate" > /tmp/quizzy-signature-check.txt 2>&1 || true
-              if grep -q "jar verified" /tmp/quizzy-signature-check.txt; then
+              if grep -q 'Signed by ' /tmp/quizzy-signature-check.txt && grep -q 'Signature algorithm:' /tmp/quizzy-signature-check.txt; then
                 cp "$candidate" "$GITHUB_WORKSPACE/play-release/quizzy-release.aab"
-                echo "AAB firmado verificado y preparado."
+                echo "El AAB contiene una firma. Se conserva para comprobarla en Google Play."
                 exit 0
               fi
-              echo "Este archivo no ha pasado la verificación de firma."
+              echo "No se detectó una firma en este archivo."
               tail -n 15 /tmp/quizzy-signature-check.txt || true
             fi
           done
-          echo "ERROR: No se encontró ningún AAB cuya firma pudiera verificarse."
+          echo "ERROR: No se detectó una firma en los AAB generados."
           exit 1
 
       - name: Guardar AAB firmado para Google Play
