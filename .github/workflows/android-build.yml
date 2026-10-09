@@ -68,8 +68,32 @@ jobs:
         run: |
           npx cap build android --keystorepath quizzy-upload-key.jks --keystorepass "$QUIZZY_KEYSTORE_PASSWORD" --keystorealias "$QUIZZY_KEY_ALIAS" --keystorealiaspass "$QUIZZY_KEYSTORE_PASSWORD" --androidreleasetype AAB
 
-      - name: Guardar AAB Release
+      - name: Verificar y preparar AAB firmado para Google Play
+        shell: bash
+        run: |
+          set -e
+          RELEASE_DIR="android/app/build/outputs/bundle/release"
+          echo "Archivos AAB generados:"
+          ls -lah "$RELEASE_DIR"
+          mkdir -p "$GITHUB_WORKSPACE/play-release"
+          for candidate in "$RELEASE_DIR/app-release-signed.aab" "$RELEASE_DIR/app-release.aab"; do
+            if [ -f "$candidate" ]; then
+              echo "Comprobando firma: $candidate"
+              jarsigner -verify -verbose -certs "$candidate" > /tmp/quizzy-signature-check.txt 2>&1 || true
+              if grep -q "jar verified" /tmp/quizzy-signature-check.txt; then
+                cp "$candidate" "$GITHUB_WORKSPACE/play-release/quizzy-release.aab"
+                echo "AAB firmado verificado y preparado."
+                exit 0
+              fi
+              echo "Este archivo no ha pasado la verificación de firma."
+              tail -n 15 /tmp/quizzy-signature-check.txt || true
+            fi
+          done
+          echo "ERROR: No se encontró ningún AAB cuya firma pudiera verificarse."
+          exit 1
+
+      - name: Guardar AAB firmado para Google Play
         uses: actions/upload-artifact@v4
         with:
-          name: quizzy-android-release-aab
-          path: android/app/build/outputs/bundle/release/app-release-signed.aab
+          name: quizzy-google-play-firmado
+          path: play-release/quizzy-release.aab
