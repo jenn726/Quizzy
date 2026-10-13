@@ -35,6 +35,19 @@ jobs:
       - name: Sincronizar Quizzy
         run: npx cap sync android
 
+      - name: Aumentar número de versión para Google Play
+        shell: bash
+        run: |
+          set -e
+          GRADLE_FILE="android/app/build.gradle"
+          if [ ! -f "$GRADLE_FILE" ]; then
+            echo "ERROR: No se encuentra $GRADLE_FILE"
+            exit 1
+          fi
+          sed -i '0,/versionCode 1/s//versionCode 2/' "$GRADLE_FILE"
+          grep -n "versionCode" "$GRADLE_FILE"
+          grep -q "versionCode 2" "$GRADLE_FILE"
+
       - name: Generar AAB de prueba
         working-directory: android
         run: ./gradlew bundleDebug
