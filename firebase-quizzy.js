@@ -1,8 +1,11 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
   getAuth,
+  EmailAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  reauthenticateWithCredential,
+  deleteUser,
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
@@ -13,6 +16,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  deleteDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
@@ -179,6 +183,43 @@ window.quizzyPasswordReset = async function() {
   } catch (error) {
     console.error(error);
     alert("No se pudo enviar el correo: " + error.message);
+  }
+};
+
+window.quizzyDeleteAccount = async function() {
+  if (!currentUser) {
+    alert("No hay ninguna cuenta conectada.");
+    return;
+  }
+  const accepted = confirm("¿Quieres eliminar definitivamente tu cuenta de Quizzy y el progreso guardado en la nube? Esta acción no se puede deshacer.");
+  if (!accepted) return;
+
+  try {
+    const hasPassword = currentUser.providerData?.some(provider => provider.providerId === "password");
+    if (hasPassword) {
+      const password = prompt("Por seguridad, escribe la contraseña de esta cuenta para confirmar la eliminación.");
+      if (password === null) return;
+      if (!password) {
+        alert("Escribe tu contraseña para continuar.");
+        return;
+      }
+      const credential = EmailAuthProvider.credential(currentUser.email, password);
+      await reauthenticateWithCredential(currentUser, credential);
+    }
+
+    await deleteDoc(doc(db, "users", currentUser.uid));
+    await deleteUser(currentUser);
+    currentUser = null;
+    window.quizzyUser = null;
+    showFirebaseMessage("✅ Tu cuenta y el progreso guardado en la nube se han eliminado.");
+    if (typeof window.showAccount === "function") window.showAccount();
+  } catch (error) {
+    console.error("Error eliminando la cuenta de Quizzy:", error);
+    if (error.code === "auth/requires-recent-login" || error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
+      alert("No se pudo verificar la cuenta o la sesión ha caducado. Cierra sesión, vuelve a entrar y repite la eliminación. Si no puedes acceder, utiliza la página de solicitud de eliminación.");
+    } else {
+      alert("No se pudo completar la eliminación. Puedes volver a intentarlo o usar la página de solicitud de eliminación. Código: " + (error.code || "error desconocido"));
+    }
   }
 };
 
