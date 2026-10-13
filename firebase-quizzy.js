@@ -215,7 +215,11 @@ window.quizzyDeleteAccount = async function() {
     if (typeof window.showAccount === "function") window.showAccount();
   } catch (error) {
     console.error("Error eliminando la cuenta de Quizzy:", error);
-    if (error.code === "auth/requires-recent-login" || error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
+    const hasPasswordProvider = currentUser?.providerData?.some(provider => provider.providerId === "password");
+    const hasGoogleProvider = currentUser?.providerData?.some(provider => provider.providerId === "google.com");
+    if (hasGoogleProvider && !hasPasswordProvider) {
+      alert("No se pudo completar la eliminación desde esta sesión. Como esta cuenta se creó con Google y el acceso con Google ya no está disponible en Quizzy, utiliza la página de solicitud de eliminación para que podamos ayudarte.");
+    } else if (error.code === "auth/requires-recent-login" || error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
       alert("No se pudo verificar la cuenta o la sesión ha caducado. Cierra sesión, vuelve a entrar y repite la eliminación. Si no puedes acceder, utiliza la página de solicitud de eliminación.");
     } else {
       alert("No se pudo completar la eliminación. Puedes volver a intentarlo o usar la página de solicitud de eliminación. Código: " + (error.code || "error desconocido"));
