@@ -1,68 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Política de privacidad · Quizzy 🐉</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(145deg,#6d28d9,#a855f7);color:#4c1d95;min-height:100vh;padding:18px}
-.card{background:#fff;border-radius:24px;padding:24px;max-width:760px;margin:0 auto;box-shadow:0 8px 25px rgba(0,0,0,.15)}
-h1,h2{margin-top:0}h2{margin-top:28px}
-p,li{line-height:1.6;color:#374151}
-.notice{padding:14px;background:#f3e8ff;border-radius:14px;margin:16px 0}
-a{color:#6d28d9;font-weight:bold}
-.back{display:inline-block;margin-top:20px;padding:12px 16px;background:#facc15;color:#4c1d95;text-decoration:none;border-radius:12px;font-weight:bold}
-.small{font-size:13px;color:#6b7280}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidad | Quizzy</title>
+  <meta name="description" content="Política de privacidad de Quizzy, aplicación educativa de preguntas y respuestas para niños de Primaria y sus familias.">
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;line-height:1.6;max-width:820px;margin:0 auto;padding:24px;color:#242424}
+    h1,h2{line-height:1.25;color:#50318a} a{color:#50318a} footer{margin-top:36px;font-size:.9rem;color:#555}
+  </style>
 </head>
 <body>
-<main class="card">
-<div style="text-align:center;font-size:64px">🐉</div>
-<h1>Política de privacidad de Quizzy</h1>
-<p class="small"><b>Última actualización:</b> 7 de octubre de 2026</p>
+  <h1>Política de privacidad de Quizzy</h1>
+  <p><strong>Última actualización:</strong> 13 de octubre de 2026</p>
+  <p>Quizzy es una aplicación educativa de preguntas y respuestas para niños y niñas de Primaria y sus familias. Esta política explica qué información puede tratarse, para qué se utiliza y cómo solicitar su eliminación.</p>
 
-<div class="notice">
-Quizzy es un juego educativo para niños de Primaria y sus familias. Esta política explica qué información puede guardarse cuando utilizas Quizzy y para qué se utiliza.
-</div>
+  <h2>1. Información que puede tratarse</h2>
+  <ul>
+    <li><strong>Datos de cuenta:</strong> dirección de correo electrónico y, si se configura, nombre visible. La autenticación se gestiona mediante Firebase Authentication. Quizzy no almacena directamente las contraseñas.</li>
+    <li><strong>Progreso y preferencias:</strong> curso seleccionado, XP, monedas virtuales, nivel, preguntas respondidas, respuestas correctas, categorías, misiones, logros y personalización del dragón.</li>
+    <li><strong>Datos locales:</strong> parte del progreso y las preferencias se guardan en el almacenamiento del dispositivo o navegador para que las funciones básicas puedan funcionar en ese dispositivo.</li>
+    <li><strong>Datos técnicos del servicio:</strong> Firebase/Google puede procesar información técnica necesaria para autenticar usuarios, proteger el servicio y prestar sus funciones, conforme a su documentación y condiciones.</li>
+  </ul>
 
-<h2>1. ¿Qué información guarda Quizzy?</h2>
-<p>Quizzy puede guardar:</p>
-<ul>
-<li><b>Progreso del juego:</b> XP, nivel, monedas, curso, preguntas respondidas, respuestas correctas, categorías jugadas, misiones, logros y datos de personalización del dragón.</li>
-<li><b>Datos de cuenta:</b> si se crea una cuenta, Quizzy puede utilizar el correo electrónico y, si se configura, el nombre visible de la cuenta.</li>
-<li><b>Datos guardados en el dispositivo:</b> parte del progreso y preferencias se almacenan localmente en el navegador o en la aplicación instalada.</li>
-</ul>
+  <h2>2. Dónde se almacenan los datos</h2>
+  <p>Cuando se inicia sesión, Quizzy utiliza Firebase Authentication para gestionar la cuenta y Cloud Firestore para guardar el progreso asociado a esa cuenta. Los datos enviados a la nube se procesan mediante servicios de Google Firebase. Las reglas de Firestore restringen el acceso a cada documento de usuario a la cuenta autenticada cuyo identificador coincide con el propietario del documento.</p>
 
-<h2>2. ¿Para qué se utilizan estos datos?</h2>
-<p>Se utilizan únicamente para proporcionar las funciones de Quizzy: mantener el progreso, restaurarlo en otros dispositivos cuando se utiliza una cuenta, guardar la personalización y mostrar estadísticas de aprendizaje.</p>
-<p>Quizzy no utiliza estos datos para publicidad personalizada y actualmente no incorpora anuncios ni herramientas propias de seguimiento publicitario.</p>
+  <h2>3. Para qué se utilizan</h2>
+  <p>Los datos se utilizan para iniciar y gestionar la sesión, guardar y recuperar el progreso en distintos dispositivos, mantener las preferencias del juego y proporcionar las funciones educativas de Quizzy. No se venden datos personales. La versión actual no incorpora anuncios ni herramientas propias de seguimiento publicitario.</p>
 
-<h2>3. Firebase y servicios de terceros</h2>
-<p>Cuando utilizas una cuenta, Quizzy utiliza servicios de <b>Google Firebase</b> para la autenticación y para guardar el progreso en la nube. Firebase puede procesar los datos necesarios para prestar estos servicios conforme a sus propias condiciones y políticas de privacidad.</p>
-<p>Quizzy permite iniciar sesión mediante correo electrónico y contraseña. La contraseña no es almacenada directamente por Quizzy, sino gestionada por Firebase Authentication.</p>
-<p>El acceso con Google no está disponible en esta versión. Las cuentas que guardan progreso en la nube deben crearse y gestionarse con ayuda de un padre, madre, tutor o responsable legal cuando el usuario sea menor de edad.</p>
+  <h2>4. Métodos de acceso</h2>
+  <p>La versión actual permite crear una cuenta e iniciar sesión mediante correo electrónico y contraseña. El acceso con Google está deshabilitado en la configuración actual. No se debe asumir que una cuenta creada anteriormente con Google podrá volver a iniciar sesión mediante ese proveedor mientras permanezca deshabilitado.</p>
 
-<h2>4. Datos de menores</h2>
-<p>Quizzy está diseñado como herramienta educativa para niños de Primaria. Cuando el usuario sea menor de edad, recomendamos que la creación y gestión de una cuenta con almacenamiento en la nube sea realizada por su padre, madre, tutor o responsable legal, de acuerdo con las normas aplicables.</p>
-<p>Quizzy no solicita deliberadamente datos personales innecesarios de los niños para utilizar las funciones básicas del juego.</p>
+  <h2>5. Menores de edad</h2>
+  <p>Quizzy está diseñada para niños y niñas de Primaria. Recomendamos que padres, madres o tutores supervisen la creación y gestión de cuentas y el uso del almacenamiento en la nube. No introduzcas en la aplicación información personal innecesaria. El responsable de la aplicación debe cumplir las leyes aplicables a la privacidad de menores y mantener actualizadas las declaraciones de Google Play.</p>
 
-<h2>5. Conservación y eliminación</h2>
-<p>El progreso guardado únicamente en el dispositivo permanece hasta que se borra el almacenamiento de la aplicación o del navegador. El progreso asociado a una cuenta puede permanecer en Firebase mientras la cuenta o los datos correspondientes estén activos.</p>
-<p>Si tienes una cuenta, puedes iniciar sesión en Quizzy y utilizar la opción «Eliminar mi cuenta y los datos en la nube» desde «Mi cuenta». La aplicación elimina la cuenta de autenticación y el documento de progreso asociado en Firebase. Si no puedes acceder a tu cuenta, puedes solicitar ayuda mediante el repositorio de Quizzy indicado al final de esta página; no publiques contraseñas ni otros datos personales.</p>
+  <h2>6. Conservación y eliminación</h2>
+  <p>El progreso guardado únicamente en el dispositivo permanece hasta que se borra el almacenamiento de la aplicación o del navegador. Los datos en la nube pueden conservarse mientras la cuenta y los datos asociados estén activos.</p>
+  <p>Si puedes iniciar sesión, utiliza «Eliminar mi cuenta y los datos en la nube» en «Mi cuenta» para solicitar la eliminación de la cuenta de Firebase Authentication y del documento de progreso asociado. Si no puedes acceder, solicita ayuda escribiendo al correo indicado en la sección de contacto. La eliminación del progreso local del dispositivo es independiente de la eliminación de los datos en la nube.</p>
 
-<h2>6. Seguridad</h2>
-<p>Quizzy utiliza los mecanismos de seguridad proporcionados por Firebase para la autenticación y el almacenamiento de datos. Aun así, ningún servicio conectado a Internet puede garantizar una seguridad absoluta.</p>
+  <h2>7. Seguridad</h2>
+  <p>Quizzy utiliza Firebase Authentication y reglas de seguridad de Cloud Firestore para controlar el acceso a los datos. Firebase cifra los datos en tránsito según la documentación del proveedor. Ningún sistema conectado a Internet puede garantizar una seguridad absoluta.</p>
 
-<h2>7. Cambios en esta política</h2>
-<p>Esta política puede actualizarse cuando Quizzy incorpore nuevas funciones, servicios o requisitos legales. La fecha de la última actualización aparecerá al principio de esta página.</p>
+  <h2>8. Servicios de terceros</h2>
+  <p>Quizzy depende de servicios de Google Firebase para la autenticación y el almacenamiento en la nube. El tratamiento de datos por esos servicios también está sujeto a las condiciones y políticas del proveedor. Consulta la <a href="https://policies.google.com/privacy">Política de privacidad de Google</a> y la <a href="https://firebase.google.com/support/privacy">información de privacidad de Firebase</a>.</p>
 
-<h2>8. Contacto</h2>
-<p>Para consultas sobre privacidad, datos personales o eliminación de una cuenta, puedes contactar con el responsable del proyecto a través del repositorio de Quizzy en GitHub:</p>
-<p>Correo de contacto para privacidad y eliminación de cuentas: <a href="mailto:jenn150689@gmail.com">jenn150689@gmail.com</a>.</p>
-<p><a href="https://github.com/jenn726/Quizzy" target="_blank" rel="noopener">Repositorio de Quizzy en GitHub</a></p>
+  <h2>9. Cambios en esta política</h2>
+  <p>Esta política puede actualizarse si cambian las funciones, los servicios utilizados o los requisitos aplicables. La fecha de actualización aparecerá al principio de esta página.</p>
 
-<a class="back" href="./">⬅️ Volver a Quizzy</a>
-</main>
+  <h2>10. Contacto</h2>
+  <p>Para consultas sobre privacidad, datos personales o eliminación de cuentas, escribe a <a href="mailto:jenn150689@gmail.com">jenn150689@gmail.com</a>. No envíes contraseñas por correo electrónico.</p>
+
+  <footer>Política de privacidad de Quizzy.</footer>
 </body>
 </html>
