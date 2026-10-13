@@ -1,10 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
   getAuth,
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
@@ -30,7 +28,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
 let saveTimer = null;
@@ -111,15 +108,6 @@ async function cargarProgresoNube(user) {
   }
   showFirebaseMessage("☁️ ¡Progreso de tu cuenta restaurado!");
 }
-
-window.quizzyGoogleLogin = async function() {
-  try {
-    await signInWithPopup(auth, googleProvider);
-  } catch (error) {
-    console.error(error);
-    alert("No se pudo iniciar sesión con Google: " + error.message);
-  }
-};
 
 window.quizzyEmailLogin = async function() {
   const email = document.getElementById("quizzyEmail")?.value.trim();
