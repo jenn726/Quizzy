@@ -58,7 +58,15 @@ function progressData(data) {
     questionsAnswered: Number(data?.questionsAnswered ?? data?.preguntasRespondidas ?? 0),
     correctAnswers: Number(data?.correctAnswers ?? data?.respuestasCorrectas ?? 0),
     claimedAchievements: Array.isArray(data?.claimedAchievements) ? data.claimedAchievements : (Array.isArray(data?.logrosConseguidos) ? data.logrosConseguidos : []),
-    missions: data?.missions ?? data?.misiones ?? null
+    missions: data?.missions ?? data?.misiones ?? null,
+    adventureLives: Number(data?.adventureLives ?? 5),
+    adventureZone: Number(data?.adventureZone ?? 0),
+    adventureStreak: Number(data?.adventureStreak ?? 0),
+    adventureLastDay: data?.adventureLastDay || "",
+    adventureAvatar: data?.adventureAvatar || "🧙",
+    dragonCollection: Array.isArray(data?.dragonCollection) ? data.dragonCollection : ["draco"],
+    dragonEggFragments: Number(data?.dragonEggFragments || 0),
+    activeCompanion: data?.activeCompanion || "draco"
   };
 }
 
