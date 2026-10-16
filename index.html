@@ -39,6 +39,42 @@ input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;fo
 @keyframes aparecer{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes correcta{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
 @keyframes incorrecta{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* Mundo Quizzy: presentación de aventura y combate */
+.battle-game{margin:-22px;overflow:hidden;border-radius:24px;background:#17143d;color:#fff;min-height:640px;padding-bottom:18px}
+.game-hud{display:flex;align-items:center;gap:10px;padding:16px 14px 12px;background:linear-gradient(120deg,#34206c,#21194d);color:#fff}
+.game-hud>div:nth-child(2){flex:1;min-width:0}.game-hud strong{display:block;font-size:15px}.game-hud small{display:block;font-size:10px;letter-spacing:1.5px;color:#c4b5fd;margin-top:4px}
+.game-back{width:40px;min-width:40px;height:40px;padding:0;margin:0;border-radius:13px;background:#ffffff1c;color:#fff;box-shadow:none;font-size:25px}
+.life-pips{font-size:13px;white-space:nowrap;letter-spacing:-3px}
+.quest-progress{height:7px;background:#382b66}.quest-progress span{display:block;height:100%;background:linear-gradient(90deg,#facc15,#fb923c);transition:width .3s}
+.battle-scene{height:235px;position:relative;display:flex;align-items:center;justify-content:space-around;padding:18px 10px 26px;overflow:hidden;background:radial-gradient(ellipse at 50% 75%,#5b3db2 0%,transparent 48%),linear-gradient(180deg,#28215f,#44318a 65%,#261c55)}
+.scene-stars{position:absolute;top:15px;left:0;right:0;text-align:center;color:#fef08a;letter-spacing:9px;opacity:.7;font-size:13px}
+.fighter{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;width:39%;text-align:center}
+.fighter-label{font-size:9px;font-weight:900;letter-spacing:2px;color:#ddd6fe;background:#ffffff18;border:1px solid #ffffff35;padding:4px 9px;border-radius:20px}
+.fighter-sprite{font-size:66px;line-height:1.25;filter:drop-shadow(0 7px 3px #15123b88);animation:heroFloat 2.4s ease-in-out infinite}
+.guardian-sprite{font-size:76px;animation:guardianFloat 2s ease-in-out infinite}
+.fighter-name{font-size:12px;font-weight:800;max-width:100%;text-shadow:0 2px 4px #17143d}
+.health-bar{height:8px;width:84%;border-radius:20px;background:#161334;overflow:hidden;border:1px solid #ffffff45}.health-bar i{display:block;height:100%;background:linear-gradient(90deg,#4ade80,#bef264);border-radius:20px;transition:width .3s}.enemy-health i{background:linear-gradient(90deg,#fb7185,#ef4444)}
+.versus{z-index:3;font-size:16px;font-weight:1000;font-style:italic;color:#fde68a;text-shadow:0 2px #a16207;transform:rotate(-10deg)}
+.scene-ground{position:absolute;bottom:-36px;left:-8%;width:116%;height:75px;border-radius:50% 50% 0 0;background:linear-gradient(#3d8c6b,#225b52);border-top:4px solid #86efac}
+.scene-companion{position:absolute;bottom:11px;left:calc(50% - 17px);z-index:4;font-size:30px;filter:drop-shadow(0 3px 2px #17143d);animation:companionHop 1.5s ease-in-out infinite}
+.battle-question{position:relative;z-index:5;margin:-2px 12px 0;padding:18px 14px 14px;border-radius:22px;background:#fff;color:#31205f;box-shadow:0 7px 0 #d6c5ff}
+.question-kicker{display:flex;justify-content:space-between;gap:8px;font-size:10px;font-weight:900;letter-spacing:1.3px;color:#7c3aed}
+.battle-question h2{font-size:21px;line-height:1.25;margin:12px 0 5px;color:#281354}
+.battle-question p{font-size:12px;color:#756a91;margin:0 0 12px}
+.battle-answers{display:grid;gap:8px}
+button.battle-answer{display:flex;align-items:center;gap:10px;text-align:left;margin:0;padding:10px 11px;min-height:49px;border:2px solid #e5d7ff;border-radius:14px;background:#faf7ff;color:#38216e;box-shadow:0 3px 0 #e5d7ff;font-size:14px;transition:transform .15s,border-color .15s}
+button.battle-answer:hover{transform:translateY(-2px);border-color:#a78bfa}
+.answer-letter{display:grid;place-items:center;flex:0 0 27px;height:27px;border-radius:9px;background:#ede9fe;color:#6d28d9;font-size:12px;font-weight:900}
+.answer-arrow{margin-left:auto;font-size:23px;color:#a78bfa}
+button.battle-answer.correct{background:#dcfce7;border-color:#22c55e;color:#166534}
+button.battle-answer.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+.game-footer{text-align:center;font-size:10px;color:#c4b5fd;padding:13px 12px 0}
+@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes guardianFloat{0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes companionHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(max-width:560px){.battle-game{margin:-22px;min-height:600px}.battle-scene{height:205px}.fighter-sprite{font-size:55px}.guardian-sprite{font-size:65px}.battle-question h2{font-size:19px}}
+
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
 <link rel="manifest" href="manifest.json">
@@ -91,7 +127,7 @@ async function startQuiz(category){adventureMode=false;if(!playerCourse){showCou
 // Mezclar las preguntas cada vez que empieza una partida.
 list=[...list].sort(()=>Math.random()-0.5).slice(0,5);
 pos=0;points=0;hide();$("quiz").classList.remove("hidden");renderQuestion()}
-function renderQuestion(){if(adventureMode&&adventureLives<=0){finishAdventure(true);return}if(pos>=list.length){finishQuiz();return}const q=list[pos];$("quiz").innerHTML=`<h2>${adventureMode?"🗺️ "+adventureZoneName:"🎯 "+currentCategory}</h2>${adventureMode?`<div class="stats">❤️ ${adventureLives} vidas · 🧭 Zona ${Math.min(adventureZone+1,adventureZones.length)}/5 · ⭐ ${xp} XP</div>`:""}<div class="notice">Pregunta ${pos+1} de ${list.length}</div><h3>${q[0]}</h3>${q[1].map((a,i)=>`<button class="answer" onclick="answer(${i})">${a}</button>`).join("")}${backButton()}`}
+function renderQuestion(){if(adventureMode&&adventureLives<=0){finishAdventure(true);return}if(pos>=list.length){finishQuiz();return}const q=list[pos];if(adventureMode){const zoneIndex=adventureZones.findIndex(z=>z.name===adventureZoneName);const zone=adventureZones[Math.max(0,zoneIndex)];const guardianFaces=["👺","🐍","🗿","🦅","🐲"];const heroFaces=[adventureAvatar,"🧙","🦸","🧝","🧚","🧑‍🚀"];const progress=Math.round(pos/list.length*100);$("quiz").innerHTML=`<section class="battle-game"><header class="game-hud"><button class="game-back" onclick="showAdventure()" aria-label="Volver al mapa">←</button><div><strong>${zone.emoji} ${adventureZoneName}</strong><small>AVENTURA ${Math.min(adventureZone+1,5)} / 5</small></div><div class="life-pips">${"❤️".repeat(adventureLives)}${"🖤".repeat(5-adventureLives)}</div></header><div class="quest-progress"><span style="width:${progress}%"></span></div><div class="battle-scene"><div class="scene-stars">✦　✧　✦　✧　✦</div><div class="fighter hero"><span class="fighter-label">TÚ</span><span class="fighter-sprite">${adventureAvatar}</span><span class="fighter-name">Explorador</span><div class="health-bar"><i style="width:${adventureLives*20}%"></i></div></div><div class="versus">VS</div><div class="fighter guardian"><span class="fighter-label">GUARDIÁN</span><span class="fighter-sprite guardian-sprite">${guardianFaces[Math.max(0,zoneIndex)]}</span><span class="fighter-name">${zone.guardian}</span><div class="health-bar enemy-health"><i style="width:${Math.max(20,100-pos*20)}%"></i></div></div><div class="scene-ground"></div><div class="scene-companion">🐉</div></div><div class="battle-question"><div class="question-kicker">RETO ${pos+1} DE ${list.length} <span>⭐ ${xp} XP</span></div><h2>${q[0]}</h2><p>Elige la respuesta correcta para atacar al guardián.</p><div class="battle-answers">${q[1].map((a,i)=>`<button class="answer battle-answer" onclick="answer(${i})"><span class="answer-letter">${String.fromCharCode(65+i)}</span><span>${a}</span><span class="answer-arrow">›</span></button>`).join("")}</div></div><div class="game-footer">✨ Respuesta correcta: ataque mágico · ❤️ Cada error cuesta una vida</div></section>`;return}$("quiz").innerHTML=`<h2>🎯 ${currentCategory}</h2><div class="stats">⭐ ${xp} XP</div><div class="notice">Pregunta ${pos+1} de ${list.length}</div><h3>${q[0]}</h3>${q[1].map((a,i)=>`<button class="answer" onclick="answer(${i})">${a}</button>`).join("")}${backButton()}}
 function showReward(text){const reward=document.createElement("div");reward.textContent=text;reward.style="position:fixed;top:35%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:18px 28px;border-radius:18px;font-size:22px;font-weight:bold;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:9999;text-align:center;";document.body.appendChild(reward);setTimeout(()=>reward.remove(),800)}
 function answer(i){const q=list[pos];questionsAnswered++;const buttons=[...$("quiz").querySelectorAll(".answer")];buttons.forEach(b=>b.disabled=true);if(i===q[2]){correctAnswers++;points++;xp+=10;coins+=5;buttons[i].classList.add("correct");showReward("🎉 ¡Correcto! +10 XP ⭐ +5 🪙")}else{buttons[i].classList.add("wrong");if(buttons[q[2]])buttons[q[2]].classList.add("correct");if(adventureMode){adventureLives=Math.max(0,adventureLives-1);saveAdventure();showReward("❌ ¡Casi! Pierdes una vida ❤️")}else{showReward("❌ Incorrecto. ¡Sigue intentándolo!")}}updateMissions();updateAchievements();initMissions();missions.items[0].progress=Math.min(missions.items[0].target,missions.items[0].progress+1);if(i===q[2])missions.items[1].progress=Math.min(missions.items[1].target,missions.items[1].progress+10);updateMissions();save();setTimeout(()=>{pos++;renderQuestion()},500)}
 function finishQuiz(){if(adventureMode){finishAdventure(false);return}const bonus=points*5;xp+=bonus;initMissions();missions.items[1].progress=Math.min(missions.items[1].target,missions.items[1].progress+bonus);updateMissions();$("quiz").innerHTML=`<h2>🎉 ¡Quiz terminado!</h2><div class="notice">Has acertado <b>${points}</b> de ${list.length}.<br>⭐ Ganaste ${points*10+bonus} XP.</div><button class="primary" onclick="showCats()">🔄 Otra categoría</button>${backButton()}`;save()}
