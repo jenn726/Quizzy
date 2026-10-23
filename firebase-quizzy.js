@@ -54,6 +54,7 @@ function progressData(data) {
     dragonColor: data?.dragonColor || "original",
     dragonAccessory: data?.dragonAccessory || "ninguno",
     dragonEffect: data?.dragonEffect || "ninguno",
+    ownedItems: Array.isArray(data?.ownedItems) ? data.ownedItems : ["draco", data?.dragonItem || "draco"],
     categoriesPlayed: Array.isArray(data?.categoriesPlayed) ? data.categoriesPlayed : (Array.isArray(data?.categoriasJugadas) ? data.categoriasJugadas : []),
     questionsAnswered: Number(data?.questionsAnswered ?? data?.preguntasRespondidas ?? 0),
     correctAnswers: Number(data?.correctAnswers ?? data?.respuestasCorrectas ?? 0),
