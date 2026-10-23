@@ -58,7 +58,9 @@ function progressData(data) {
     questionsAnswered: Number(data?.questionsAnswered ?? data?.preguntasRespondidas ?? 0),
     correctAnswers: Number(data?.correctAnswers ?? data?.respuestasCorrectas ?? 0),
     claimedAchievements: Array.isArray(data?.claimedAchievements) ? data.claimedAchievements : (Array.isArray(data?.logrosConseguidos) ? data.logrosConseguidos : []),
-    missions: data?.missions ?? data?.misiones ?? null
+    missions: data?.missions ?? data?.misiones ?? null,
+    dailyCategoriesPlayed: Array.isArray(data?.dailyCategoriesPlayed) ? data.dailyCategoriesPlayed : [],
+    dailyCategoriesDate: data?.dailyCategoriesDate || ""
   };
 }
 
