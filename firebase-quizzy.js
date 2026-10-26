@@ -220,8 +220,7 @@ window.quizzyFindFriend = async function() {
     if (!snap.exists()) { alert("No encontramos ese nombre de usuario."); return; }
     const targetUid = snap.data().uid;
     if (!targetUid || targetUid === currentUser.uid) { alert("Ese es tu propio usuario."); return; }
-    const target = await getDoc(doc(db, "users", targetUid));
-    const display = target.exists() ? (target.data().username || username) : username;
+    const display = snap.data().username || username;
     const ok = confirm("¿Enviar solicitud de amistad a @" + display + "?");
     if (!ok) return;
     const requestId = targetUid + "_" + currentUser.uid;
