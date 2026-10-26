@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function validUsername(name) {
+      return name is string
+        && name.matches('^[a-z0-9_]{3,20}$');
+    }
+
+    function acceptedRequestId(a, b) {
+      return existsAfter(/databases/$(database)/documents/friendRequests/$(a + "_" + b))
+        && getAfter(/databases/$(database)/documents/friendRequests/$(a + "_" + b)).data.status == "accepted";
+    }
+
+    function friendLinkAuthorized(userId, friendUid) {
+      return signedIn()
+        && (
+          (acceptedRequestId(userId, friendUid)
+            && getAfter(/databases/$(database)/documents/friendRequests/$(userId + "_" + friendUid)).data.fromUid == friendUid
+            && getAfter(/databases/$(database)/documents/friendRequests/$(userId + "_" + friendUid)).data.toUid == userId)
+          ||
+          (acceptedRequestId(friendUid, userId)
+            && getAfter(/databases/$(database)/documents/friendRequests/$(friendUid + "_" + userId)).data.fromUid == userId
+            && getAfter(/databases/$(database)/documents/friendRequests/$(friendUid + "_" + userId)).data.toUid == friendUid)
+        );
+    }
+
+    match /users/{userId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+
+      match /friends/{friendUid} {
+        allow read: if signedIn() && request.auth.uid == userId;
+        allow create, update: if friendLinkAuthorized(userId, friendUid)
+          && request.resource.data.uid == friendUid
+          && request.resource.data.username is string;
+        allow delete: if false;
+      }
+    }
+
+    match /usernames/{username} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.username == username
+        && validUsername(username)
+        && !exists(/databases/$(database)/documents/usernames/$(username));
+      allow update: if signedIn()
+        && resource.data.uid == request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.username == username
+        && validUsername(username);
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+    }
+
+    match /friendRequests/{requestId} {
+      allow get, list: if signedIn()
+        && (resource.data.fromUid == request.auth.uid || resource.data.toUid == request.auth.uid);
+      allow create: if signedIn()
+        && request.resource.data.fromUid == request.auth.uid
+        && request.resource.data.toUid is string
+        && request.resource.data.toUid != request.auth.uid
+        && requestId == request.resource.data.toUid + "_" + request.auth.uid
+        && request.resource.data.status == "pending";
+      allow update: if signedIn()
+        && resource.data.toUid == request.auth.uid
+        && resource.data.status == "pending"
+        && request.resource.data.status == "accepted"
+        && request.resource.data.fromUid == resource.data.fromUid
+        && request.resource.data.toUid == resource.data.toUid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status", "acceptedAt"]);
+      allow delete: if false;
+    }
+  }
+}
