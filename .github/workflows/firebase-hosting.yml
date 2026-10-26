@@ -22,4 +22,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_QUIZZY_95875 }}
           projectId: quizzy-95875
-          channelId: live
+          channelId: quizzy-test
+          expires: 7d
