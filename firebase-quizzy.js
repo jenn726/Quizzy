@@ -17,6 +17,11 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  runTransaction,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
@@ -175,6 +180,95 @@ window.quizzyUpdateProfile = async function(displayName) {
     console.error(error);
     alert("No se pudo guardar el nombre: " + error.message);
   }
+};
+
+
+// Perfil público mínimo y solicitudes de amistad. La seguridad final depende de las reglas de Firestore.
+window.quizzySaveUsername = async function() {
+  if (!currentUser) { alert("Inicia sesión para crear tu nombre de usuario."); return; }
+  const input = document.getElementById("quizzyUsername");
+  const username = String(input?.value || "").trim().toLowerCase();
+  if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+    alert("Usa entre 3 y 20 caracteres: letras sin tilde, números o guion bajo."); return;
+  }
+  try {
+    await runTransaction(db, async (tx) => {
+      const usernameRef = doc(db, "usernames", username);
+      const profileRef = doc(db, "users", currentUser.uid);
+      const usernameSnap = await tx.get(usernameRef);
+      const profileSnap = await tx.get(profileRef);
+      if (usernameSnap.exists() && usernameSnap.data().uid !== currentUser.uid) throw new Error("Ese nombre ya está ocupado.");
+      if (profileSnap.exists() && profileSnap.data().username && profileSnap.data().username !== username) {
+        const oldRef = doc(db, "usernames", profileSnap.data().username);
+        tx.delete(oldRef);
+      }
+      tx.set(usernameRef, { uid: currentUser.uid, username, updatedAt: serverTimestamp() });
+      tx.set(profileRef, { username, updatedAt: serverTimestamp() }, { merge: true });
+    });
+    showFirebaseMessage("✅ Nombre de usuario guardado: @" + username);
+    if (typeof window.showAccount === "function") window.showAccount();
+  } catch (error) { console.error(error); alert("No se pudo guardar el nombre: " + error.message); }
+};
+
+window.quizzyFindFriend = async function() {
+  if (!currentUser) { alert("Inicia sesión para buscar amigos."); return; }
+  const input = document.getElementById("friendSearchUsername");
+  const username = String(input?.value || "").trim().toLowerCase();
+  if (!/^[a-z0-9_]{3,20}$/.test(username)) { alert("Escribe un nombre de usuario válido."); return; }
+  try {
+    const snap = await getDoc(doc(db, "usernames", username));
+    if (!snap.exists()) { alert("No encontramos ese nombre de usuario."); return; }
+    const targetUid = snap.data().uid;
+    if (!targetUid || targetUid === currentUser.uid) { alert("Ese es tu propio usuario."); return; }
+    const target = await getDoc(doc(db, "users", targetUid));
+    const display = target.exists() ? (target.data().username || username) : username;
+    const ok = confirm("¿Enviar solicitud de amistad a @" + display + "?");
+    if (!ok) return;
+    const requestId = targetUid + "_" + currentUser.uid;
+    await setDoc(doc(db, "friendRequests", requestId), {
+      fromUid: currentUser.uid, toUid: targetUid, fromUsername: (await getDoc(doc(db,"users",currentUser.uid))).data()?.username || "",
+      toUsername: display, status: "pending", createdAt: serverTimestamp()
+    });
+    showFirebaseMessage("✉️ Solicitud de amistad enviada.");
+  } catch (error) { console.error(error); alert("No se pudo enviar la solicitud. Puede que falten permisos de Firebase: " + error.message); }
+};
+
+window.quizzyLoadFriends = async function() {
+  const host = document.getElementById("friendsResults");
+  if (!host) return;
+  if (!currentUser) { host.textContent = "Inicia sesión para gestionar amigos."; return; }
+  host.textContent = "Cargando solicitudes y amigos…";
+  try {
+    const incoming = await getDocs(query(collection(db,"friendRequests"),where("toUid","==",currentUser.uid),where("status","==","pending")));
+    const outgoing = await getDocs(query(collection(db,"friendRequests"),where("fromUid","==",currentUser.uid),where("status","==","pending")));
+    const friends = await getDocs(collection(db,"users",currentUser.uid,"friends"));
+    let html = "<h3>✉️ Solicitudes recibidas</h3>";
+    html += incoming.empty ? "<p>No tienes solicitudes pendientes.</p>" : incoming.docs.map(d=>{const x=d.data();return '<div class="item">@'+escapeHTML(x.fromUsername||"jugador")+' <button onclick="quizzyAcceptFriend(\''+escapeHTML(d.id)+'\')">Aceptar</button></div>'}).join("");
+    html += "<h3>📨 Solicitudes enviadas</h3>";
+    html += outgoing.empty ? "<p>No has enviado solicitudes pendientes.</p>" : outgoing.docs.map(d=>'<div class="item">Solicitud a @'+escapeHTML(d.data().toUsername||"jugador")+' · Pendiente</div>').join("");
+    html += "<h3>🐉 Mis amigos</h3>";
+    html += friends.empty ? "<p>Aún no tienes amigos añadidos.</p>" : friends.docs.map(d=>'<div class="item">@'+escapeHTML(d.data().username||"jugador")+'</div>').join("");
+    host.innerHTML = html;
+  } catch (error) { console.error(error); host.textContent = "No se pudieron cargar los amigos. Es posible que haya que configurar las reglas de Firestore."; }
+};
+
+window.quizzyAcceptFriend = async function(requestId) {
+  if (!currentUser || !requestId) return;
+  try {
+    await runTransaction(db, async tx => {
+      const reqRef = doc(db,"friendRequests",requestId);
+      const req = await tx.get(reqRef);
+      if (!req.exists() || req.data().toUid !== currentUser.uid || req.data().status !== "pending") throw new Error("La solicitud ya no está disponible.");
+      const x=req.data();
+      const myRef=doc(db,"users",currentUser.uid,"friends",x.fromUid);
+      const theirRef=doc(db,"users",x.fromUid,"friends",currentUser.uid);
+      tx.set(myRef,{uid:x.fromUid,username:x.fromUsername||"",createdAt:serverTimestamp()});
+      tx.set(theirRef,{uid:currentUser.uid,username:x.toUsername||"",createdAt:serverTimestamp()});
+      tx.update(reqRef,{status:"accepted",acceptedAt:serverTimestamp()});
+    });
+    showFirebaseMessage("🤝 ¡Ahora sois amigos!");
+    window.quizzyLoadFriends();
+  } catch (error) { console.error(error); alert("No se pudo aceptar la solicitud. Puede que falten permisos de Firebase: "+error.message); }
 };
 
 window.quizzyPasswordReset = async function() {
