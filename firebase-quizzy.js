@@ -61,7 +61,10 @@ function progressData(data) {
     claimedAchievements: Array.isArray(data?.claimedAchievements) ? data.claimedAchievements : (Array.isArray(data?.logrosConseguidos) ? data.logrosConseguidos : []),
     missions: data?.missions ?? data?.misiones ?? null,
     dailyCategoriesPlayed: Array.isArray(data?.dailyCategoriesPlayed) ? data.dailyCategoriesPlayed : [],
-    dailyCategoriesDate: data?.dailyCategoriesDate || ""
+    dailyCategoriesDate: data?.dailyCategoriesDate || "",
+    dailyChallenge: data?.dailyChallenge && typeof data.dailyChallenge === "object" ? data.dailyChallenge : null,
+    dailyStreak: Number(data?.dailyStreak || 0),
+    dailyLastCompleted: typeof data?.dailyLastCompleted === "string" ? data.dailyLastCompleted : ""
   };
 }
 
