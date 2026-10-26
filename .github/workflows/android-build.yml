@@ -44,9 +44,9 @@ jobs:
             echo "ERROR: No se encuentra $GRADLE_FILE"
             exit 1
           fi
-          sed -i '0,/versionCode 1/s//versionCode 2/' "$GRADLE_FILE"
+          sed -i '0,/versionCode 1/s//versionCode 3/' "$GRADLE_FILE"
           grep -n "versionCode" "$GRADLE_FILE"
-          grep -q "versionCode 2" "$GRADLE_FILE"
+          grep -q "versionCode 3" "$GRADLE_FILE"
 
       - name: Generar AAB de prueba
         working-directory: android
