@@ -40,6 +40,17 @@ service cloud.firestore {
       }
     }
 
+
+    // Perfil público limitado a las rachas. No expone email, XP, monedas ni datos privados.
+    match /publicProfiles/{profileId} {
+      allow read: if signedIn() && (
+        request.auth.uid == profileId ||
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)/friends/$(profileId))
+      );
+      allow create, update: if signedIn() && request.auth.uid == profileId;
+      allow delete: if signedIn() && request.auth.uid == profileId;
+    }
+
     match /usernames/{username} {
       allow get: if signedIn();
       allow list: if false;
