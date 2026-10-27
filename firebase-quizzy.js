@@ -82,10 +82,17 @@ window.guardarProgresoQuizzy = function(data) {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     try {
+      const normalized = progressData(data);
       await setDoc(doc(db, "users", currentUser.uid), {
-        ...progressData(data),
+        ...normalized,
         email: currentUser.email || "",
         displayName: currentUser.displayName || "",
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+      // Perfil público mínimo: solo racha, sin correo ni progreso privado.
+      await setDoc(doc(db, "publicProfiles", currentUser.uid), {
+        dailyStreak: normalized.dailyStreak,
+        bestStreak: normalized.bestStreak,
         updatedAt: serverTimestamp()
       }, { merge: true });
     } catch (error) {
@@ -247,7 +254,7 @@ window.quizzyLoadFriendStreaks = async function() {
     const rows=await Promise.all(friends.docs.map(async d=>{
       const f=d.data(),uid=f.uid||d.id;
       try{
-        const snap=await getDoc(doc(db,"users",uid));
+        const snap=await getDoc(doc(db,"publicProfiles",uid));
         const data=snap.exists()?snap.data():{};
         const streak=Number(data.dailyStreak||0);
         return '<div class="friend-streak-row"><span>🐉 @'+escapeHTML(f.username||data.username||"jugador")+'</span><span class="friend-streak-num">🔥 '+streak+' días</span></div>';
