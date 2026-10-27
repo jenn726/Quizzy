@@ -256,8 +256,8 @@ window.quizzyLoadFriendStreaks = async function() {
       try{
         const snap=await getDoc(doc(db,"publicProfiles",uid));
         const data=snap.exists()?snap.data():{};
-        const streak=Number(data.dailyStreak||0);
-        return '<div class="friend-streak-row"><span>🐉 @'+escapeHTML(f.username||data.username||"jugador")+'</span><span class="friend-streak-num">🔥 '+streak+' días</span></div>';
+        const label=snap.exists()?"🔥 "+Number(data.dailyStreak||0)+" días":"Racha pendiente de sincronizar";
+        return '<div class="friend-streak-row"><span>🐉 @'+escapeHTML(f.username||data.username||"jugador")+'</span><span class="friend-streak-num">'+label+'</span></div>';
       }catch(e){return '<div class="friend-streak-row"><span>🐉 @'+escapeHTML(f.username||"jugador")+'</span><span class="small">Racha no disponible</span></div>'}
     }));
     host.innerHTML=rows.join("");
