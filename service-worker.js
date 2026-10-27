@@ -1,4 +1,4 @@
-const CACHE_NAME = "quizzy-v8";
+const CACHE_NAME = "quizzy-v9";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -25,7 +25,9 @@ const APP_SHELL = [
   "./dragon-legendario.png",
   "./dragon-supremo2.png",
   "./fenix.png",
-  "./dragon-supremo-nuevo.png"
+  "./dragon-supremo-nuevo.png",
+  "./dragon hielo.jpg",
+  "./dragon sombra.jpg"
 ];
 
 self.addEventListener("install", event => {
