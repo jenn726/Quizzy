@@ -1,0 +1,1988 @@
+{
+  "1º de Primaria": {
+    "Matemáticas": [
+      [
+        "¿Qué número viene después de 39?",
+        [
+          "38",
+          "40",
+          "49"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es el doble de 7?",
+        [
+          "12",
+          "14",
+          "16"
+        ],
+        1
+      ],
+      [
+        "¿Cuántos minutos tiene media hora?",
+        [
+          "15",
+          "30",
+          "45"
+        ],
+        1
+      ],
+      [
+        "Si tienes 2 monedas de 20 céntimos, ¿cuánto suman?",
+        [
+          "22 céntimos",
+          "40 céntimos",
+          "60 céntimos"
+        ],
+        1
+      ],
+      [
+        "¿Qué figura tiene tres lados?",
+        [
+          "Cuadrado",
+          "Triángulo",
+          "Círculo"
+        ],
+        1
+      ]
+    ],
+    "Lengua": [
+      [
+        "¿Cuántas sílabas tiene la palabra «mariposa»?",
+        [
+          "2",
+          "3",
+          "4"
+        ],
+        2
+      ],
+      [
+        "¿Qué signo se coloca al final de una pregunta en español?",
+        [
+          "¿",
+          "!",
+          "?"
+        ],
+        2
+      ],
+      [
+        "¿Cuál de estas palabras rima con «camino»?",
+        [
+          "Destino",
+          "Casa",
+          "Papel"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es la primera letra del alfabeto?",
+        [
+          "A",
+          "B",
+          "C"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es un nombre de animal?",
+        [
+          "Correr",
+          "Perro",
+          "Azul"
+        ],
+        1
+      ]
+    ],
+    "Ciencias": [
+      [
+        "¿Qué animal alimenta a sus crías con leche?",
+        [
+          "Mamífero",
+          "Pez",
+          "Insecto"
+        ],
+        0
+      ],
+      [
+        "¿Qué parte de la planta absorbe agua del suelo?",
+        [
+          "Raíz",
+          "Flor",
+          "Fruto"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama el agua cuando se convierte en hielo?",
+        [
+          "Gas",
+          "Sólido",
+          "Vapor"
+        ],
+        1
+      ],
+      [
+        "¿Con qué sentido percibimos los olores?",
+        [
+          "Vista",
+          "Olfato",
+          "Tacto"
+        ],
+        1
+      ],
+      [
+        "¿Qué movimiento de la Tierra produce el día y la noche?",
+        [
+          "Rotación",
+          "Traslación",
+          "Inclinación"
+        ],
+        0
+      ]
+    ],
+    "Geografía": [
+      [
+        "¿Qué punto cardinal señala aproximadamente el lugar por donde sale el Sol?",
+        [
+          "Este",
+          "Oeste",
+          "Norte"
+        ],
+        0
+      ],
+      [
+        "¿Qué representa un mapa?",
+        [
+          "Un lugar visto desde arriba",
+          "Solo el tiempo atmosférico",
+          "Una lista de animales"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama la tierra rodeada de agua por todas partes?",
+        [
+          "Península",
+          "Isla",
+          "Valle"
+        ],
+        1
+      ],
+      [
+        "¿Qué mar baña la costa este de España?",
+        [
+          "Mar Mediterráneo",
+          "Mar Báltico",
+          "Mar Negro"
+        ],
+        0
+      ],
+      [
+        "¿En qué continente está España?",
+        [
+          "Europa",
+          "Asia",
+          "África"
+        ],
+        0
+      ]
+    ],
+    "Inglés": [
+      [
+        "¿Cómo se dice «buenos días» en inglés?",
+        [
+          "Good morning",
+          "Good night",
+          "Goodbye"
+        ],
+        0
+      ],
+      [
+        "¿Qué animal significa «sheep»?",
+        [
+          "Oveja",
+          "Caballo",
+          "Pato"
+        ],
+        0
+      ],
+      [
+        "¿Qué color significa «purple»?",
+        [
+          "Morado",
+          "Marrón",
+          "Naranja"
+        ],
+        0
+      ],
+      [
+        "¿Qué número significa «twelve»?",
+        [
+          "10",
+          "12",
+          "20"
+        ],
+        1
+      ],
+      [
+        "¿Qué palabra significa «mano»?",
+        [
+          "Foot",
+          "Hand",
+          "Head"
+        ],
+        1
+      ]
+    ],
+    "Historia": [
+      [
+        "¿Qué usaban los seres humanos prehistóricos para cortar antes de fabricar herramientas de metal?",
+        [
+          "Piedra tallada",
+          "Plástico",
+          "Acero inoxidable"
+        ],
+        0
+      ],
+      [
+        "¿Qué descubrimiento permitió a los grupos prehistóricos cocinar y calentarse?",
+        [
+          "El fuego",
+          "La brújula",
+          "La imprenta"
+        ],
+        0
+      ],
+      [
+        "¿Dónde pintaban muchas escenas los seres humanos prehistóricos?",
+        [
+          "En cuevas",
+          "En pantallas",
+          "En periódicos"
+        ],
+        0
+      ],
+      [
+        "¿Qué construcciones monumentales se asocian al antiguo Egipto?",
+        [
+          "Pirámides",
+          "Rascacielos",
+          "Castillos medievales"
+        ],
+        0
+      ],
+      [
+        "¿Qué pueblo construyó una extensa red de calzadas por Europa?",
+        [
+          "Los romanos",
+          "Los vikingos modernos",
+          "Los incas"
+        ],
+        0
+      ]
+    ],
+    "Cultura general": [
+      [
+        "¿Qué instrumento musical tiene teclas blancas y negras?",
+        [
+          "Piano",
+          "Tambor",
+          "Triángulo"
+        ],
+        0
+      ],
+      [
+        "¿Dónde puedes pedir prestados libros para leerlos?",
+        [
+          "Biblioteca",
+          "Estación",
+          "Panadería"
+        ],
+        0
+      ],
+      [
+        "¿Qué planeta habitamos?",
+        [
+          "La Tierra",
+          "Júpiter",
+          "Mercurio"
+        ],
+        0
+      ],
+      [
+        "¿En qué deporte se encesta un balón en una canasta?",
+        [
+          "Baloncesto",
+          "Natación",
+          "Ciclismo"
+        ],
+        0
+      ],
+      [
+        "¿Qué contenedor suele usarse para reciclar papel y cartón en España?",
+        [
+          "Azul",
+          "Marrón",
+          "Negro"
+        ],
+        0
+      ]
+    ]
+  },
+  "2º de Primaria": {
+    "Matemáticas": [
+      [
+        "¿Qué número viene después de 39?",
+        [
+          "38",
+          "40",
+          "49"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es el doble de 7?",
+        [
+          "12",
+          "14",
+          "16"
+        ],
+        1
+      ],
+      [
+        "¿Cuántos minutos tiene media hora?",
+        [
+          "15",
+          "30",
+          "45"
+        ],
+        1
+      ],
+      [
+        "Si tienes 2 monedas de 20 céntimos, ¿cuánto suman?",
+        [
+          "22 céntimos",
+          "40 céntimos",
+          "60 céntimos"
+        ],
+        1
+      ],
+      [
+        "¿Qué figura tiene tres lados?",
+        [
+          "Cuadrado",
+          "Triángulo",
+          "Círculo"
+        ],
+        1
+      ]
+    ],
+    "Lengua": [
+      [
+        "¿Cuántas sílabas tiene la palabra «mariposa»?",
+        [
+          "2",
+          "3",
+          "4"
+        ],
+        2
+      ],
+      [
+        "¿Qué signo se coloca al final de una pregunta en español?",
+        [
+          "¿",
+          "!",
+          "?"
+        ],
+        2
+      ],
+      [
+        "¿Cuál de estas palabras rima con «camino»?",
+        [
+          "Destino",
+          "Casa",
+          "Papel"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es la primera letra del alfabeto?",
+        [
+          "A",
+          "B",
+          "C"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es un nombre de animal?",
+        [
+          "Correr",
+          "Perro",
+          "Azul"
+        ],
+        1
+      ]
+    ],
+    "Ciencias": [
+      [
+        "¿Qué animal alimenta a sus crías con leche?",
+        [
+          "Mamífero",
+          "Pez",
+          "Insecto"
+        ],
+        0
+      ],
+      [
+        "¿Qué parte de la planta absorbe agua del suelo?",
+        [
+          "Raíz",
+          "Flor",
+          "Fruto"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama el agua cuando se convierte en hielo?",
+        [
+          "Gas",
+          "Sólido",
+          "Vapor"
+        ],
+        1
+      ],
+      [
+        "¿Con qué sentido percibimos los olores?",
+        [
+          "Vista",
+          "Olfato",
+          "Tacto"
+        ],
+        1
+      ],
+      [
+        "¿Qué movimiento de la Tierra produce el día y la noche?",
+        [
+          "Rotación",
+          "Traslación",
+          "Inclinación"
+        ],
+        0
+      ]
+    ],
+    "Geografía": [
+      [
+        "¿Qué punto cardinal señala aproximadamente el lugar por donde sale el Sol?",
+        [
+          "Este",
+          "Oeste",
+          "Norte"
+        ],
+        0
+      ],
+      [
+        "¿Qué representa un mapa?",
+        [
+          "Un lugar visto desde arriba",
+          "Solo el tiempo atmosférico",
+          "Una lista de animales"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama la tierra rodeada de agua por todas partes?",
+        [
+          "Península",
+          "Isla",
+          "Valle"
+        ],
+        1
+      ],
+      [
+        "¿Qué mar baña la costa este de España?",
+        [
+          "Mar Mediterráneo",
+          "Mar Báltico",
+          "Mar Negro"
+        ],
+        0
+      ],
+      [
+        "¿En qué continente está España?",
+        [
+          "Europa",
+          "Asia",
+          "África"
+        ],
+        0
+      ]
+    ],
+    "Inglés": [
+      [
+        "¿Cómo se dice «buenos días» en inglés?",
+        [
+          "Good morning",
+          "Good night",
+          "Goodbye"
+        ],
+        0
+      ],
+      [
+        "¿Qué animal significa «sheep»?",
+        [
+          "Oveja",
+          "Caballo",
+          "Pato"
+        ],
+        0
+      ],
+      [
+        "¿Qué color significa «purple»?",
+        [
+          "Morado",
+          "Marrón",
+          "Naranja"
+        ],
+        0
+      ],
+      [
+        "¿Qué número significa «twelve»?",
+        [
+          "10",
+          "12",
+          "20"
+        ],
+        1
+      ],
+      [
+        "¿Qué palabra significa «mano»?",
+        [
+          "Foot",
+          "Hand",
+          "Head"
+        ],
+        1
+      ]
+    ],
+    "Historia": [
+      [
+        "¿Qué usaban los seres humanos prehistóricos para cortar antes de fabricar herramientas de metal?",
+        [
+          "Piedra tallada",
+          "Plástico",
+          "Acero inoxidable"
+        ],
+        0
+      ],
+      [
+        "¿Qué descubrimiento permitió a los grupos prehistóricos cocinar y calentarse?",
+        [
+          "El fuego",
+          "La brújula",
+          "La imprenta"
+        ],
+        0
+      ],
+      [
+        "¿Dónde pintaban muchas escenas los seres humanos prehistóricos?",
+        [
+          "En cuevas",
+          "En pantallas",
+          "En periódicos"
+        ],
+        0
+      ],
+      [
+        "¿Qué construcciones monumentales se asocian al antiguo Egipto?",
+        [
+          "Pirámides",
+          "Rascacielos",
+          "Castillos medievales"
+        ],
+        0
+      ],
+      [
+        "¿Qué pueblo construyó una extensa red de calzadas por Europa?",
+        [
+          "Los romanos",
+          "Los vikingos modernos",
+          "Los incas"
+        ],
+        0
+      ]
+    ],
+    "Cultura general": [
+      [
+        "¿Qué instrumento musical tiene teclas blancas y negras?",
+        [
+          "Piano",
+          "Tambor",
+          "Triángulo"
+        ],
+        0
+      ],
+      [
+        "¿Dónde puedes pedir prestados libros para leerlos?",
+        [
+          "Biblioteca",
+          "Estación",
+          "Panadería"
+        ],
+        0
+      ],
+      [
+        "¿Qué planeta habitamos?",
+        [
+          "La Tierra",
+          "Júpiter",
+          "Mercurio"
+        ],
+        0
+      ],
+      [
+        "¿En qué deporte se encesta un balón en una canasta?",
+        [
+          "Baloncesto",
+          "Natación",
+          "Ciclismo"
+        ],
+        0
+      ],
+      [
+        "¿Qué contenedor suele usarse para reciclar papel y cartón en España?",
+        [
+          "Azul",
+          "Marrón",
+          "Negro"
+        ],
+        0
+      ]
+    ]
+  },
+  "3º de Primaria": {
+    "Matemáticas": [
+      [
+        "¿Cuánto es 8 × 7?",
+        [
+          "54",
+          "56",
+          "64"
+        ],
+        1
+      ],
+      [
+        "¿Qué fracción representa una de cuatro partes iguales?",
+        [
+          "1/2",
+          "1/3",
+          "1/4"
+        ],
+        2
+      ],
+      [
+        "Un rectángulo mide 6 cm de largo y 3 cm de ancho. ¿Cuál es su perímetro?",
+        [
+          "9 cm",
+          "18 cm",
+          "20 cm"
+        ],
+        1
+      ],
+      [
+        "¿Cuántos milímetros hay en 3 centímetros?",
+        [
+          "30",
+          "300",
+          "3"
+        ],
+        0
+      ],
+      [
+        "¿Cuánto es 144 dividido entre 12?",
+        [
+          "10",
+          "12",
+          "14"
+        ],
+        1
+      ]
+    ],
+    "Lengua": [
+      [
+        "En «La niña canta», ¿cuál es el verbo?",
+        [
+          "La",
+          "niña",
+          "canta"
+        ],
+        2
+      ],
+      [
+        "¿Qué palabra es un adjetivo en «un cielo despejado»?",
+        [
+          "cielo",
+          "despejado",
+          "un"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es un sinónimo de «comenzar»?",
+        [
+          "Empezar",
+          "Terminar",
+          "Olvidar"
+        ],
+        0
+      ],
+      [
+        "¿Qué palabra lleva tilde correctamente?",
+        [
+          "Lapiz",
+          "Lápiz",
+          "Lapíz"
+        ],
+        1
+      ],
+      [
+        "¿Qué organiza un párrafo dentro de un texto?",
+        [
+          "Ideas relacionadas",
+          "Solo números",
+          "Palabras sin relación"
+        ],
+        0
+      ]
+    ],
+    "Ciencias": [
+      [
+        "En una cadena alimentaria, ¿qué organismo suele producir su propio alimento usando la luz solar?",
+        [
+          "Una planta",
+          "Un zorro",
+          "Un hongo"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama el paso del agua líquida a vapor?",
+        [
+          "Evaporación",
+          "Congelación",
+          "Condensación"
+        ],
+        0
+      ],
+      [
+        "¿Qué material suele ser atraído por un imán?",
+        [
+          "Hierro",
+          "Madera",
+          "Vidrio"
+        ],
+        0
+      ],
+      [
+        "¿Qué órganos utilizamos principalmente para respirar?",
+        [
+          "Pulmones",
+          "Riñones",
+          "Intestinos"
+        ],
+        0
+      ],
+      [
+        "¿Qué conjunto incluye seres vivos y el medio donde viven?",
+        [
+          "Ecosistema",
+          "Planeta artificial",
+          "Mineral aislado"
+        ],
+        0
+      ]
+    ],
+    "Geografía": [
+      [
+        "¿Qué línea imaginaria divide la Tierra en hemisferio norte y sur?",
+        [
+          "Ecuador",
+          "Meridiano de Greenwich",
+          "Trópico de Cáncer"
+        ],
+        0
+      ],
+      [
+        "¿Qué es un archipiélago?",
+        [
+          "Un conjunto de islas",
+          "Una cadena de volcanes únicamente",
+          "Un río subterráneo"
+        ],
+        0
+      ],
+      [
+        "¿Qué forma del relieve es una gran elevación del terreno?",
+        [
+          "Montaña",
+          "Delta",
+          "Llanura costera"
+        ],
+        0
+      ],
+      [
+        "¿Qué instrumento sirve para orientarse señalando el norte magnético?",
+        [
+          "Brújula",
+          "Termómetro",
+          "Barómetro"
+        ],
+        0
+      ],
+      [
+        "¿Qué río atraviesa Zaragoza?",
+        [
+          "Ebro",
+          "Guadalquivir",
+          "Miño"
+        ],
+        0
+      ]
+    ],
+    "Inglés": [
+      [
+        "¿Cuál es el pasado de «go»?",
+        [
+          "Goed",
+          "Went",
+          "Gone"
+        ],
+        1
+      ],
+      [
+        "¿Qué significa «careful»?",
+        [
+          "Cuidadoso",
+          "Ruidoso",
+          "Hambriento"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es el comparativo de «small»?",
+        [
+          "Smallest",
+          "Smaller",
+          "More small"
+        ],
+        1
+      ],
+      [
+        "¿Qué preposición completa «The book is ___ the table» si está encima de la mesa?",
+        [
+          "under",
+          "on",
+          "between"
+        ],
+        1
+      ],
+      [
+        "¿Qué significa «to borrow»?",
+        [
+          "Pedir prestado",
+          "Romper",
+          "Vender"
+        ],
+        0
+      ]
+    ],
+    "Historia": [
+      [
+        "¿Qué pueblo antiguo fundó ciudades como Tarraco en Hispania?",
+        [
+          "Los romanos",
+          "Los aztecas",
+          "Los samuráis"
+        ],
+        0
+      ],
+      [
+        "¿Qué sistema social predominó en buena parte de la Europa medieval?",
+        [
+          "Feudalismo",
+          "Democracia directa universal",
+          "Sistema industrial moderno"
+        ],
+        0
+      ],
+      [
+        "¿En qué año llegó Cristóbal Colón a América?",
+        [
+          "1492",
+          "1212",
+          "1789"
+        ],
+        0
+      ],
+      [
+        "¿Qué máquina impulsó muchos cambios durante la Revolución Industrial?",
+        [
+          "Máquina de vapor",
+          "Teléfono inteligente",
+          "Impresora 3D"
+        ],
+        0
+      ],
+      [
+        "¿En qué ciudad griega antigua se desarrolló una forma temprana de democracia?",
+        [
+          "Atenas",
+          "Esparta exclusivamente",
+          "Troya"
+        ],
+        0
+      ]
+    ],
+    "Cultura general": [
+      [
+        "¿Quién escribió «Platero y yo»?",
+        [
+          "Juan Ramón Jiménez",
+          "Federico García Lorca",
+          "Antonio Machado"
+        ],
+        0
+      ],
+      [
+        "¿Qué familia de instrumentos incluye el violín?",
+        [
+          "Cuerda",
+          "Viento metal",
+          "Percusión"
+        ],
+        0
+      ],
+      [
+        "¿Cada cuántos años se celebran normalmente los Juegos Olímpicos de verano?",
+        [
+          "Cada 2 años",
+          "Cada 4 años",
+          "Cada 6 años"
+        ],
+        1
+      ],
+      [
+        "¿Qué objeto permite observar objetos celestes lejanos?",
+        [
+          "Telescopio",
+          "Microscopio",
+          "Periscopio"
+        ],
+        0
+      ],
+      [
+        "¿Qué gas absorben las plantas durante la fotosíntesis?",
+        [
+          "Dióxido de carbono",
+          "Helio",
+          "Hidrógeno"
+        ],
+        0
+      ]
+    ]
+  },
+  "4º de Primaria": {
+    "Matemáticas": [
+      [
+        "¿Cuánto es 8 × 7?",
+        [
+          "54",
+          "56",
+          "64"
+        ],
+        1
+      ],
+      [
+        "¿Qué fracción representa una de cuatro partes iguales?",
+        [
+          "1/2",
+          "1/3",
+          "1/4"
+        ],
+        2
+      ],
+      [
+        "Un rectángulo mide 6 cm de largo y 3 cm de ancho. ¿Cuál es su perímetro?",
+        [
+          "9 cm",
+          "18 cm",
+          "20 cm"
+        ],
+        1
+      ],
+      [
+        "¿Cuántos milímetros hay en 3 centímetros?",
+        [
+          "30",
+          "300",
+          "3"
+        ],
+        0
+      ],
+      [
+        "¿Cuánto es 144 dividido entre 12?",
+        [
+          "10",
+          "12",
+          "14"
+        ],
+        1
+      ]
+    ],
+    "Lengua": [
+      [
+        "En «La niña canta», ¿cuál es el verbo?",
+        [
+          "La",
+          "niña",
+          "canta"
+        ],
+        2
+      ],
+      [
+        "¿Qué palabra es un adjetivo en «un cielo despejado»?",
+        [
+          "cielo",
+          "despejado",
+          "un"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es un sinónimo de «comenzar»?",
+        [
+          "Empezar",
+          "Terminar",
+          "Olvidar"
+        ],
+        0
+      ],
+      [
+        "¿Qué palabra lleva tilde correctamente?",
+        [
+          "Lapiz",
+          "Lápiz",
+          "Lapíz"
+        ],
+        1
+      ],
+      [
+        "¿Qué organiza un párrafo dentro de un texto?",
+        [
+          "Ideas relacionadas",
+          "Solo números",
+          "Palabras sin relación"
+        ],
+        0
+      ]
+    ],
+    "Ciencias": [
+      [
+        "En una cadena alimentaria, ¿qué organismo suele producir su propio alimento usando la luz solar?",
+        [
+          "Una planta",
+          "Un zorro",
+          "Un hongo"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama el paso del agua líquida a vapor?",
+        [
+          "Evaporación",
+          "Congelación",
+          "Condensación"
+        ],
+        0
+      ],
+      [
+        "¿Qué material suele ser atraído por un imán?",
+        [
+          "Hierro",
+          "Madera",
+          "Vidrio"
+        ],
+        0
+      ],
+      [
+        "¿Qué órganos utilizamos principalmente para respirar?",
+        [
+          "Pulmones",
+          "Riñones",
+          "Intestinos"
+        ],
+        0
+      ],
+      [
+        "¿Qué conjunto incluye seres vivos y el medio donde viven?",
+        [
+          "Ecosistema",
+          "Planeta artificial",
+          "Mineral aislado"
+        ],
+        0
+      ]
+    ],
+    "Geografía": [
+      [
+        "¿Qué línea imaginaria divide la Tierra en hemisferio norte y sur?",
+        [
+          "Ecuador",
+          "Meridiano de Greenwich",
+          "Trópico de Cáncer"
+        ],
+        0
+      ],
+      [
+        "¿Qué es un archipiélago?",
+        [
+          "Un conjunto de islas",
+          "Una cadena de volcanes únicamente",
+          "Un río subterráneo"
+        ],
+        0
+      ],
+      [
+        "¿Qué forma del relieve es una gran elevación del terreno?",
+        [
+          "Montaña",
+          "Delta",
+          "Llanura costera"
+        ],
+        0
+      ],
+      [
+        "¿Qué instrumento sirve para orientarse señalando el norte magnético?",
+        [
+          "Brújula",
+          "Termómetro",
+          "Barómetro"
+        ],
+        0
+      ],
+      [
+        "¿Qué río atraviesa Zaragoza?",
+        [
+          "Ebro",
+          "Guadalquivir",
+          "Miño"
+        ],
+        0
+      ]
+    ],
+    "Inglés": [
+      [
+        "¿Cuál es el pasado de «go»?",
+        [
+          "Goed",
+          "Went",
+          "Gone"
+        ],
+        1
+      ],
+      [
+        "¿Qué significa «careful»?",
+        [
+          "Cuidadoso",
+          "Ruidoso",
+          "Hambriento"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es el comparativo de «small»?",
+        [
+          "Smallest",
+          "Smaller",
+          "More small"
+        ],
+        1
+      ],
+      [
+        "¿Qué preposición completa «The book is ___ the table» si está encima de la mesa?",
+        [
+          "under",
+          "on",
+          "between"
+        ],
+        1
+      ],
+      [
+        "¿Qué significa «to borrow»?",
+        [
+          "Pedir prestado",
+          "Romper",
+          "Vender"
+        ],
+        0
+      ]
+    ],
+    "Historia": [
+      [
+        "¿Qué pueblo antiguo fundó ciudades como Tarraco en Hispania?",
+        [
+          "Los romanos",
+          "Los aztecas",
+          "Los samuráis"
+        ],
+        0
+      ],
+      [
+        "¿Qué sistema social predominó en buena parte de la Europa medieval?",
+        [
+          "Feudalismo",
+          "Democracia directa universal",
+          "Sistema industrial moderno"
+        ],
+        0
+      ],
+      [
+        "¿En qué año llegó Cristóbal Colón a América?",
+        [
+          "1492",
+          "1212",
+          "1789"
+        ],
+        0
+      ],
+      [
+        "¿Qué máquina impulsó muchos cambios durante la Revolución Industrial?",
+        [
+          "Máquina de vapor",
+          "Teléfono inteligente",
+          "Impresora 3D"
+        ],
+        0
+      ],
+      [
+        "¿En qué ciudad griega antigua se desarrolló una forma temprana de democracia?",
+        [
+          "Atenas",
+          "Esparta exclusivamente",
+          "Troya"
+        ],
+        0
+      ]
+    ],
+    "Cultura general": [
+      [
+        "¿Quién escribió «Platero y yo»?",
+        [
+          "Juan Ramón Jiménez",
+          "Federico García Lorca",
+          "Antonio Machado"
+        ],
+        0
+      ],
+      [
+        "¿Qué familia de instrumentos incluye el violín?",
+        [
+          "Cuerda",
+          "Viento metal",
+          "Percusión"
+        ],
+        0
+      ],
+      [
+        "¿Cada cuántos años se celebran normalmente los Juegos Olímpicos de verano?",
+        [
+          "Cada 2 años",
+          "Cada 4 años",
+          "Cada 6 años"
+        ],
+        1
+      ],
+      [
+        "¿Qué objeto permite observar objetos celestes lejanos?",
+        [
+          "Telescopio",
+          "Microscopio",
+          "Periscopio"
+        ],
+        0
+      ],
+      [
+        "¿Qué gas absorben las plantas durante la fotosíntesis?",
+        [
+          "Dióxido de carbono",
+          "Helio",
+          "Hidrógeno"
+        ],
+        0
+      ]
+    ]
+  },
+  "5º de Primaria": {
+    "Matemáticas": [
+      [
+        "¿Cuál es el 15% de 200?",
+        [
+          "15",
+          "30",
+          "45"
+        ],
+        1
+      ],
+      [
+        "¿Cuánto es 3,6 + 2,75?",
+        [
+          "5,35",
+          "6,35",
+          "6,45"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es el área de un rectángulo de 9 cm por 4 cm?",
+        [
+          "13 cm²",
+          "26 cm²",
+          "36 cm²"
+        ],
+        2
+      ],
+      [
+        "¿Cuánto es 5/6 de 24?",
+        [
+          "4",
+          "20",
+          "30"
+        ],
+        1
+      ],
+      [
+        "¿Cuánto es 2,4 dividido entre 0,6?",
+        [
+          "0,4",
+          "4",
+          "40"
+        ],
+        1
+      ]
+    ],
+    "Lengua": [
+      [
+        "En «Mañana visitaremos el museo», ¿cuál es el sujeto omitido?",
+        [
+          "Nosotros/nosotras",
+          "El museo",
+          "Mañana"
+        ],
+        0
+      ],
+      [
+        "¿Qué tipo de palabra es «cuidadosamente»?",
+        [
+          "Adverbio",
+          "Sustantivo",
+          "Pronombre"
+        ],
+        0
+      ],
+      [
+        "¿Cuál de estas palabras contiene un hiato?",
+        [
+          "País",
+          "Cielo",
+          "Puerta"
+        ],
+        0
+      ],
+      [
+        "¿Qué figura literaria atribuye cualidades humanas a un objeto?",
+        [
+          "Personificación",
+          "Comparación",
+          "Enumeración"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es la forma pasiva de «La científica descubrió la especie»?",
+        [
+          "La especie fue descubierta por la científica",
+          "La científica fue descubierta por la especie",
+          "La especie descubrió a la científica"
+        ],
+        0
+      ]
+    ],
+    "Ciencias": [
+      [
+        "¿Qué componente necesita un circuito eléctrico sencillo para abrir o cerrar el paso de corriente?",
+        [
+          "Interruptor",
+          "Filtro de agua",
+          "Engranaje de madera"
+        ],
+        0
+      ],
+      [
+        "¿Qué gas liberan las plantas durante la fotosíntesis?",
+        [
+          "Oxígeno",
+          "Nitrógeno",
+          "Metano"
+        ],
+        0
+      ],
+      [
+        "¿En qué órgano comienza principalmente la digestión química de los alimentos mediante jugos gástricos?",
+        [
+          "Estómago",
+          "Pulmón",
+          "Vejiga"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es una fuente de energía renovable?",
+        [
+          "Viento",
+          "Carbón",
+          "Petróleo"
+        ],
+        0
+      ],
+      [
+        "Si dos objetos tienen el mismo volumen, ¿cuál tiene mayor densidad?",
+        [
+          "El que tiene mayor masa",
+          "El que tiene menor masa",
+          "Siempre tienen la misma densidad"
+        ],
+        0
+      ]
+    ],
+    "Geografía": [
+      [
+        "¿Qué coordenada geográfica indica la distancia al norte o al sur del ecuador?",
+        [
+          "Latitud",
+          "Longitud",
+          "Altitud exclusivamente"
+        ],
+        0
+      ],
+      [
+        "¿Qué factor influye especialmente en que las zonas cercanas al ecuador sean cálidas?",
+        [
+          "Reciben rayos solares más directos durante el año",
+          "Están siempre más cerca del Sol",
+          "No tienen atmósfera"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es la capital de Nueva Zelanda?",
+        [
+          "Auckland",
+          "Wellington",
+          "Christchurch"
+        ],
+        1
+      ],
+      [
+        "¿Qué proceso puede formar cordilleras cuando chocan placas tectónicas?",
+        [
+          "Elevación y plegamiento de la corteza",
+          "Evaporación de océanos",
+          "Congelación del núcleo terrestre"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama el cambio de vapor de agua a pequeñas gotas líquidas?",
+        [
+          "Condensación",
+          "Sublimación",
+          "Fusión"
+        ],
+        0
+      ]
+    ],
+    "Inglés": [
+      [
+        "¿Cuál es el participio pasado de «write»?",
+        [
+          "Wrote",
+          "Written",
+          "Writing"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es el superlativo de «bad»?",
+        [
+          "Worse",
+          "Worst",
+          "Baddest"
+        ],
+        1
+      ],
+      [
+        "¿Qué significa «unless»?",
+        [
+          "A menos que",
+          "Aunque",
+          "Por eso"
+        ],
+        0
+      ],
+      [
+        "¿Qué palabra significa «investigar»?",
+        [
+          "Research",
+          "Borrow",
+          "Whisper"
+        ],
+        0
+      ],
+      [
+        "Completa: «If it rains, we ___ at home» (primer condicional).",
+        [
+          "stay",
+          "will stay",
+          "stayed"
+        ],
+        1
+      ]
+    ],
+    "Historia": [
+      [
+        "¿Qué revolución comenzó en Francia en 1789?",
+        [
+          "Revolución Francesa",
+          "Revolución Neolítica",
+          "Revolución rusa de 1917"
+        ],
+        0
+      ],
+      [
+        "¿Qué cambio caracteriza a la Revolución Industrial?",
+        [
+          "La expansión de fábricas y máquinas",
+          "El abandono de toda tecnología",
+          "El inicio de la agricultura"
+        ],
+        0
+      ],
+      [
+        "¿En qué año terminó la Segunda Guerra Mundial?",
+        [
+          "1943",
+          "1945",
+          "1950"
+        ],
+        1
+      ],
+      [
+        "¿Qué forma de gobierno tuvo la antigua Roma durante buena parte de su historia antes del Imperio?",
+        [
+          "República",
+          "Monarquía absoluta moderna",
+          "Estado feudal"
+        ],
+        0
+      ],
+      [
+        "¿Qué institución medieval europea reunía a maestros y estudiantes para enseñar y estudiar?",
+        [
+          "Universidad",
+          "Fábrica",
+          "Parlamento moderno"
+        ],
+        0
+      ]
+    ],
+    "Cultura general": [
+      [
+        "¿Quién escribió «La casa de Bernarda Alba»?",
+        [
+          "Federico García Lorca",
+          "Miguel de Unamuno",
+          "Benito Pérez Galdós"
+        ],
+        0
+      ],
+      [
+        "¿Qué planeta del sistema solar destaca por sus anillos visibles?",
+        [
+          "Saturno",
+          "Mercurio",
+          "Marte"
+        ],
+        0
+      ],
+      [
+        "¿Qué continente contiene el desierto del Sahara?",
+        [
+          "África",
+          "América del Sur",
+          "Europa"
+        ],
+        0
+      ],
+      [
+        "¿Qué invento permite transmitir voz a distancia mediante señales eléctricas?",
+        [
+          "Teléfono",
+          "Brújula",
+          "Telescopio"
+        ],
+        0
+      ],
+      [
+        "¿Qué técnica artística utiliza pequeñas piezas de piedra o vidrio para crear imágenes?",
+        [
+          "Mosaico",
+          "Grabado sonoro",
+          "Origami"
+        ],
+        0
+      ]
+    ]
+  },
+  "6º de Primaria": {
+    "Matemáticas": [
+      [
+        "¿Cuál es el 15% de 200?",
+        [
+          "15",
+          "30",
+          "45"
+        ],
+        1
+      ],
+      [
+        "¿Cuánto es 3,6 + 2,75?",
+        [
+          "5,35",
+          "6,35",
+          "6,45"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es el área de un rectángulo de 9 cm por 4 cm?",
+        [
+          "13 cm²",
+          "26 cm²",
+          "36 cm²"
+        ],
+        2
+      ],
+      [
+        "¿Cuánto es 5/6 de 24?",
+        [
+          "4",
+          "20",
+          "30"
+        ],
+        1
+      ],
+      [
+        "¿Cuánto es 2,4 dividido entre 0,6?",
+        [
+          "0,4",
+          "4",
+          "40"
+        ],
+        1
+      ]
+    ],
+    "Lengua": [
+      [
+        "En «Mañana visitaremos el museo», ¿cuál es el sujeto omitido?",
+        [
+          "Nosotros/nosotras",
+          "El museo",
+          "Mañana"
+        ],
+        0
+      ],
+      [
+        "¿Qué tipo de palabra es «cuidadosamente»?",
+        [
+          "Adverbio",
+          "Sustantivo",
+          "Pronombre"
+        ],
+        0
+      ],
+      [
+        "¿Cuál de estas palabras contiene un hiato?",
+        [
+          "País",
+          "Cielo",
+          "Puerta"
+        ],
+        0
+      ],
+      [
+        "¿Qué figura literaria atribuye cualidades humanas a un objeto?",
+        [
+          "Personificación",
+          "Comparación",
+          "Enumeración"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es la forma pasiva de «La científica descubrió la especie»?",
+        [
+          "La especie fue descubierta por la científica",
+          "La científica fue descubierta por la especie",
+          "La especie descubrió a la científica"
+        ],
+        0
+      ]
+    ],
+    "Ciencias": [
+      [
+        "¿Qué componente necesita un circuito eléctrico sencillo para abrir o cerrar el paso de corriente?",
+        [
+          "Interruptor",
+          "Filtro de agua",
+          "Engranaje de madera"
+        ],
+        0
+      ],
+      [
+        "¿Qué gas liberan las plantas durante la fotosíntesis?",
+        [
+          "Oxígeno",
+          "Nitrógeno",
+          "Metano"
+        ],
+        0
+      ],
+      [
+        "¿En qué órgano comienza principalmente la digestión química de los alimentos mediante jugos gástricos?",
+        [
+          "Estómago",
+          "Pulmón",
+          "Vejiga"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es una fuente de energía renovable?",
+        [
+          "Viento",
+          "Carbón",
+          "Petróleo"
+        ],
+        0
+      ],
+      [
+        "Si dos objetos tienen el mismo volumen, ¿cuál tiene mayor densidad?",
+        [
+          "El que tiene mayor masa",
+          "El que tiene menor masa",
+          "Siempre tienen la misma densidad"
+        ],
+        0
+      ]
+    ],
+    "Geografía": [
+      [
+        "¿Qué coordenada geográfica indica la distancia al norte o al sur del ecuador?",
+        [
+          "Latitud",
+          "Longitud",
+          "Altitud exclusivamente"
+        ],
+        0
+      ],
+      [
+        "¿Qué factor influye especialmente en que las zonas cercanas al ecuador sean cálidas?",
+        [
+          "Reciben rayos solares más directos durante el año",
+          "Están siempre más cerca del Sol",
+          "No tienen atmósfera"
+        ],
+        0
+      ],
+      [
+        "¿Cuál es la capital de Nueva Zelanda?",
+        [
+          "Auckland",
+          "Wellington",
+          "Christchurch"
+        ],
+        1
+      ],
+      [
+        "¿Qué proceso puede formar cordilleras cuando chocan placas tectónicas?",
+        [
+          "Elevación y plegamiento de la corteza",
+          "Evaporación de océanos",
+          "Congelación del núcleo terrestre"
+        ],
+        0
+      ],
+      [
+        "¿Cómo se llama el cambio de vapor de agua a pequeñas gotas líquidas?",
+        [
+          "Condensación",
+          "Sublimación",
+          "Fusión"
+        ],
+        0
+      ]
+    ],
+    "Inglés": [
+      [
+        "¿Cuál es el participio pasado de «write»?",
+        [
+          "Wrote",
+          "Written",
+          "Writing"
+        ],
+        1
+      ],
+      [
+        "¿Cuál es el superlativo de «bad»?",
+        [
+          "Worse",
+          "Worst",
+          "Baddest"
+        ],
+        1
+      ],
+      [
+        "¿Qué significa «unless»?",
+        [
+          "A menos que",
+          "Aunque",
+          "Por eso"
+        ],
+        0
+      ],
+      [
+        "¿Qué palabra significa «investigar»?",
+        [
+          "Research",
+          "Borrow",
+          "Whisper"
+        ],
+        0
+      ],
+      [
+        "Completa: «If it rains, we ___ at home» (primer condicional).",
+        [
+          "stay",
+          "will stay",
+          "stayed"
+        ],
+        1
+      ]
+    ],
+    "Historia": [
+      [
+        "¿Qué revolución comenzó en Francia en 1789?",
+        [
+          "Revolución Francesa",
+          "Revolución Neolítica",
+          "Revolución rusa de 1917"
+        ],
+        0
+      ],
+      [
+        "¿Qué cambio caracteriza a la Revolución Industrial?",
+        [
+          "La expansión de fábricas y máquinas",
+          "El abandono de toda tecnología",
+          "El inicio de la agricultura"
+        ],
+        0
+      ],
+      [
+        "¿En qué año terminó la Segunda Guerra Mundial?",
+        [
+          "1943",
+          "1945",
+          "1950"
+        ],
+        1
+      ],
+      [
+        "¿Qué forma de gobierno tuvo la antigua Roma durante buena parte de su historia antes del Imperio?",
+        [
+          "República",
+          "Monarquía absoluta moderna",
+          "Estado feudal"
+        ],
+        0
+      ],
+      [
+        "¿Qué institución medieval europea reunía a maestros y estudiantes para enseñar y estudiar?",
+        [
+          "Universidad",
+          "Fábrica",
+          "Parlamento moderno"
+        ],
+        0
+      ]
+    ],
+    "Cultura general": [
+      [
+        "¿Quién escribió «La casa de Bernarda Alba»?",
+        [
+          "Federico García Lorca",
+          "Miguel de Unamuno",
+          "Benito Pérez Galdós"
+        ],
+        0
+      ],
+      [
+        "¿Qué planeta del sistema solar destaca por sus anillos visibles?",
+        [
+          "Saturno",
+          "Mercurio",
+          "Marte"
+        ],
+        0
+      ],
+      [
+        "¿Qué continente contiene el desierto del Sahara?",
+        [
+          "África",
+          "América del Sur",
+          "Europa"
+        ],
+        0
+      ],
+      [
+        "¿Qué invento permite transmitir voz a distancia mediante señales eléctricas?",
+        [
+          "Teléfono",
+          "Brújula",
+          "Telescopio"
+        ],
+        0
+      ],
+      [
+        "¿Qué técnica artística utiliza pequeñas piezas de piedra o vidrio para crear imágenes?",
+        [
+          "Mosaico",
+          "Grabado sonoro",
+          "Origami"
+        ],
+        0
+      ]
+    ]
+  }
+}
