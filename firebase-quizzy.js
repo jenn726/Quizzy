@@ -69,7 +69,11 @@ function progressData(data) {
     dailyCategoriesDate: data?.dailyCategoriesDate || "",
     dailyChallenge: data?.dailyChallenge && typeof data.dailyChallenge === "object" ? data.dailyChallenge : null,
     dailyStreak: Number(data?.dailyStreak || 0),
-    dailyLastCompleted: typeof data?.dailyLastCompleted === "string" ? data.dailyLastCompleted : ""
+    dailyLastCompleted: typeof data?.dailyLastCompleted === "string" ? data.dailyLastCompleted : "",
+    streakHistory: Array.isArray(data?.streakHistory) ? data.streakHistory.slice(-90) : [],
+    bestStreak: Number(data?.bestStreak || 0),
+    lives: Math.max(0, Math.min(5, Number(data?.lives ?? 5))),
+    livesUpdatedAt: Number(data?.livesUpdatedAt || Date.now())
   };
 }
 
@@ -230,6 +234,27 @@ window.quizzyFindFriend = async function() {
     });
     showFirebaseMessage("✉️ Solicitud de amistad enviada.");
   } catch (error) { console.error(error); alert("No se pudo enviar la solicitud. Puede que falten permisos de Firebase: " + error.message); }
+};
+
+window.quizzyLoadFriendStreaks = async function() {
+  const host=document.getElementById("profileFriendStreaks");
+  if(!host)return;
+  if(!currentUser){host.innerHTML='<p>Inicia sesión y añade amigos para ver sus rachas.</p>';return}
+  host.textContent="Cargando rachas de tus amigos…";
+  try{
+    const friends=await getDocs(collection(db,"users",currentUser.uid,"friends"));
+    if(friends.empty){host.innerHTML='<p>Aún no tienes amigos añadidos. Entra en Mi cuenta para buscar y añadir amigos.</p>';return}
+    const rows=await Promise.all(friends.docs.map(async d=>{
+      const f=d.data(),uid=f.uid||d.id;
+      try{
+        const snap=await getDoc(doc(db,"users",uid));
+        const data=snap.exists()?snap.data():{};
+        const streak=Number(data.dailyStreak||0);
+        return '<div class="friend-streak-row"><span>🐉 @'+escapeHTML(f.username||data.username||"jugador")+'</span><span class="friend-streak-num">🔥 '+streak+' días</span></div>';
+      }catch(e){return '<div class="friend-streak-row"><span>🐉 @'+escapeHTML(f.username||"jugador")+'</span><span class="small">Racha no disponible</span></div>'}
+    }));
+    host.innerHTML=rows.join("");
+  }catch(error){console.error(error);host.innerHTML='<p>No se pudieron cargar las rachas. Revisa las reglas de acceso de Firebase.</p>'}
 };
 
 window.quizzyLoadFriends = async function() {
