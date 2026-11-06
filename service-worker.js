@@ -1,4 +1,4 @@
-const CACHE_NAME = "quizzy-v10";
+const CACHE_NAME = "quizzy-v11";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,6 +18,8 @@ const APP_SHELL = [
   "./preguntas-extra-9.json",
   "./preguntas-extra-10.json",
   "./preguntas-extra-11.json",
+  "./preguntas-extra-12.json",
+  "./preguntas-extra-13.json",
   "./dragon-morado.png",
   "./dragon-joven.png",
   "./dragon-magico.png",
