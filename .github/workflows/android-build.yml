@@ -32,6 +32,29 @@ jobs:
       - name: Crear proyecto Android
         run: npx cap add android
 
+      - name: Aplicar icono oficial de Quizzy
+        shell: bash
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          mkdir -p www android/app/src/main/res
+          convert quizzy-icon-source.webp -resize 192x192! www/quizzy-icon-192.png
+          convert quizzy-icon-source.webp -resize 512x512! www/quizzy-icon-512.png
+          for spec in "mdpi 48" "hdpi 72" "xhdpi 96" "xxhdpi 144" "xxxhdpi 192"; do
+            set -- $spec
+            density="$1"
+            pixels="$2"
+            target="android/app/src/main/res/mipmap-$density"
+            mkdir -p "$target"
+            convert quizzy-icon-source.webp -resize "${pixels}x${pixels}!" "$target/ic_launcher.png"
+            cp "$target/ic_launcher.png" "$target/ic_launcher_round.png"
+            cp "$target/ic_launcher.png" "$target/ic_launcher_foreground.png"
+          done
+          test -s www/quizzy-icon-192.png
+          test -s www/quizzy-icon-512.png
+          echo "Iconos de Quizzy instalados en web y Android."
+
       - name: Sincronizar Quizzy
         run: npx cap sync android
 
