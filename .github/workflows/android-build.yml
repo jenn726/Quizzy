@@ -104,29 +104,54 @@ jobs:
         run: |
           npx cap build android --keystorepath quizzy-upload-key.jks --keystorepass "$QUIZZY_KEYSTORE_PASSWORD" --keystorealias "$QUIZZY_KEY_ALIAS" --keystorealiaspass "$QUIZZY_KEYSTORE_PASSWORD" --androidreleasetype AAB
 
-      - name: Verificar y preparar AAB firmado para Google Play
+      - name: Refirmar AAB con SHA-256 para Google Play
         shell: bash
+        env:
+          QUIZZY_KEYSTORE_PASSWORD: ${{ secrets.QUIZZY_KEYSTORE_PASSWORD }}
+          QUIZZY_KEY_ALIAS: ${{ secrets.QUIZZY_KEY_ALIAS }}
         run: |
-          set -e
+          set -euo pipefail
           RELEASE_DIR="android/app/build/outputs/bundle/release"
-          echo "Archivos AAB generados:"
-          ls -lah "$RELEASE_DIR"
-          mkdir -p "$GITHUB_WORKSPACE/play-release"
-          for candidate in "$RELEASE_DIR/app-release-signed.aab" "$RELEASE_DIR/app-release.aab"; do
-            if [ -f "$candidate" ]; then
-              echo "Comprobando firma: $candidate"
-              jarsigner -verify -verbose -certs "$candidate" > /tmp/quizzy-signature-check.txt 2>&1 || true
-              if grep -q 'Signed by ' /tmp/quizzy-signature-check.txt && grep -q 'Signature algorithm:' /tmp/quizzy-signature-check.txt; then
-                cp "$candidate" "$GITHUB_WORKSPACE/play-release/quizzy-release.aab"
-                echo "El AAB contiene una firma. Se conserva para comprobarla en Google Play."
-                exit 0
-              fi
-              echo "No se detectó una firma en este archivo."
-              tail -n 15 /tmp/quizzy-signature-check.txt || true
-            fi
-          done
-          echo "ERROR: No se detectó una firma en los AAB generados."
-          exit 1
+          INPUT_AAB="$RELEASE_DIR/app-release-signed.aab"
+          if [ ! -f "$INPUT_AAB" ]; then
+            INPUT_AAB="$RELEASE_DIR/app-release.aab"
+          fi
+          if [ ! -f "$INPUT_AAB" ]; then
+            echo "ERROR: No se encontró el AAB Release."
+            ls -lah "$RELEASE_DIR"
+            exit 1
+          fi
+          KEYSTORE="android/quizzy-upload-key.jks"
+          OUTPUT_DIR="$GITHUB_WORKSPACE/play-release"
+          OUTPUT_AAB="$OUTPUT_DIR/quizzy-release.aab"
+          mkdir -p "$OUTPUT_DIR"
+          echo "Aplicando firma SHA256withRSA y digest SHA-256 con la clave de subida existente."
+          jarsigner \
+            -keystore "$KEYSTORE" \
+            -storepass "$QUIZZY_KEYSTORE_PASSWORD" \
+            -keypass "$QUIZZY_KEYSTORE_PASSWORD" \
+            -sigalg SHA256withRSA \
+            -digestalg SHA-256 \
+            -signedjar "$OUTPUT_AAB" \
+            "$INPUT_AAB" \
+            "$QUIZZY_KEY_ALIAS"
+          jarsigner -verify -verbose -certs "$OUTPUT_AAB" > /tmp/quizzy-signature-check.txt 2>&1 || {
+            cat /tmp/quizzy-signature-check.txt
+            echo "ERROR: No se pudo verificar la firma del AAB."
+            exit 1
+          }
+          if ! grep -q "Digest algorithm: SHA-256" /tmp/quizzy-signature-check.txt; then
+            cat /tmp/quizzy-signature-check.txt
+            echo "ERROR: El AAB no muestra digest SHA-256."
+            exit 1
+          fi
+          if ! grep -q "Signature algorithm: SHA256withRSA" /tmp/quizzy-signature-check.txt; then
+            cat /tmp/quizzy-signature-check.txt
+            echo "ERROR: El AAB no muestra firma SHA256withRSA."
+            exit 1
+          fi
+          echo "Firma SHA-256 verificada correctamente."
+          ls -lh "$OUTPUT_AAB"
 
       - name: Guardar AAB firmado para Google Play
         uses: actions/upload-artifact@v4
